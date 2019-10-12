@@ -1,4 +1,4 @@
-package br.com.mileniumfalcon.models;
+package br.com.mileniumfalcon.dao;
 import java.sql.PreparedStatement;
 
 
