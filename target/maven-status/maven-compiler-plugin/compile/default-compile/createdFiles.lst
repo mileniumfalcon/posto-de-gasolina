@@ -1,8 +1,9 @@
-br\com\mileniumfalcon\controllers\FilialController.class
-br\com\mileniumfalcon\controllers\RhServlet.class
-br\com\mileniumfalcon\models\FilialModel.class
-br\com\mileniumfalcon\models\IRepository.class
-br\com\mileniumfalcon\dao\config.class
-br\com\mileniumfalcon\models\FililalRepository.class
-br\com\mileniumfalcon\controllers\CadastrarFuncionarioServlet.class
-br\com\mileniumfalcon\models\FilialInterface.class
+br/com/mileniumfalcon/models/FililalRepository.class
+br/com/mileniumfalcon/controllers/RhServlet.class
+br/com/mileniumfalcon/dao/config.class
+br/com/mileniumfalcon/controllers/CadastrarFuncionarioServlet.class
+br/com/mileniumfalcon/models/FilialInterface.class
+br/com/mileniumfalcon/models/ConnectionModel.class
+br/com/mileniumfalcon/controllers/FilialController.class
+br/com/mileniumfalcon/dao/IRepository.class
+br/com/mileniumfalcon/models/FilialModel.class

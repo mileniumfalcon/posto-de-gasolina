@@ -67,10 +67,10 @@
               <label for="inputCpf" class="col-sm-1 col-form-label">Dpto*:</label>
               <div class="col-sm-2">
                 <select class="form-control" id="exampleFormControlSelect1">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
+                    <option>Back-Office</option>
+                    <option>Diretor</option>
+                    <option>Gerente Vendas</option>
+                    <option>Vendedor</option>
                     <option>5</option>
                 </select>
               </div>
