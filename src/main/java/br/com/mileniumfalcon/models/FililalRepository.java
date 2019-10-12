@@ -1,5 +1,6 @@
 package br.com.mileniumfalcon.models;
 
+import br.com.mileniumfalcon.dao.IRepository;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
