@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.mileniumfalcon.models;
+package br.com.mileniumfalcon.controlers;
 
+import br.com.mileniumfalcon.models.FilialModel;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +14,7 @@ import java.sql.SQLException;
  *
  * @author Victor
  */
-public interface FilialInterface {
+public interface IFilialInterface {
     
     
     

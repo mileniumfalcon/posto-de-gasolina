@@ -13,7 +13,7 @@ import java.sql.SQLException;
  *
  * @author Victor
  */
-public abstract class config {
+public abstract class Service {
       private Connection connection;
 
     protected void getConnectOpen() throws SQLException {

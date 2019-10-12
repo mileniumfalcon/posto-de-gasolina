@@ -1,18 +1,15 @@
 package br.com.mileniumfalcon.models;
-
-import java.time.format.DateTimeFormatter;
-
 /**
  *
  * @author Victor
  */
 public class FilialModel {
-    String nome;
     int id;  
+    String nome;
     String estado;
     String endereco;
-    String cep;
-    DateTimeFormatter date;
+    
+ 
 
     
     
@@ -20,9 +17,6 @@ public class FilialModel {
         return nome;
     }
 
-    public DateTimeFormatter getDateCreate() {
-        return date;
-    }
 
 
     public void setNome(String nome) {
@@ -49,14 +43,5 @@ public class FilialModel {
         this.endereco = endereco;
     }
 
-    public String getCep() {
-        return cep;
-    }
 
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-    
-           
-   
 }
