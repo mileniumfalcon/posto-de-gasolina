@@ -14,10 +14,10 @@ public class Vendedor extends Funcionario {
     
     public Vendedor(String email, String senha,
                     int id, String nome, String endereco, String cpf,
-                    Date dataNascimento, Timestamp dataInclusao,
+                    String cep, Date dataNascimento, Timestamp dataInclusao,
                     FilialModel filial, boolean gerente) {
         
-        super(email, senha, id, nome, endereco, cpf, dataNascimento, dataInclusao);
+        super(email, senha, id, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
         
         this.filial = filial;
         this.gerente = gerente;
@@ -25,10 +25,10 @@ public class Vendedor extends Funcionario {
     
     public Vendedor(String email, String senha,
                     String nome, String endereco, String cpf,
-                    Date dataNascimento, Timestamp dataInclusao,
+                    String cep, Date dataNascimento, Timestamp dataInclusao,
                     FilialModel filial, boolean gerente) {
         
-        super(email, senha, nome, endereco, cpf, dataNascimento, dataInclusao);
+        super(email, senha, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
         
         this.filial = filial;
         this.gerente = gerente;

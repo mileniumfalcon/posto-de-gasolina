@@ -13,6 +13,8 @@ public class Usuario {
         this.email = email;
         this.senha = senha;
     }
+    
+    public Usuario () {}
 
     public String getEmail() {
         return email;

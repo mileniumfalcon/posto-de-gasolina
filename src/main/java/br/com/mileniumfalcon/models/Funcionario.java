@@ -12,33 +12,38 @@ public class Funcionario extends Usuario{
     private String nome;
     private String endereco;
     private String cpf;
+    private String cep;
     private Date dataNascimento;
     private Timestamp dataInclusao;
     
     public Funcionario(String email, String senha,
                        int id, String nome, String endereco, String cpf,
-                       Date dataNascimento, Timestamp dataInclusao) {
+                       String cep, Date dataNascimento, Timestamp dataInclusao) {
         
         super(email, senha);
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;
         this.cpf = cpf;
+        this.cep = cep;
         this.dataNascimento = dataNascimento;
         this.dataInclusao = dataInclusao;
     }
     
     public Funcionario(String email, String senha, 
                        String nome, String endereco, String cpf,
-                       Date dataNascimento, Timestamp dataInclusao) {
+                       String cep, Date dataNascimento, Timestamp dataInclusao) {
         
         super(email, senha);
         this.nome = nome;
         this.endereco = endereco;
         this.cpf = cpf;
+        this.cep = cep;
         this.dataNascimento = dataNascimento;
         this.dataInclusao = dataInclusao;
     }
+    
+    public Funcionario (){}
 
     public int getId() {
         return id;
@@ -70,6 +75,14 @@ public class Funcionario extends Usuario{
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+    
+    public String getCep() {
+        return cep;
+    }
+    
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
     public Date getDataNascimento() {

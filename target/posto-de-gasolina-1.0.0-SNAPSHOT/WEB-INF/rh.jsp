@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -6,8 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/rh.css" media="screen" />
-    <title>Posto Tades</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/rh.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/rh.scss" media="screen" />
+     <title>Posto Tades</title>
   </head>
   <header>
       <nav class="navbar navbar-light nav-color">
@@ -30,6 +32,12 @@
           <a class="nav-link" href="${pageContext.request.contextPath}/rh/pesquisar-funcionario">Pesquisar Funcionário</a>
         </li>
       </ul>
+        
+      <c:if test="${successAttr}">
+          <div class="alert alert-success">
+              Cliente Cadastrado com sucesso!
+          </div>
+      </c:if>
  
     <!-- Principal JavaScript do Bootstrap
     ================================================== -->

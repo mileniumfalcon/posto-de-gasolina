@@ -11,15 +11,17 @@ public class Rh extends Funcionario{
     
     public Rh (String email, String senha,
                int id, String nome, String endereco, String cpf,
-               Date dataNascimento, Timestamp dataInclusao) {
-        super(email, senha, id, nome, endereco, cpf, dataNascimento, dataInclusao);
+               String cep, Date dataNascimento, Timestamp dataInclusao) {
+        super(email, senha, id, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
     }
     
     public Rh (String email, String senha, 
                String nome, String endereco, String cpf,
-               Date dataNascimento, Timestamp dataInclusao) {
+               String cep, Date dataNascimento, Timestamp dataInclusao) {
         
-        super(email, senha, nome, endereco, cpf, dataNascimento, dataInclusao);
+        super(email, senha, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
     }
+    
+    public Rh () {}
     
 }
