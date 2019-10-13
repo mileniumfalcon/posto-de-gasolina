@@ -69,15 +69,15 @@
                 <label class="col-md-1 offset-md-3">Cargo*:</label>
                 <div class="form-check-inline">
                     <input class="form-check-input" type="radio" name="cargo" id="back-office" value="back-office">
-                    <label class="form-check-label2" for="inlineRadio1">Back-Office</label>
-                    <input class="form-check-input" type="radio" name="cargo" id="vendedor" value="vendedor">
-                    <label class="form-check-label2" for="inlineRadio1">Vendedor</label>
-                    <input class="form-check-input" type="radio" name="cargo" id="gerente-vendas" value="gerente-vendas">
-                    <label class="form-check-label2" for="inlineRadio1">Gerente Vendas</label>
-                    <input class="form-check-input" type="radio" name="cargo" id="diretor" value="diretor">
-                    <label class="form-check-label2" for="inlineRadio1">Diretor</label>
+                    <label class="form-check-label" for="inlineRadio1">Back-Office</label>
                     <input class="form-check-input" type="radio" name="cargo" id="rh" value="rh">
-                    <label class="form-check-label2" for="inlineRadio1">Rh</label>
+                    <label class="form-check-label" for="inlineRadio1">Rh</label>
+                    <input class="form-check-input" type="radio" name="cargo" id="diretor" value="diretor">
+                    <label class="form-check-label" for="inlineRadio1">Diretor</label>
+                     <input class="form-check-input" type="radio" name="cargo" id="vendedor" value="vendedor">
+                    <label class="form-check-label" for="inlineRadio1">Vendedor</label>
+                    <input class="form-check-input" type="radio" name="cargo" id="gerente-vendas" value="gerente-vendas">
+                    <label class="form-check-label" for="inlineRadio1">Gerente Vendas</label>
                 </div>
             </div>
             
