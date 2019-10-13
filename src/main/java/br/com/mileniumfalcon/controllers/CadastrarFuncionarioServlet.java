@@ -3,6 +3,7 @@ package br.com.mileniumfalcon.controllers;
 import br.com.mileniumfalcon.dao.FuncionarioDAO;
 import br.com.mileniumfalcon.models.BackOffice;
 import br.com.mileniumfalcon.models.Diretor;
+import br.com.mileniumfalcon.models.FilialModel;
 import br.com.mileniumfalcon.models.Funcionario;
 import br.com.mileniumfalcon.models.Rh;
 import br.com.mileniumfalcon.models.Vendedor;
@@ -34,8 +35,8 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cadastrar-funcionario.jsp");
-            ArrayList<String> filiais = FuncionarioDAO.getFiliais();
+           RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cadastrar-funcionario.jsp");
+           ArrayList<String> filiais = FuncionarioDAO.getFiliais();
             
            request.setAttribute("filiaisAttr", filiais);
         
@@ -56,12 +57,7 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
             String cep = request.getParameter("cep");
             String cpf = request.getParameter("cpf");
             String dataNascimentoString = request.getParameter("dataNascimento");
-            String cargo = request.getParameter("cargo");
-            
-            if (cargo.equals("vendedor") || cargo.equals("gerente-vendas")){
-                String filial = request.getParameter("filial");
-            }
-            
+            String cargo = request.getParameter("cargo");            
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
             
@@ -80,10 +76,18 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
             } else if (cargo.equals("back-office")) {
                 funcionario = new BackOffice(email, senha, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
                 salvou = FuncionarioDAO.salvar(funcionario);
-//            } else if (cargo.equals("vendedor")) {
-//                funcionario = new Vendedor(email, senha, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
-//            } else if (cargo.equals("gerente-vendas")) {
-//                funcionario = new Vendedor(email, senha, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
+            } else if (cargo.equals("vendedor")) {
+                String filialStr = request.getParameter("filial");
+                FilialModel filial = FuncionarioDAO.getFilial(filialStr);
+                Vendedor vendedor = new Vendedor(email, senha, nome, endereco, cpf, cep,
+                        dataNascimento, dataInclusao, filial, false);
+                salvou = FuncionarioDAO.salvarVendedor(vendedor);
+            } else if (cargo.equals("gerente-vendas")) {
+                String filialStr = request.getParameter("filial");
+                FilialModel filial = FuncionarioDAO.getFilial(filialStr);
+                Vendedor vendedor = new Vendedor(email, senha, nome, endereco, cpf, cep,
+                        dataNascimento, dataInclusao, filial, true);
+                salvou = FuncionarioDAO.salvarVendedor(vendedor);
             }
             
             if (salvou) {
@@ -97,8 +101,5 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
         } catch (ParseException ex) {
             Logger.getLogger(CadastrarFuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-    }
-    
-
+    }  
 }
