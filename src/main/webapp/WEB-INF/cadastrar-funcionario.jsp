@@ -32,51 +32,66 @@
         </li>
       </ul>
         
-        <form method="post" action="${pageContext.request.contextPath}/rh/cadastrar-funcionario">
+        <form method="post" action="${pageContext.request.contextPath}/rh/cadastrar-funcionario" class="needs-validation" novalidate>
             <div class="form-group row">
               <label for="inputNome" class="col-md-1 offset-md-3">Nome*:</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" name="nome" id="inputNome" placeholder="Digite o nome completo">
+                <input type="text" class="form-control" name="nome" id="inputNome" placeholder="Digite o nome completo" required>
+                 <div class="invalid-feedback">
+                    Digite um nome
+                </div>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEndereco" class="col-md-1 offset-md-3">Endereço*:</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" name="endereco" id="inputEndereco" placeholder="Av/Rua fulano, 234">
+                <input type="text" class="form-control" name="endereco" id="inputEndereco" placeholder="Av/Rua fulano, 234" required>
+                <div class="invalid-feedback">
+                    Digite um endereço
+                </div>
               </div>
             </div>
             
             <div class="form-group row">
               <label for="inputCep" class="col-md-1 offset-md-3">CEP*:</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control" name="cep" id="inputCep" placeholder="xxxxx-xxx">
+                <input type="text" class="form-control" name="cep" id="inputCep" placeholder="xxxxx-xxx" required>
+                <div class="invalid-feedback">
+                    Digite um CEP
+                </div>
               </div>
               
               <label for="inputCpf" class="col-sm-1 col-form-label">CPF*:</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control" name="cpf" id="inputCpf" placeholder="xxx.xxx.xxx.xx">
+                <input type="text" class="form-control" name="cpf" id="inputCpf" placeholder="xxx.xxx.xxx.xx" required>
+                <div class="invalid-feedback">
+                    Digite um CPF
+                </div>
               </div>
             </div>
             
             <div class="form-group row">
-              <label for="inputDataNascimento" class="col-md-1 offset-md-3">Data Nasc   *:</label>
+              <label for="inputDataNascimento" class="col-md-1 offset-md-3">Data Nasc*:</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" name="dataNascimento" id="inputDataNascimento" placeholder="xx/xx/xxxx">
+                <input type="text" class="form-control" name="dataNascimento" id="inputDataNascimento" placeholder="xx/xx/xxxx" required>
+                <div class="invalid-feedback">
+                    Digite uma data de nascimento
+                </div>
               </div>
             </div>
             
             <div class="form-group row">
                 <label class="col-md-1 offset-md-3">Cargo*:</label>
                 <div class="form-check-inline">
-                    <input class="form-check-input" type="radio" name="cargo" id="back-office" value="back-office">
+                    <input class="form-check-input" type="radio" name="cargo" id="back-office" value="back-office" required>
                     <label class="form-check-label" for="inlineRadio1">Back-Office</label>
-                    <input class="form-check-input" type="radio" name="cargo" id="rh" value="rh">
+                    <input class="form-check-input" type="radio" name="cargo" id="rh" value="rh" required>
                     <label class="form-check-label" for="inlineRadio1">Rh</label>
-                    <input class="form-check-input" type="radio" name="cargo" id="diretor" value="diretor">
+                    <input class="form-check-input" type="radio" name="cargo" id="diretor" value="diretor" required>
                     <label class="form-check-label" for="inlineRadio1">Diretor</label>
-                     <input class="form-check-input" type="radio" name="cargo" id="vendedor" value="vendedor">
+                    <input class="form-check-input" type="radio" name="cargo" id="vendedor" value="vendedor"required>
                     <label class="form-check-label" for="inlineRadio1">Vendedor</label>
-                    <input class="form-check-input" type="radio" name="cargo" id="gerente-vendas" value="gerente-vendas">
+                    <input class="form-check-input" type="radio" name="cargo" id="gerente-vendas" value="gerente-vendas" required>
                     <label class="form-check-label" for="inlineRadio1">Gerente Vendas</label>
                 </div>
             </div>
@@ -85,7 +100,7 @@
                 <label for="inputEmail" class="col-md-1 offset-md-3">Filial*:</label>
                 <div class="form-check-inline">
                      <c:forEach items="${filiaisAttr}" var="filial">
-                         <input class="form-check-input" type="radio" name="filial" id="inlineRadio1" value="${filial}">
+                         <input class="form-check-input" type="radio" name="filial" id="inlineRadio1" value="${filial}" >
                          <label class="form-check-label" for="inlineRadio1"><c:out value="${filial}" /></label>
                     </c:forEach>
                 </div>
@@ -94,13 +109,19 @@
             <div class="form-group row">
               <label for="inputEmail" class="col-md-1 offset-md-3">Email*:</label>
               <div class="col-sm-4">
-                <input type="email" class="form-control" name="email" id="inputNome" placeholder="seuemail@email.com">
+                <input type="email" class="form-control" name="email" id="inputNome" placeholder="seuemail@email.com" required>
+                <div class="invalid-feedback">
+                    Digite um email
+                </div>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputSenha" class="col-md-1 offset-md-3">Senha*:</label>
               <div class="col-sm-4">
-                <input type="password" class="form-control" name="senha" id="inputSenha" placeholder="Digite a senha do funcionário">
+                <input type="password" class="form-control" name="senha" id="inputSenha" placeholder="Digite a senha do funcionário" required>
+                <div class="invalid-feedback">
+                    Digite uma senha
+                </div>
               </div>
             </div>
             <div class="button-group">
@@ -110,4 +131,24 @@
             </div>
         </form>
   </body>
+  <script>
+    // Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Pega todos os formulários que nós queremos aplicar estilos de validação Bootstrap personalizados.
+        var forms = document.getElementsByClassName('needs-validation');
+        // Faz um loop neles e evita o envio
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+</script>
 </html>

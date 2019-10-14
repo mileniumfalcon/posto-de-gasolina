@@ -33,6 +33,8 @@ public class Vendedor extends Funcionario {
         this.filial = filial;
         this.gerente = gerente;
     }
+    
+    public Vendedor() {}
 
     public FilialModel getFilial() {
         return filial;

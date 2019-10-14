@@ -32,7 +32,7 @@
         </li>
       </ul>
         
-      <c:if test="${successAttr}">
+      <c:if test="${criadoAttr}">
           <div class="alert alert-success">
               Funcionário cadastrado com sucesso!
           </div>

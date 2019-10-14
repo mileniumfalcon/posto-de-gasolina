@@ -22,4 +22,5 @@ public class BackOffice extends Funcionario {
         super(email, senha, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
     }
     
+    public BackOffice() {}
 }

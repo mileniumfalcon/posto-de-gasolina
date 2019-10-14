@@ -33,18 +33,14 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            
+  
            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cadastrar-funcionario.jsp");
            ArrayList<String> filiais = FuncionarioDAO.getFiliais();
             
            request.setAttribute("filiaisAttr", filiais);
         
            dispatcher.forward(request, response);
-        
-        } catch (SQLException ex) {
-            Logger.getLogger(RhServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }
 
     @Override
@@ -91,7 +87,7 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
             }
             
             if (salvou) {
-                request.setAttribute("successAttr", true);
+                request.setAttribute("criadoAttr", true);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/rh.jsp");
                 dispatcher.forward(request, response);
             } else {

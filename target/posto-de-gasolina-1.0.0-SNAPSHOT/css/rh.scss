@@ -1,7 +1,12 @@
 .form-check-label {
     margin-bottom: 0;
     margin-right: -65px;
-    margin-bottom: 17px;
+    margin-bottom: 28px;
+}
+
+
+.navbar-light .navbar-brand {
+    color: white;
 }
 
 .form-check-label2 {
@@ -21,7 +26,7 @@
 }
 
 .alert {
-  margin-left: 520px;
+  margin-left: 520px !important;
   margin-top: 10px;
 }
 
@@ -30,3 +35,22 @@
   margin-left: 10px;
 }
 
+.alert-danger {
+  width: 350px;
+  margin-left: 10px;
+}
+
+label {
+    margin-top: 10px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: orange;
+    border-color: orange;
+}
+
+
+.table td, .table th {
+    width: 1px;
+}

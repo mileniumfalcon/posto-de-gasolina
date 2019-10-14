@@ -23,4 +23,6 @@ public class Diretor extends Funcionario {
         super(email, senha, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
     }
     
+    public Diretor() {}
+    
 }
