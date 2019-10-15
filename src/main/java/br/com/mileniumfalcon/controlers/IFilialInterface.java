@@ -5,27 +5,27 @@
  */
 package br.com.mileniumfalcon.controlers;
 
-import br.com.mileniumfalcon.models.FilialModel;
+import br.com.meleniumfalcon.model.models.FilialModel;
+import br.com.mileniumfalcon.model.entity.FilialEntity;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
  * @author Victor
  */
 public interface IFilialInterface {
-    
-    
-    
-    public void insert(FilialModel filial, Connection conexao) throws SQLException;
-    
-    public void update(FilialModel filial, Connection conexao) throws SQLException;
-    
-    public void updateQuantidade(FilialModel filial, Connection conexao) throws SQLException;
-    
-    public ResultSet list(FilialModel filial, int idfilial, Connection conexao) throws SQLException;
-    
-  
-    
+
+    public FilialModel insert(FilialModel filial);
+
+    public FilialModel update(FilialModel filial);
+
+    public FilialModel delete(FilialModel filial);
+
+    public int getQuantidade();
+
+    public List<FilialModel> list();
+
 }

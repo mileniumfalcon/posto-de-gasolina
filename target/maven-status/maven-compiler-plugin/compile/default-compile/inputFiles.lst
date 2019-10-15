@@ -1,10 +1,12 @@
 C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controlers\IFilialInterface.java
+C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\model\dao\IRepository.java
 C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controlers\FilialController.java
-C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\models\ConnectionModel.java
-C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\models\FilialModel.java
-C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controlers\FililalRepository.java
+C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\model\dao\ConnectionModel.java
+C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controlers\Controler.java
+C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\model\entity\FilialEntity.java
 C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controlers\SalvarFormularioServlet.java
 C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controlers\FormularioServlet.java
+C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\model\dao\FililalRepository.java
 C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controlers\Injactor.java
-C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\dao\IRepository.java
-C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\dao\Service.java
+C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\meleniumfalcon\model\models\FilialModel.java
+C:\Users\Victor\Documents\GitHub\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\model\dao\IFilialRepository.java

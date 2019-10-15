@@ -5,6 +5,7 @@
  */
 package br.com.mileniumfalcon.controlers;
 
+import br.com.meleniumfalcon.model.models.FilialModel;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -13,8 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import br.com.mileniumfalcon.models.FilialModel;
-import br.com.mileniumfalcon.dao.IRepository;
+import br.com.mileniumfalcon.model.entity.FilialEntity;
+import br.com.mileniumfalcon.model.dao.IRepository;
 import br.com.mileniumfalcon.controlers.FilialController;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -26,16 +27,14 @@ import java.util.logging.Logger;
  * @author fernando.tsuda
  */
 @WebServlet(name = "SalvarFormularioServlet", urlPatterns = {"/formulario/salvar"})
-public class SalvarFormularioServlet extends HttpServlet{
-FilialModel filialModel;    
-FilialController filialController;
-Connection connection;
+public class SalvarFormularioServlet extends HttpServlet {
 
+    FilialModel filialModel = new FilialModel();
+    FilialController filialController = new FilialController();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
     }
 
     @Override
@@ -61,7 +60,7 @@ Connection connection;
         request.setAttribute("dtNascimentoAttr", dtNascimentoStr);
         request.setAttribute("sexoAttr", sexoStr);
         request.setAttribute("interessesAttr", interesses);
-        
+
         // Validacao
         boolean temErros = false;
         // Validacao do nome
@@ -81,35 +80,27 @@ Connection connection;
                 request.setAttribute("erroSenha", true);
             }
         }
-        
+
         if (temErros) {
-            RequestDispatcher dispatcher = 
-                    request.getRequestDispatcher("/WEB-INF/formulario.jsp");
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher("/WEB-INF/formulario.jsp");
             dispatcher.forward(request, response);
-        } else{
-       
-    
-    filialModel.setNome(nome); filialModel.setEndereco(descricao);filialModel.setEstado(email);
-  
-            try {
-                filialController.insert(filialModel, connection);
-            } catch (SQLException ex) {
-               
-            }
-       
-              
+        } else {
+
+            filialModel.setNome(nome);
+            filialModel.setEndereco(descricao);
+            filialModel.setEstado("SP");
+            filialModel = filialController.insert(filialModel);
             
+            if(filialModel != null){
+                // deu certo
+            } else {
+                // deu errado
+            }
         }
-        
-        
 
-  
-
-        RequestDispatcher dispatcher
-                = request.getRequestDispatcher("/WEB-INF/resultado.jsp");
+        RequestDispatcher dispatcher  = request.getRequestDispatcher("/WEB-INF/resultado.jsp");
         dispatcher.forward(request, response);
     }
-
-
 
 }

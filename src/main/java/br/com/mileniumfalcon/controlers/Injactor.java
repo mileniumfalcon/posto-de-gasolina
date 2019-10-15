@@ -1,6 +1,6 @@
 package br.com.mileniumfalcon.controlers;
 
-import br.com.mileniumfalcon.models.FilialModel;
+import br.com.mileniumfalcon.model.entity.FilialEntity;
 
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 
@@ -17,7 +17,7 @@ public class Injactor {
 
 
     public static void model(AbstractBinder abstractBinder) {
-        abstractBinder.bind(FilialModel.class).to(FilialModel.class);
+        abstractBinder.bind(FilialEntity.class).to(FilialEntity.class);
         
     }
 
