@@ -44,7 +44,7 @@ public class FilialEntity {
         this.endereco = endereco;
     }
 
-    public FilialModel getEntity() {
+    public FilialModel getModel() {
         FilialModel model = new FilialModel();
         model.setId(id);
         model.setNome(nome);
