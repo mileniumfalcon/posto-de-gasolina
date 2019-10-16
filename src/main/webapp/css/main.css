@@ -1,0 +1,41 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13/10/2019, 11:44:43
+    Author     : Pablo
+*/
+
+.nav{
+   background-color: black;
+   width: 15%;
+   heigth: 100%;
+   background-size: 100%;
+   margin-top: -68px;
+}
+
+.nav-link{
+   color: white;
+}
+
+.nav-color{
+    background-color: orange;
+    color: white;
+    text-decoration: none;
+}
+
+.page-title{
+    text-align: center;
+    margin-top: 10px;
+}
+
+label{
+  display: inline-block;
+  width: 160px;
+}
+
+.button-group{
+    margin-bottom: 20px;
+}

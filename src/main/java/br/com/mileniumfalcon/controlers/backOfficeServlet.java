@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pablo.osantana
  */
-@WebServlet(name = "backOfficeServlet", urlPatterns = {"/backOffice/backOffice"})
+@WebServlet(name = "backOfficeServlet", urlPatterns = {"/backoffice/backoffice"})
 public class backOfficeServlet extends HttpServlet {
 
     @Override
