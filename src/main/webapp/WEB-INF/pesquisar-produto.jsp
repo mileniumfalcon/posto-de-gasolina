@@ -38,11 +38,11 @@
             </li>
         </ul>
 
-        <form method="get" action="${pageContext.request.contextPath}/backoffice/pesquisa-produto" class="needs-validation" novalidate>
+        <form method="get" action="${pageContext.request.contextPath}/backoffice/pesquisar-produto" class="needs-validation" novalidate>
             <div class="form-group row">
                 <label for="inputNome" class="col-md-1 offset-md-3">Nome:</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" name="nome" id="inputCpf" placeholder="Digite o nome do Produto" required>
+                    <input type="text" class="form-control" name="nome" id="nome" placeholder="Digite o nome do Produto" required>
                     <div class="invalid-feedback">
                         Digite um nome do Produto
                     </div>
@@ -66,7 +66,7 @@
                         <th scope="col">Nome</th>
                         <th scope="col">Tipo</th>
                         <th scope="col">Valor Unitário</th>
-                        <th scope="col"> </th>
+                        <th scope="col"></th>
                         <th scope="col"> </th>
                     </tr>
                 </thead>
@@ -75,6 +75,7 @@
                         <th <c:out value="${idAttr}"/>></th>
                         <td ><c:out value="${nomeAttr}"/></td>
                         <td> <c:out value="${tipoAttr}"/></td>
+                        <td> <c:out value="${QntdAttr}"/></td>
                         <td><c:out value="${vlrUnitarioAttr}"/></td>
                         <td><a data-method="get" href="${pageContext.request.contextPath}/backoffice/editar-produto?id=${idAttr}" class="btn btn-primary mb-1">Editar</a></td>
                         <td><a data-confirm="Tem certeza?" data-method="post" href="${pageContext.request.contextPath}/backoffice/pesquisar-produto?id=${nomeAttr}" class="btn btn-primary mb-1">Excluir</a></td>

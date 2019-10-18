@@ -33,12 +33,14 @@ public class PesquisarProdutoServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pesquisar-produto.jsp");
         String nome = request.getParameter("nome");
+        
         ProdutoModel produto = ProdutoDAO.pesquisarProduto(nome);
-
+        
         if (produto != null) {
             request.setAttribute("idAttr", Integer.toString(produto.getIdProduto()));
             request.setAttribute("nomeAttr", produto.getNome());
             request.setAttribute("tipoAttr", produto.getTipoProduto());
+            request.setAttribute("QntdAttr", Double.toString(produto.getQtdProduto()));
             request.setAttribute("vlrUnitarioAttr", Double.toString(produto.getVlrUnitario()));
         } else {
             request.setAttribute("naoEncontradoAttr", true);
@@ -51,7 +53,11 @@ public class PesquisarProdutoServlet extends HttpServlet {
             throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pesquisar-produto.jsp");
         String nome = request.getParameter("nome");
-        ProdutoDAO.deletarProduto(nome);
+        try {
+            ProdutoDAO.deletarProduto(nome);
+        } catch (SQLException ex) {
+            Logger.getLogger(PesquisarProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         dispatcher.forward(request, response);
     }

@@ -55,20 +55,24 @@ public class ProdutoDAO {
         return retorno;
     }
     public static ProdutoModel pesquisarProduto (String nome){
-        Connection connection = null;
         
+        Connection connection = null;
+        System.out.println(nome);
         try{
             connection = DbConnectionDAO.openConnection();
-            PreparedStatement comando = connection.prepareStatement("SELECT * FROM Funcionario WHERE Nome LIKE ?");
+            PreparedStatement comando = connection.prepareStatement("SELECT * FROM Produto WHERE Nome LIKE ?");
             comando.setString(1, nome);
             ResultSet rs = comando.executeQuery();
+            
             ProdutoModel produto = null;
+            
             while(rs.next()){
-             produto.setIdProduto(rs.getInt("idProduto"));
+             produto.setIdProduto(rs.getInt("IdProduto"));
              produto.setNome(rs.getString("Nome"));
              produto.setTipoProduto(rs.getString("TipoProduto"));
              produto.setQtdProduto(rs.getDouble("QntEstoque"));
              produto.setVlrUnitario(rs.getDouble("ValorUnitario"));
+             
             }
              DbConnectionDAO.closeConnection(connection);
              return produto;
