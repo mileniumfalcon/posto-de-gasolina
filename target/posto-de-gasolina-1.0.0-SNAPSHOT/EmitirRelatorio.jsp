@@ -1,14 +1,12 @@
 <%-- 
-    Document   : EditarFilial
-    Created on : 18/10/2019, 02:31:19
+    Document   : EmitirRelatorio
+    Created on : 18/10/2019, 02:33:25
     Author     : Victor
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
-<html lang="pt-br">
-
+<html>
 <head>
     <!-- Meta tags Obrigatórias -->
     <meta charset="utf-8">
@@ -31,29 +29,29 @@
 
     <div class="container-fluid">
         <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <br><br><br><br>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Cadastrar filial</a>
-                            <br> <br><br><br><br><br>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
+           <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+                            <div class="sidebar-sticky">
+                                <ul class="nav flex-column">
+                                    <br><br><br><br>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="CadastrarFilial.jsp">Cadastrar filial</a>
+                                        <br> <br><br><br><br><br>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="PesquisarFilial.jsp">
                                 Pesquisar Filial
                             </a>
-                        </li>
-                        <br><br><br><br><br><br>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
+                                    </li>
+                                    <br><br><br><br><br><br>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="EmitirRelatorio.jsp">
                                 Emitir Relatório
                             </a>
-                        </li>
-                        <br><br><br><br> <br><br> <br><br><br><br><br><br> <br> <br> <br><br><br><br>
-                    </ul>
-                </div>
-            </nav>
+                                    </li>
+                                    <br><br><br><br> <br><br> <br><br><br><br><br><br> <br> <br> <br><br><br><br>
+                                </ul>
+                            </div>
+                        </nav>
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
@@ -67,34 +65,11 @@
 
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <br><br><br> <br> <br><br> <br><br><br><br><br>
-                    <h1 class="h2">Editar Filial</h1>
+                    <h1 class="h2">EMITIR RELATORIO</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                     </div>
                 </div>
-                <form action="resultado.jsp" method="POST">
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Nome</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nomefilial" placeholder="Nome da Filial" size="50" maxlength="48">
-                        </div>
-                        <br><br><br> <br> <br>
-                        <label class="col-sm-2 col-form-label">Endereço</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="enderecofilial" size="50" maxlength="48" placeholder="Endereço da Filial">
-                        </div>
-                    </div>
-                    <br><br><br> <br> <br>
-                    <select class="custom-select mr-sm-2" id="estadoSelect">
-                            <option selected>Estado</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
-                    <br><br><br> <br> <br>
-                    <button type="submit" class="btn btn-success">Cadastrar</button>
-                    <button type="reset" class="btn btn-danger">Cancelar</button>
-                </form>
-
+       
 
 
             </main>
@@ -116,6 +91,4 @@
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
-
 </html>

@@ -30,29 +30,29 @@
 
     <div class="container-fluid">
         <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <br><br><br><br>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Cadastrar filial</a>
-                            <br> <br><br><br><br><br>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
+           <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+                            <div class="sidebar-sticky">
+                                <ul class="nav flex-column">
+                                    <br><br><br><br>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="CadastrarFilial.jsp">Cadastrar filial</a>
+                                        <br> <br><br><br><br><br>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="PesquisarFilial.jsp">
                                 Pesquisar Filial
                             </a>
-                        </li>
-                        <br><br><br><br><br><br>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
+                                    </li>
+                                    <br><br><br><br><br><br>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="EmitirRelatorio.jsp">
                                 Emitir Relatório
                             </a>
-                        </li>
-                        <br><br><br><br> <br><br> <br><br><br><br><br><br> <br> <br> <br><br><br><br>
-                    </ul>
-                </div>
-            </nav>
+                                    </li>
+                                    <br><br><br><br> <br><br> <br><br><br><br><br><br> <br> <br> <br><br><br><br>
+                                </ul>
+                            </div>
+                        </nav>
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">

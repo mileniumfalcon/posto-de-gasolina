@@ -49,16 +49,21 @@ public class SalvarFormularioServlet extends HttpServlet {
         String idStr = request.getParameter("id");
         String nome = request.getParameter("nomefilial");
         String endereco = request.getParameter("enderecofilial");
+         String estado = request.getParameter("estadofilial");
+        
+        
+        
+        
    
 
         request.setAttribute("idAttr", idStr);
         request.setAttribute("nomeAttr", nome);
         request.setAttribute("enderecoAttr", endereco); 
-
+        request.setAttribute("estadofilial", estado); 
 
            filialModel.setNome(nome);
             filialModel.setEndereco(endereco);
-            filialModel.setEstado("SP");
+            filialModel.setEstado(estado);
             filialModel = filialController.insert(filialModel);
              
            if(filialModel != null){
