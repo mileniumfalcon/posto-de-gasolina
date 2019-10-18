@@ -37,5 +37,10 @@
               Funcionário cadastrado com sucesso!
           </div>
       </c:if>
+        <c:if test="${editadoAttr}">
+          <div class="alert alert-success">
+              Funcionário editado com sucesso!
+          </div>
+      </c:if>
   </body>
 </html>

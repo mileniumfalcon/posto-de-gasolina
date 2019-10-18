@@ -177,39 +177,34 @@ public class FuncionarioDAO {
         DbConnectionDAO.closeConnection(connection);
         return retorno;
     }
-    
+
     public static boolean editar(Funcionario funcionario) {
-         Connection connection = null;
+        Connection connection = null;
         boolean retorno = false;
 
         try {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement("UPDATE Funcionario "
-                    + "SET Nome = ?, Endereco = ?, CEP = ?, CPF = ?, DataNascimento = ?, Tipo = ?) "
-                    + "WHERE IdFuncionario = ?);", Statement.RETURN_GENERATED_KEYS);
+                    + "SET Nome = ?, Endereco = ?, CEP = ?, CPF = ?, DataNascimento = ?, Tipo = ? "
+                    + "WHERE IdFuncionario = ?", Statement.RETURN_GENERATED_KEYS);
             comando.setString(1, funcionario.getNome());
             comando.setString(2, funcionario.getEndereco());
             comando.setString(3, funcionario.getCep());
             comando.setString(4, funcionario.getCpf());
             comando.setDate(5, new Date(funcionario.getDataNascimento().getTime()));
-            comando.setTimestamp(6, funcionario.getDataInclusao());
-            comando.setString(7, funcionario.getClass().getSimpleName());
+            comando.setString(6, funcionario.getClass().getSimpleName());
+            comando.setInt(7, funcionario.getId());
 
             int linhasAfetadas = comando.executeUpdate();
 
             if (linhasAfetadas > 0) {
-                int idFuncionario = 0;
-                ResultSet resultSet = comando.getGeneratedKeys();
 
-                while (resultSet.next()) {
-                    idFuncionario = resultSet.getInt(1);
-                }
-
-                comando = connection.prepareStatement("UPDATE INTO Usuario "
-                        + "(IdFuncionario, Email, Senha) VALUES (?, ?, ?);");
-                comando.setInt(1, idFuncionario);
-                comando.setString(2, funcionario.getEmail());
-                comando.setString(3, funcionario.getSenha());
+                comando = connection.prepareStatement("UPDATE Usuario SET "
+                        + "Email = ?, Senha = ? "
+                        + "WHERE IdFuncionario = ?");
+                comando.setString(1, funcionario.getEmail());
+                comando.setString(2, funcionario.getSenha());
+                comando.setInt(3, funcionario.getId());
 
                 linhasAfetadas = comando.executeUpdate();
 
@@ -231,7 +226,81 @@ public class FuncionarioDAO {
 
         DbConnectionDAO.closeConnection(connection);
         return retorno;
-        
+
+    }
+
+    public static boolean editarVendedor(Vendedor vendedor) {
+        int id = getIdFuncionario(vendedor);
+        boolean isVendedor = FuncionarioDAO.isVendedor(id);
+        boolean retorno = false;
+        Connection connection = null;
+
+        try {
+            boolean editou = FuncionarioDAO.editar(vendedor);
+            if (editou) {
+                connection = DbConnectionDAO.openConnection();
+                
+                if (isVendedor) {
+                    PreparedStatement comando = connection.prepareStatement("UPDATE Vendedor SET "
+                            + "Gerente = ? WHERE IdFuncionario = ?");
+                    comando.setBoolean(1, vendedor.isGerente());
+                    comando.setInt(2, id);
+
+                    int linhasAfetadas = comando.executeUpdate();
+
+                    if (linhasAfetadas > 0) {
+                        comando = connection.prepareStatement("UPDATE filial_vendedor SET "
+                                + "IdFilial = ? WHERE IdFuncionario = ?");
+                        comando.setInt(1, vendedor.getFilial().getId());
+                        comando.setInt(2, id);
+                        linhasAfetadas = comando.executeUpdate();
+
+                        if (linhasAfetadas > 0) {
+                            retorno = true;
+                        } else {
+                            retorno = false;
+                        }
+                    } else {
+                        retorno = false;
+                    }
+                } else {
+                    PreparedStatement comando = connection.prepareStatement("INSERT INTO Vendedor "
+                            + "(IdFuncionario, Gerente) VALUES (?, ?);");
+                    comando.setInt(1, id);
+                    comando.setBoolean(2, vendedor.isGerente());
+
+                    int linhasAfetadas = comando.executeUpdate();
+
+                    if (linhasAfetadas > 0) {
+                        comando = connection.prepareStatement("INSERT INTO filial_vendedor "
+                                + "(IdFilial, IdFuncionario) VALUES (?, ?);");
+                        comando.setInt(1, vendedor.getFilial().getId());
+                        comando.setInt(2, id);
+                        linhasAfetadas = comando.executeUpdate();
+
+                        if (linhasAfetadas > 0) {
+                            retorno = true;
+                        } else {
+                            retorno = false;
+                        }
+                    } else {
+                        retorno = false;
+                    }
+                }
+
+            } else {
+                retorno = false;
+            }
+
+        } catch (ClassNotFoundException ex) {
+            retorno = false;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            retorno = false;
+        }
+
+        DbConnectionDAO.closeConnection(connection);
+        return retorno;
     }
 
     public static Funcionario pesquisaPorCpf(String cpf) {
@@ -275,15 +344,15 @@ public class FuncionarioDAO {
             return null;
         }
     }
-    
+
     public static Funcionario pesquisaPorId(int id) {
         Connection connection = null;
 
         try {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement("SELECT f.IdFuncionario, f.Nome, f.Endereco, " + ""
-                    + "f.CEP, f.CPF, f.DataNascimento, f.DataInclusao, f.Tipo, u.Email, u.Senha " + 
-                    "FROM Funcionario f INNER JOIN Usuario u ON f.IdFuncionario = u.IdFuncionario WHERE f.IdFuncionario = ?");
+                    + "f.CEP, f.CPF, f.DataNascimento, f.DataInclusao, f.Tipo, u.Email, u.Senha "
+                    + "FROM Funcionario f INNER JOIN Usuario u ON f.IdFuncionario = u.IdFuncionario WHERE f.IdFuncionario = ?");
             comando.setInt(1, id);
             ResultSet rs = comando.executeQuery();
 
@@ -345,5 +414,32 @@ public class FuncionarioDAO {
             System.out.println(ex);
             return -1;
         }
+    }
+
+    private static boolean isVendedor(int id) {
+        int idFuncionario = 0;
+        Connection connection = null;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("SELECT * FROM Vendedor WHERE IdFuncionario = ?");
+            comando.setInt(1, id);
+            ResultSet rs = comando.executeQuery();
+
+            while (rs.next()) {
+                idFuncionario = rs.getInt("IdFuncionario");
+            }
+
+            DbConnectionDAO.closeConnection(connection);
+
+            return idFuncionario != 0;
+
+        } catch (ClassNotFoundException ex) {
+            return false;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
+
     }
 }

@@ -33,7 +33,8 @@
       </ul>
         
         <form method="post" action="${pageContext.request.contextPath}/rh/editar-funcionario" class="needs-validation" novalidate>
-            <hidden> </hidden>
+            <input type="hidden" name="id" value="${idAttr}">
+            
             <div class="form-group row">
               <label for="inputNome" class="col-md-1 offset-md-3">Nome*:</label>
               <div class="col-sm-4">

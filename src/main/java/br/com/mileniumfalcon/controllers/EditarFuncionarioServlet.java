@@ -8,7 +8,6 @@ import br.com.mileniumfalcon.models.Funcionario;
 import br.com.mileniumfalcon.models.Rh;
 import br.com.mileniumfalcon.models.Vendedor;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,6 +37,8 @@ public class EditarFuncionarioServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         ArrayList<String> filiais = FuncionarioDAO.getFiliais();
         Funcionario funcionario = FuncionarioDAO.pesquisaPorId(id);
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        String dataNascimento = formato.format(funcionario.getDataNascimento());
         
         request.setAttribute("idAttr", id);
         request.setAttribute("filiaisAttr", filiais);
@@ -45,7 +46,7 @@ public class EditarFuncionarioServlet extends HttpServlet {
         request.setAttribute("enderecoAttr", funcionario.getEndereco());
         request.setAttribute("cepAttr", funcionario.getCep());
         request.setAttribute("cpfAttr", funcionario.getCpf());
-        request.setAttribute("dataNascimentoAttr", funcionario.getDataNascimento());
+        request.setAttribute("dataNascimentoAttr", dataNascimento);
         request.setAttribute("emailAttr", funcionario.getEmail());
         request.setAttribute("senhaAttr", funcionario.getSenha());
 
@@ -58,6 +59,7 @@ public class EditarFuncionarioServlet extends HttpServlet {
             throws ServletException, IOException {
         
          try {
+            int id = Integer.parseInt(request.getParameter("id"));
             String nome = request.getParameter("nome");
             String endereco = request.getParameter("endereco");
             String cep = request.getParameter("cep");
@@ -74,30 +76,30 @@ public class EditarFuncionarioServlet extends HttpServlet {
             boolean salvou = false;
             
             if (cargo.equals("rh")) {
-                funcionario = new Rh(email, senha, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
+                funcionario = new Rh(email, senha, id, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
                 salvou = FuncionarioDAO.editar(funcionario);
             } else if (cargo.equals("diretor")) {
-                funcionario = new Diretor(email, senha, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
+                funcionario = new Diretor(email, senha, id, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
                 salvou = FuncionarioDAO.editar(funcionario);
             } else if (cargo.equals("back-office")) {
-                funcionario = new BackOffice(email, senha, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
+                funcionario = new BackOffice(email, senha, id, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
                 salvou = FuncionarioDAO.editar(funcionario);
             } else if (cargo.equals("vendedor")) {
                 String filialStr = request.getParameter("filial");
                 FilialModel filial = FuncionarioDAO.getFilial(filialStr);
-                Vendedor vendedor = new Vendedor(email, senha, nome, endereco, cpf, cep,
+                Vendedor vendedor = new Vendedor(email, senha, id, nome, endereco, cpf, cep,
                         dataNascimento, dataInclusao, filial, false);
-                salvou = FuncionarioDAO.editar(vendedor);
+                salvou = FuncionarioDAO.editarVendedor(vendedor);
             } else if (cargo.equals("gerente-vendas")) {
                 String filialStr = request.getParameter("filial");
                 FilialModel filial = FuncionarioDAO.getFilial(filialStr);
-                Vendedor vendedor = new Vendedor(email, senha, nome, endereco, cpf, cep,
+                Vendedor vendedor = new Vendedor(email, senha, id, nome, endereco, cpf, cep,
                         dataNascimento, dataInclusao, filial, true);
-                salvou = FuncionarioDAO.editar(vendedor);
+                salvou = FuncionarioDAO.editarVendedor(vendedor);
             }
             
             if (salvou) {
-                request.setAttribute("criadoAttr", true);
+                request.setAttribute("editadoAttr", true);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/rh.jsp");
                 dispatcher.forward(request, response);
             } else {

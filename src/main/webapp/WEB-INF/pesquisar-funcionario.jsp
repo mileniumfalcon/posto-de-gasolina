@@ -70,13 +70,29 @@
                         <td ><c:out value="${nomeAttr}"/></td>
                         <td> <c:out value="${cpfAttr}"/></td>
                         <td><c:out value="${dptoAttr}"/></td>
-                        <td><a data-method="get" href="${pageContext.request.contextPath}/rh/editar-funcionario?id=${idAttr}" class="btn btn-primary mb-1">Editar</button></td>
-                        <td><a data-confirm="Tem certeza?" data-method="post" href="${pageContext.request.contextPath}/rh/excluir-funcionario?id=${idAttr}" class="btn btn-primary mb-1">Excluir</button></td>
+                        <td><a data-method="get" href="${pageContext.request.contextPath}/rh/editar-funcionario?id=${idAttr}" class="btn btn-primary mb-1">Editar</a></td>
+                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmar">Excluir</button></td>
                       </tr>
                     </tbody>
                   </table>
+      
+                <!-- Modal -->
+                <div class="modal fade" id="modalConfirmar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-body">
+                        Tem certeza que deseja excluir o funcionário <c:out value="${nomeAttr}"/> ?
+                      </div>
+                      <div class="modal-footer">
+                        <a data-method="post" href="${pageContext.request.contextPath}/rh/excluir-funcionario?id=${idAttr}" class="btn btn-success">Confirmar</a>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </c:if>
     </body>
+    
     <script>
         (function() {
           'use strict';
@@ -94,4 +110,7 @@
           }, false);
         })();
     </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </html>
