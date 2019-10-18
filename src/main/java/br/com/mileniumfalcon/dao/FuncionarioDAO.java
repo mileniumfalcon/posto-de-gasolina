@@ -239,7 +239,7 @@ public class FuncionarioDAO {
             boolean editou = FuncionarioDAO.editar(vendedor);
             if (editou) {
                 connection = DbConnectionDAO.openConnection();
-                
+
                 if (isVendedor) {
                     PreparedStatement comando = connection.prepareStatement("UPDATE Vendedor SET "
                             + "Gerente = ? WHERE IdFuncionario = ?");
@@ -301,6 +301,39 @@ public class FuncionarioDAO {
 
         DbConnectionDAO.closeConnection(connection);
         return retorno;
+    }
+
+    public static boolean excluir(int id) {
+
+        Connection connection = null;
+        boolean retorno = false;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("DELETE FROM Funcionario "
+                    + "WHERE Funcionario.IdFuncionario = ?");
+            comando.setInt(1, id);
+
+            int linhasAfetadas = comando.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+
+                retorno = true;
+
+            } else {
+                retorno = false;
+            }
+
+        } catch (ClassNotFoundException ex) {
+            retorno = false;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            retorno = false;
+        }
+
+        DbConnectionDAO.closeConnection(connection);
+        return retorno;
+
     }
 
     public static Funcionario pesquisaPorCpf(String cpf) {

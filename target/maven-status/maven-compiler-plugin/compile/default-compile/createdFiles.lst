@@ -8,6 +8,7 @@ br/com/mileniumfalcon/controllers/FilialController.class
 br/com/mileniumfalcon/controllers/PesquisarFuncionarioServlet.class
 br/com/mileniumfalcon/models/Diretor.class
 br/com/mileniumfalcon/dao/IRepository.class
+br/com/mileniumfalcon/controllers/ExcluirFuncionarioServlet.class
 br/com/mileniumfalcon/models/Funcionario.class
 br/com/mileniumfalcon/dao/DbConnectionDAO.class
 br/com/mileniumfalcon/models/Usuario.class

@@ -36,7 +36,7 @@
             <div class="form-group row">
               <label for="inputCpf" class="col-md-1 offset-md-3">CPF:</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" name="cpf" id="inputCpf" placeholder="Digite o cpf do funcionário" required>
+                <input type="text" class="form-control" name="cpf" id="inputCpf" placeholder="Digite o cpf do funcionário" onkeypress="$(this).mask('000.000.000-00');" required>
                  <div class="invalid-feedback">
                     Digite um CPF
                 </div>
@@ -53,7 +53,7 @@
                 </div>
             </c:if>
             <c:if test="${idAttr != null}">
-                <table class="table table-sm offset-md-2">
+                <table class="table table-sm offset-md-2" style="width: 75%;">
                     <thead>
                       <tr>
                         <th scope="col">Id</th>
@@ -70,7 +70,7 @@
                         <td ><c:out value="${nomeAttr}"/></td>
                         <td> <c:out value="${cpfAttr}"/></td>
                         <td><c:out value="${dptoAttr}"/></td>
-                        <td><a data-method="get" href="${pageContext.request.contextPath}/rh/editar-funcionario?id=${idAttr}" class="btn btn-primary mb-1">Editar</a></td>
+                        <td><a data-method="get" href="${pageContext.request.contextPath}/rh/editar-funcionario?id=${idAttr}" class="btn btn-primary mb-1" >Editar</a></td>
                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmar">Excluir</button></td>
                       </tr>
                     </tbody>
@@ -84,15 +84,19 @@
                         Tem certeza que deseja excluir o funcionário <c:out value="${nomeAttr}"/> ?
                       </div>
                       <div class="modal-footer">
-                        <a data-method="post" href="${pageContext.request.contextPath}/rh/excluir-funcionario?id=${idAttr}" class="btn btn-success">Confirmar</a>
+                        <form action="${pageContext.request.contextPath}/rh/excluir-funcionario" method="post">
+                            <button class="btn btn-success" type="submit" name="id" value="${idAttr}">Confirmar</button>
+                        </form>
+                        
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                       </div>
                     </div>
                   </div>
                 </div>
             </c:if>
+            
     </body>
-    
+    <div style="margin-top: -180px; width: 203px; height: 640px; background-color: black;"></div>
     <script>
         (function() {
           'use strict';
@@ -113,4 +117,5 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 </html>

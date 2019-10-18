@@ -17,4 +17,5 @@
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/dao/config.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/controllers/CadastrarFuncionarioServlet.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/models/FilialModel.java
+/home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/controllers/ExcluirFuncionarioServlet.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/dao/FuncionarioDAO.java

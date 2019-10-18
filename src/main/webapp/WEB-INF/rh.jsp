@@ -42,5 +42,12 @@
               Funcionário editado com sucesso!
           </div>
       </c:if>
+      <c:if test="${excluidoAttr}">
+          <div class="alert alert-success">
+              Funcionário excluido com sucesso!
+          </div>
+      </c:if>  
+        
+      <div style="margin-top: -100px; width: 203px; height: 640px; background-color: black;"></div>
   </body>
 </html>

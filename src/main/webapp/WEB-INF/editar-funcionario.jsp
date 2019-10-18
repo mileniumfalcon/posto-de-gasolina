@@ -57,7 +57,7 @@
             <div class="form-group row">
               <label for="inputCep" class="col-md-1 offset-md-3">CEP*:</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control" name="cep" id="inputCep" placeholder="xxxxx-xxx" value="${cepAttr}" required>
+                <input type="text" class="form-control" name="cep" id="inputCep" placeholder="xxxxx-xxx" value="${cepAttr}" onkeypress="$(this).mask('00000-000');" required>
                 <div class="invalid-feedback">
                     Digite um CEP
                 </div>
@@ -65,7 +65,7 @@
               
               <label for="inputCpf" class="col-sm-1 col-form-label">CPF*:</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control" name="cpf" id="inputCpf" placeholder="xxx.xxx.xxx.xx" value="${cpfAttr}" required>
+                <input type="text" class="form-control" name="cpf" id="inputCpf" placeholder="xxx.xxx.xxx.xx" value="${cpfAttr}" onkeypress="$(this).mask('000.000.000-00');" required>
                 <div class="invalid-feedback">
                     Digite um CPF
                 </div>
@@ -75,7 +75,7 @@
             <div class="form-group row">
               <label for="inputDataNascimento" class="col-md-1 offset-md-3">Data Nasc*:</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" name="dataNascimento" id="inputDataNascimento" placeholder="xx/xx/xxxx" value="${dataNascimentoAttr}" required>
+                <input type="text" class="form-control" name="dataNascimento" id="inputDataNascimento" placeholder="xx/xx/xxxx" value="${dataNascimentoAttr}" onkeypress="$(this).mask('00/00/0000');" required>
                 <div class="invalid-feedback">
                     Digite uma data de nascimento
                 </div>
@@ -85,15 +85,15 @@
             <div class="form-group row">
                 <label class="col-md-1 offset-md-3">Cargo*:</label>
                 <div class="form-check-inline">
-                    <input class="form-check-input" type="radio" name="cargo" id="back-office" value="back-office" required>
+                    <input class="form-check-input" type="radio" name="cargo" id="back-office" value="back-office" onclick="desabilitarCampos()" required>
                     <label class="form-check-label" for="inlineRadio1">Back-Office</label>
-                    <input class="form-check-input" type="radio" name="cargo" id="rh" value="rh" required>
+                    <input class="form-check-input" type="radio" name="cargo" id="rh" value="rh" onclick="desabilitarCampos()" required>
                     <label class="form-check-label" for="inlineRadio1">Rh</label>
-                    <input class="form-check-input" type="radio" name="cargo" id="diretor" value="diretor" required>
+                    <input class="form-check-input" type="radio" name="cargo" id="diretor" value="diretor" onclick="desabilitarCampos()" required>
                     <label class="form-check-label" for="inlineRadio1">Diretor</label>
-                    <input class="form-check-input" type="radio" name="cargo" id="vendedor" value="vendedor"required>
+                    <input class="form-check-input" type="radio" name="cargo" id="vendedor" value="vendedor" onclick="liberarCampos()" required>
                     <label class="form-check-label" for="inlineRadio1">Vendedor</label>
-                    <input class="form-check-input" type="radio" name="cargo" id="gerente-vendas" value="gerente-vendas" required>
+                    <input class="form-check-input" type="radio" name="cargo" id="gerente-vendas" value="gerente-vendas" onclick="liberarCampos()" required>
                     <label class="form-check-label" for="inlineRadio1">Gerente Vendas</label>
                 </div>
             </div>
@@ -102,7 +102,7 @@
                 <label for="inputEmail" class="col-md-1 offset-md-3">Filial*:</label>
                 <div class="form-check-inline">
                      <c:forEach items="${filiaisAttr}" var="filial">
-                         <input class="form-check-input" type="radio" name="filial" id="inlineRadio1" value="${filial}" >
+                         <input class="form-check-input" type="radio" name="filial" id="${filial}" value="${filial}" disabled="disabled" required>
                          <label class="form-check-label" for="inlineRadio1"><c:out value="${filial}" /></label>
                     </c:forEach>
                 </div>
@@ -132,6 +132,7 @@
                 <a href="${pageContext.request.contextPath}/rh" class="col-md-2 btn btn-lg btn-danger">Cancelar</a>
             </div>
         </form>
+        <div style="margin-top: -634px; width: 203px; height: 640px; background-color: black;"></div>
   </body>
   <script>
     (function() {
@@ -149,5 +150,25 @@
         });
       }, false);
     })();
-</script>
+    
+    function liberarCampos() {
+        <c:forEach items="${filiaisAttr}" var="filial">
+            if(document.getElementById('${filial}').disabled==true) {
+                document.getElementById('${filial}').disabled=false
+            }
+        </c:forEach> 
+    }
+    
+    function desabilitarCampos() {
+        <c:forEach items="${filiaisAttr}" var="filial">
+            if(document.getElementById('${filial}').disabled==false) {
+                document.getElementById('${filial}').disabled=true
+            }
+        </c:forEach> 
+    }    
+  </script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 </html>
