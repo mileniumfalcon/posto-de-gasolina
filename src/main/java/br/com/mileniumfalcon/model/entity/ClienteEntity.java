@@ -101,7 +101,7 @@ public class ClienteEntity {
         model.setTelefone(telefone);
         model.setEmail(email);
         model.setEndereco(endereco);
-        model.getVarchar();
+        model.setTipo(tipo);
         return model;
     }
 

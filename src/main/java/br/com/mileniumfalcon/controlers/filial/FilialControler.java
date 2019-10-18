@@ -1,6 +1,8 @@
-package br.com.mileniumfalcon.controlers;
+package br.com.mileniumfalcon.controlers.filial;
 
+import br.com.mileniumfalcon.controlers.IFilialInterface;
 import br.com.meleniumfalcon.model.models.FilialModel;
+import br.com.mileniumfalcon.controlers.Controler;
 import br.com.mileniumfalcon.model.dao.FililalRepository;
 import br.com.mileniumfalcon.model.dao.IFilialRepository;
 import br.com.mileniumfalcon.model.entity.FilialEntity;
@@ -15,17 +17,16 @@ import javax.inject.Inject;
  *
  * @author Victor
  */
-public class FilialController extends Controler implements IFilialInterface {
+public class FilialControler extends Controler implements IFilialInterface {
 
     private final IFilialRepository iFilialRepository;
     
-    public FilialController(){
+    public FilialControler(){
         iFilialRepository = new FililalRepository();
     }
 
     @Override
     public FilialModel insert(FilialModel filial) {
-
         try {
             if (filial != null) {
                 getConnectOpen();

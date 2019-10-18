@@ -1,4 +1,3 @@
-
 package br.com.meleniumfalcon.model.models;
 
 import br.com.mileniumfalcon.model.entity.*;
@@ -84,11 +83,11 @@ public class ClienteModel {
         this.endereco = endereco;
     }
 
-    public String getVarchar() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setVarchar(String varchar) {
+    public void setTipo(String varchar) {
         this.tipo = varchar;
     }
     public ClienteEntity getEntity() {

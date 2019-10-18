@@ -3,35 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.mileniumfalcon.controlers;
+package br.com.mileniumfalcon.controlers.cliente;
 
+import br.com.meleniumfalcon.model.models.ClienteModel;
 import br.com.meleniumfalcon.model.models.FilialModel;
+import br.com.mileniumfalcon.controlers.filial.FilialControler;
 import java.io.IOException;
-
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import br.com.mileniumfalcon.model.entity.FilialEntity;
-import br.com.mileniumfalcon.model.dao.IRepository;
-import br.com.mileniumfalcon.controlers.FilialController;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
- * @author fernando.tsuda
+ * @author Victor
  */
-@WebServlet(name = "SalvarFormularioServlet", urlPatterns = {"/formulario/salvar"})
-public class SalvarFormularioServlet extends HttpServlet {
+@WebServlet(name = "cliente", urlPatterns = {"/cliente/salvar"})
+public class ClienteServlet extends HttpServlet {
 
-    FilialModel filialModel = new FilialModel();
-    FilialController filialController = new FilialController();
-
+    ClienteModel clienteModel = new ClienteModel();
+    ClienteControler clienteControler = new ClienteControler();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -86,21 +80,35 @@ public class SalvarFormularioServlet extends HttpServlet {
                     = request.getRequestDispatcher("/WEB-INF/formulario.jsp");
             dispatcher.forward(request, response);
         } else {
-
-            filialModel.setNome(nome);
-            filialModel.setEndereco(descricao);
-            filialModel.setEstado("SP");
-            filialModel = filialController.insert(filialModel);
             
-            if(filialModel != null){
-                // deu certo
+            
+              String  Nome = "eduardo";
+           int CPF = 11389;
+          //int CNPJ = 438;
+                 String Telefone = "903284";
+          String Email = "email";
+          String Endereco = "pitanguinha";
+          String Tipo = " fisica";
+
+            clienteModel.setNome(Nome);
+            clienteModel.setCpf(CPF);
+            clienteModel.setNascimento(null);
+            clienteModel.setTelefone(Telefone);
+            clienteModel.setEmail(Email);
+            clienteModel.setEndereco(Endereco);                        
+            clienteModel.setTipo(Tipo);
+            clienteModel = clienteControler.insert(clienteModel);
+            
+            if(clienteModel != null){
+         
+        RequestDispatcher dispatcher  = request.getRequestDispatcher("/WEB-INF/resultado.jsp");
+        dispatcher.forward(request, response);       // deu certo
             } else {
                 // deu errado
             }
         }
 
-        RequestDispatcher dispatcher  = request.getRequestDispatcher("/WEB-INF/resultado.jsp");
-        dispatcher.forward(request, response);
     }
+  
 
 }
