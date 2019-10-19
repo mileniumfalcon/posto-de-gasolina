@@ -39,17 +39,17 @@
       </ul>
         
       <c:if test="${criadoAttr}">
-          <div class="alert alert-success">
+          <div class="alert alert-success" style="margin-top: -100px;">
               Cliente cadastrado com sucesso!
           </div>
       </c:if>
         <c:if test="${editadoAttr}">
-          <div class="alert alert-success">
+          <div class="alert alert-success" style="margin-top: -100px;">
               Cliente editado com sucesso!
           </div>
       </c:if>
       <c:if test="${excluidoAttr}">
-          <div class="alert alert-success">
+          <div class="alert alert-success" style="margin-top: -100px;">
               Cliente excluido com sucesso!
           </div>
       </c:if>  
