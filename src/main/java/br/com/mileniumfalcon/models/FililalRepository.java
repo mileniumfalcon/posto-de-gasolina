@@ -14,7 +14,7 @@ public class FililalRepository extends IRepository implements FilialInterface{
     
     
       @Override
-    public void insert(FilialModel filial, Connection conexao) throws SQLException {
+    public void insert(Filial filial, Connection conexao) throws SQLException {
         StringBuilder sql = new StringBuilder();
         sql.append("insert into filial(endereco,estado,nome,dataCri)");
         sql.append(" values (?,?,?,date(now()))");
@@ -29,17 +29,17 @@ public class FililalRepository extends IRepository implements FilialInterface{
     }
 
     @Override
-    public void update(FilialModel filial, Connection conexao) throws SQLException {
+    public void update(Filial filial, Connection conexao) throws SQLException {
         throw new UnsupportedOperationException("metodo em construção"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void updateQuantidade(FilialModel filial, Connection conexao) throws SQLException {
+    public void updateQuantidade(Filial filial, Connection conexao) throws SQLException {
         throw new UnsupportedOperationException("Metodo em costrução"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ResultSet list(FilialModel filial, int idfilial, Connection conexao) throws SQLException {
+    public ResultSet list(Filial filial, int idfilial, Connection conexao) throws SQLException {
         throw new UnsupportedOperationException("Metodo em costrução"); //To change body of generated methods, choose Tools | Templates.
     }
 

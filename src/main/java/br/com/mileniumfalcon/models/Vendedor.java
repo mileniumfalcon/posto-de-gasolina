@@ -9,13 +9,13 @@ import java.util.Date;
  */
 public class Vendedor extends Funcionario {
     
-    private FilialModel filial;
+    private Filial filial;
     private boolean gerente;
     
     public Vendedor(String email, String senha,
                     int id, String nome, String endereco, String cpf,
                     String cep, Date dataNascimento, Timestamp dataInclusao,
-                    FilialModel filial, boolean gerente) {
+                    Filial filial, boolean gerente) {
         
         super(email, senha, id, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
         
@@ -26,7 +26,7 @@ public class Vendedor extends Funcionario {
     public Vendedor(String email, String senha,
                     String nome, String endereco, String cpf,
                     String cep, Date dataNascimento, Timestamp dataInclusao,
-                    FilialModel filial, boolean gerente) {
+                    Filial filial, boolean gerente) {
         
         super(email, senha, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
         
@@ -36,11 +36,11 @@ public class Vendedor extends Funcionario {
     
     public Vendedor() {}
 
-    public FilialModel getFilial() {
+    public Filial getFilial() {
         return filial;
     }
 
-    public void setFilial(FilialModel filial) {
+    public void setFilial(Filial filial) {
         this.filial = filial;
     }
 
