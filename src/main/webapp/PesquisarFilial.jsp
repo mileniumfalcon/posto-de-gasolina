@@ -4,6 +4,7 @@
     Author     : Victor
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -70,17 +71,22 @@
                     <div class="btn-toolbar mb-2 mb-md-0">
                     </div>
                 </div>
-                <form action="resultado.jsp" method="POST">
-                    <label>Nome: &nbsp;</label>
-                    <input type="text" size="50" maxlength="48" style="font-family: Verdana; color: gray; font-size: 14px;">
-                    <input type="submit" value="Pesquisar" class="btn btn-warning"><br><br>
-                </form>
+                
+                
+                
                 <table class="table" id="tabela">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Nome</th>
                             <th>Estado</th>
+                        </tr>
+                        <tr>
+                    <c:forEach items="${filiaisAttr}" var="filial" >
+                            <th>${filial.getNome()}</th>
+                            <th>${filial.getEndereco()}</th>
+                            <th>${filial.getEstado()}</th>
+                         </c:forEach>
                         </tr>
                     </thead>
                 </table>

@@ -13,5 +13,6 @@ br\com\mileniumfalcon\model\dao\IClienteRepository.class
 br\com\mileniumfalcon\controlers\filial\SalvarFormularioServlet.class
 br\com\mileniumfalcon\controlers\Controler.class
 br\com\mileniumfalcon\controlers\cliente\ClienteControler.class
+br\com\mileniumfalcon\controlers\filial\PesquisarFilial.class
 br\com\mileniumfalcon\model\dao\ClienteRepository.class
 br\com\mileniumfalcon\model\entity\ClienteEntity.class
