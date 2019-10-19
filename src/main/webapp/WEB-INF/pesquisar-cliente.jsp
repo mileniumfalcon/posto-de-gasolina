@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -12,7 +13,7 @@
     </head>
     <header>
         <nav class="navbar navbar-light nav-color">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/rh">Postos Tades</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/vendedor">Postos Tades</a>
             <div class="nav-item text-nowrap">
                 <a class="nav-link" href="#">Sair</a>
             </div>
@@ -55,9 +56,10 @@
 
             <c:if test="${naoEncontradoAttr}">
                 <div class="alert alert-danger">
-                    Funcionario não encontrado
+                    Cliente não encontrado
                 </div>
             </c:if>
+            
             <c:if test="${idAttr != null}">
                 <table class="table table-sm offset-md-2" style="width: 75%;">
                     <thead>
@@ -74,8 +76,15 @@
                         <th scope="row"><c:out value="${idAttr}"/></th>
                         <td ><c:out value="${nomeAttr}"/></td>
                         <td> <c:out value="${documentoAttr}"/></td>
-                        <td><a data-method="get" href="${pageContext.request.contextPath}/vendedor/editar-cliente?id=${idAttr}" class="btn btn-primary mb-1" >Editar</a></td>
-                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmar">Excluir</button></td>
+                        <c:choose>
+                            <c:when test="${fn:length(documentoAttr) == 14}">
+                                <td><a data-method="get" href="${pageContext.request.contextPath}/vendedor/editar-fisico?id=${idAttr}" class="btn btn-primary mb-1" >Editar</a></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td><a data-method="get" href="${pageContext.request.contextPath}/vendedor/editar-juridico?id=${idAttr}" class="btn btn-primary mb-1" >Editar</a></td>
+                            </c:otherwise>
+                        </c:choose>
+                       <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmar">Excluir</button></td>
                       </tr>
                     </tbody>
                   </table>
