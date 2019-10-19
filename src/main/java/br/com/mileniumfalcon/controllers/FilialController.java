@@ -1,4 +1,4 @@
-package br.com.mileniumfalcon.controlers;
+package br.com.mileniumfalcon.controllers;
 
 /**
  *

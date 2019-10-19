@@ -29,8 +29,12 @@ public class FilialModel {
         this.nome = nome;
     }
 
-    private int getId() {
+    public int getId() {
         return id;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEstado() {
