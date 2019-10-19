@@ -17,13 +17,13 @@ public interface FilialInterface {
     
     
     
-    public void insert(FilialModel filial, Connection conexao) throws SQLException;
+    public void insert(Filial filial, Connection conexao) throws SQLException;
     
-    public void update(FilialModel filial, Connection conexao) throws SQLException;
+    public void update(Filial filial, Connection conexao) throws SQLException;
     
-    public void updateQuantidade(FilialModel filial, Connection conexao) throws SQLException;
+    public void updateQuantidade(Filial filial, Connection conexao) throws SQLException;
     
-    public ResultSet list(FilialModel filial, int idfilial, Connection conexao) throws SQLException;
+    public ResultSet list(Filial filial, int idfilial, Connection conexao) throws SQLException;
     
   
     

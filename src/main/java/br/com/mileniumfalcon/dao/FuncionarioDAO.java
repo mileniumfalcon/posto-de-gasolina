@@ -2,7 +2,7 @@ package br.com.mileniumfalcon.dao;
 
 import br.com.mileniumfalcon.models.BackOffice;
 import br.com.mileniumfalcon.models.Diretor;
-import br.com.mileniumfalcon.models.FilialModel;
+import br.com.mileniumfalcon.models.Filial;
 import br.com.mileniumfalcon.models.Funcionario;
 import br.com.mileniumfalcon.models.Rh;
 import br.com.mileniumfalcon.models.Vendedor;
@@ -47,7 +47,7 @@ public class FuncionarioDAO {
         return filiais;
     }
 
-    public static FilialModel getFilial(String nome) {
+    public static Filial getFilial(String nome) {
         Connection connection = null;
 
         try {
@@ -56,7 +56,7 @@ public class FuncionarioDAO {
             comando.setString(1, nome);
             ResultSet rs = comando.executeQuery();
 
-            FilialModel filial = new FilialModel();
+            Filial filial = new Filial();
 
             while (rs.next()) {
                 filial.setId(rs.getInt("IdFilial"));

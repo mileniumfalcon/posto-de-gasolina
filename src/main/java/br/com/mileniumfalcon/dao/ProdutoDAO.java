@@ -5,17 +5,12 @@
  */
 package br.com.mileniumfalcon.dao;
 
-import br.com.mileniumfalcon.models.ProdutoModel;
-import com.mysql.cj.util.TimeUtil;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.time;
-import br.com.mileniumfalcon.dao.DbConnectionDAO;
+import br.com.mileniumfalcon.models.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
-import java.text.NumberFormat;
 
 /**
  *
@@ -23,25 +18,43 @@ import java.text.NumberFormat;
  */
 public class ProdutoDAO {
 
-    public static boolean salvar(ProdutoModel produto) throws SQLException, ClassNotFoundException {
+    public static boolean salvar(Produto produto) {
         Connection connection = null;
         boolean retorno = false;
 
         try {
             connection = DbConnectionDAO.openConnection();
-            PreparedStatement enviar = connection.prepareStatement("INSERT INTO Produto "
+            PreparedStatement comando = connection.prepareStatement("INSERT INTO Produto "
                     + "(Nome, TipoProduto, QntEstoque, ValorUnitario) "
                     + "VALUES (?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
-            enviar.setString(1, produto.getNome());
-            enviar.setString(2, produto.getTipoProduto());
-            enviar.setDouble(3, produto.getQtdProduto());
-            enviar.setDouble(4, produto.getVlrUnitario());
-            // enviar.setInt(5, produto.getIdFilial());
+            comando.setString(1, produto.getNome());
+            comando.setString(2, produto.getTipoProduto());
+            comando.setDouble(3, produto.getQtdProduto());
+            comando.setDouble(4, produto.getVlrUnitario());
 
-            int linhasAfetadas = enviar.executeUpdate();
+            int linhasAfetadas = comando.executeUpdate();
 
             if (linhasAfetadas > 0) {
-                return true;
+                int idProduto = 0;
+                ResultSet resultSet = comando.getGeneratedKeys();
+
+                while (resultSet.next()) {
+                    idProduto = resultSet.getInt(1);
+                }
+
+                comando = connection.prepareStatement("INSERT INTO filial_produto "
+                        + "(IdFilial, IdProduto) VALUES (?, ?);");
+                comando.setInt(1, produto.getFilial().getId());
+                comando.setInt(2, idProduto);
+
+                linhasAfetadas = comando.executeUpdate();
+
+                if (linhasAfetadas > 0) {
+                    retorno = true;
+                } else {
+                    retorno = false;
+                }
+
             } else {
                 retorno = false;
             }
@@ -49,13 +62,15 @@ public class ProdutoDAO {
         } catch (SQLException ex) {
             System.out.println(ex);
             retorno = false;
+        } catch (ClassNotFoundException ex) {
+            retorno = false;
         }
 
         DbConnectionDAO.closeConnection(connection);
         return retorno;
     }
 
-    public static ProdutoModel pesquisarProduto(String nome) {
+    public static Produto pesquisarProduto(String nome) {
 
         Connection connection = null;
         System.out.println(nome);
@@ -65,10 +80,10 @@ public class ProdutoDAO {
             comando.setString(1, "%" + nome + "%");
             ResultSet rs = comando.executeQuery();
 
-            ProdutoModel produto = new ProdutoModel();
+            Produto produto = new Produto();
 
             while (rs.next()) {
-                produto.setIdProduto(rs.getInt("IdProduto"));
+                produto.setId(rs.getInt("IdProduto"));
                 produto.setNome(rs.getString("Nome"));
                 produto.setTipoProduto(rs.getString("TipoProduto"));
                 produto.setQtdProduto(rs.getDouble("QntEstoque"));
@@ -87,24 +102,38 @@ public class ProdutoDAO {
         }
     }
 
-    public static void deletarProduto(int id) throws SQLException {
+    public static boolean excluir(int id) throws SQLException {
         Connection connection = null;
+        boolean retorno = false;
+
         try {
             connection = DbConnectionDAO.openConnection();
-            PreparedStatement comando = connection.prepareStatement("delete from Produto where IdProduto = ?");
+            PreparedStatement comando = connection.prepareStatement("DELETE FROM Produto "
+                    + "WHERE IdProduto = ?");
             comando.setInt(1, id);
 
+            int linhasAfetadas = comando.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                retorno = true;
+
+            } else {
+                retorno = false;
+            }
+
         } catch (ClassNotFoundException ex) {
-
+            retorno = false;
         } catch (SQLException ex) {
-
-        } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(ex);
+            retorno = false;
         }
+
+        DbConnectionDAO.closeConnection(connection);
+        return retorno;
 
     }
 
-    public static ProdutoModel pesquisarParaEditar(int id) {
+    public static Produto pesquisarPorId(int id) {
 
         Connection connection = null;
 
@@ -114,7 +143,7 @@ public class ProdutoDAO {
             comando.setInt(1, id);
             ResultSet rs = comando.executeQuery();
 
-            ProdutoModel produto = new ProdutoModel();
+            Produto produto = new Produto();
 
             while (rs.next()) {
                 produto.setNome(rs.getString("Nome"));
@@ -133,30 +162,51 @@ public class ProdutoDAO {
             return null;
         }
     }
-    public static boolean editarProduto(ProdutoModel produto, int id){
+
+    public static boolean editar(Produto produto) {
         Connection connection = null;
+        boolean retorno;
 
         try {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement("UPDATE Produto "
-                    + "SET Nome = ?, TipoProduto = ?, QntEstoque = ?, ValorUnitario = ? WHERE IdProduto = ?", Statement.RETURN_GENERATED_KEYS);
-                                                
+                    + "SET Nome = ?, TipoProduto = ?, QntEstoque = ?, ValorUnitario = ? WHERE IdProduto = ?");
+
             comando.setString(1, produto.getNome());
             comando.setString(2, produto.getTipoProduto());
             comando.setDouble(3, produto.getQtdProduto());
             comando.setDouble(4, produto.getVlrUnitario());
-            comando.setInt(5, id);
-            ResultSet rs = comando.executeQuery();
-            return true;
-            
+            comando.setInt(5, produto.getId());
+            int linhasAfetadas = comando.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+
+                comando = connection.prepareStatement("UPDATE filial_produto SET "
+                        + "IdFilial = ? WHERE IdProduto = ?");
+                comando.setInt(1, produto.getFilial().getId());
+                comando.setInt(2, produto.getId());
+
+                linhasAfetadas = comando.executeUpdate();
+
+                if (linhasAfetadas > 0) {
+                    retorno = true;
+                } else {
+                    retorno = false;
+                }
+            } else {
+                retorno = false;
+            }
 
         } catch (ClassNotFoundException ex) {
-            return false;
+            retorno = false;
 
         } catch (SQLException ex) {
             System.out.println(ex);
-            return false;
+            retorno = false;
         }
-        
+
+        DbConnectionDAO.closeConnection(connection);
+        return retorno;
+
     }
 }

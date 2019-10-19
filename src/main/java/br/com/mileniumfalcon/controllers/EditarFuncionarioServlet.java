@@ -3,7 +3,7 @@ package br.com.mileniumfalcon.controllers;
 import br.com.mileniumfalcon.dao.FuncionarioDAO;
 import br.com.mileniumfalcon.models.BackOffice;
 import br.com.mileniumfalcon.models.Diretor;
-import br.com.mileniumfalcon.models.FilialModel;
+import br.com.mileniumfalcon.models.Filial;
 import br.com.mileniumfalcon.models.Funcionario;
 import br.com.mileniumfalcon.models.Rh;
 import br.com.mileniumfalcon.models.Vendedor;
@@ -86,13 +86,13 @@ public class EditarFuncionarioServlet extends HttpServlet {
                 salvou = FuncionarioDAO.editar(funcionario);
             } else if (cargo.equals("vendedor")) {
                 String filialStr = request.getParameter("filial");
-                FilialModel filial = FuncionarioDAO.getFilial(filialStr);
+                Filial filial = FuncionarioDAO.getFilial(filialStr);
                 Vendedor vendedor = new Vendedor(email, senha, id, nome, endereco, cpf, cep,
                         dataNascimento, dataInclusao, filial, false);
                 salvou = FuncionarioDAO.editarVendedor(vendedor);
             } else if (cargo.equals("gerente-vendas")) {
                 String filialStr = request.getParameter("filial");
-                FilialModel filial = FuncionarioDAO.getFilial(filialStr);
+                Filial filial = FuncionarioDAO.getFilial(filialStr);
                 Vendedor vendedor = new Vendedor(email, senha, id, nome, endereco, cpf, cep,
                         dataNascimento, dataInclusao, filial, true);
                 salvou = FuncionarioDAO.editarVendedor(vendedor);

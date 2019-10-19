@@ -12,7 +12,7 @@
     </head>
     <header>
         <nav class="navbar navbar-light nav-color">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/backoffice/backoffice">Postos Tades</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/backoffice">Postos Tades</a>
             <div class="nav-item text-nowrap">
                 <a class="nav-link" href="#">Sair</a>
             </div>
@@ -30,6 +30,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/backoffice/pesquisar-produto">Pesquisar Produto</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Visualizar Vendas</a>
+            </li>
         </ul>
 
         <form method="post" action="${pageContext.request.contextPath}/backoffice/cadastrar-produto" class="needs-validation" novalidate>
@@ -45,7 +48,7 @@
             <div class="form-group row">
                 <label for="inputTipo" class="col-md-1 offset-md-3">Tipo*:</label>
                 <div class="col-sm-4">
-                    <select name="tpProduto" id="tpProduto" >
+                    <select name="tipo" id="tpProduto" class="form-control">
                         <option selected>Outros</option>
                         <option>Combustivel</option>
                         <option>Acessórios</option>
@@ -60,51 +63,42 @@
             <div class="form-group row">
                 <label for="inputPreco" class="col-md-1 offset-md-3">Preço*:</label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" name="preco" id="inputPreco" placeholder="9.999,00-" required onkeydown="validateNumber(event)">
+                    <input type="number" class="form-control" name="preco" id="inputPreco" placeholder="9,99" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any" required>
                     <div class="invalid-feedback">
                         Digite um Preço
                     </div>
                 </div>
 
-                <label for="inputQtd" class="col-sm-1 col-form-label">Quantidade*:</label>
+                <label for="inputQtd" class="col-sm-1 col-form-label" style="margin-top: -2px;">Quantidade*:</label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" name="qtdProduto" id="inputQtd" placeholder="12,5 para litros ou 15 para unidade" required onkeydown="validateNumber(event)">
+                    <input type="number" class="form-control" name="quantidade" id="inputQtd" placeholder="12,5 para litros ou 15 para unidade" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any" required>
                     <div class="invalid-feedback">
                         Digite uma quantidade
                     </div>
                 </div>
             </div>
-
-            <!--  <div class="form-group row">
-                  <label for="inputEmail" class="col-md-1 offset-md-3">Filial*:</label>
-                  <div class="form-check-inline">
-            <c:forEach items="${filiaisAttr}" var="filial">
-                <input class="form-check-input" type="checkbox" name="filial" id="inlineCheckBox1" value="${filial}" >
-                <label class="form-check-label" for="inlineCheckBox1"><c:out value="${filial}" /></label>
-            </c:forEach>
-        </div>
-    </div> -->
-            <!-- <div class="form-group row"> 
-               <label for="inputEmail" class="col-md-1 offset-md-3">Filial*:</label>
-               <input type="checkbox" name="filial" id="filial" value="São Paulo">São Paulo
-               <input type="checkbox" name="filial" id="filial" value="Minas Gerais">Minas Gerais
-              <input type="checkbox" name="filial" id="filial" value="Rio de Janeiro">Rio de Janeiro
-              </div>   -->
+            <div class="form-group row">
+                <label for="inputEmail" class="col-md-1 offset-md-3">Filial*:</label>
+                <div class="form-check-inline">
+                     <c:forEach items="${filiaisAttr}" var="filial">
+                         <input class="form-check-input" type="radio" name="filial" id="${filial}" value="${filial}" required>
+                         <label class="form-check-label" for="filial"><c:out value="${filial}" /></label>
+                    </c:forEach>
+                </div>
+            </div>
             <div class="button-group">
                 <button class="btn btn-lg btn-success col-md-2 offset-md-4" type="submit">Cadastrar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="${pageContext.request.contextPath}/backoffice/backoffice" class="col-md-2 btn btn-lg btn-danger">Cancelar</a>
             </div>
         </form>
+        <div style="margin-top: -500px; width: 203px; height: 640px; background-color: black;"></div>
     </body>
     <script>
-        // Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.
         (function () {
             'use strict';
             window.addEventListener('load', function () {
-                // Pega todos os formulários que nós queremos aplicar estilos de validação Bootstrap personalizados.
                 var forms = document.getElementsByClassName('needs-validation');
-                // Faz um loop neles e evita o envio
                 var validation = Array.prototype.filter.call(forms, function (form) {
                     form.addEventListener('submit', function (event) {
                         if (form.checkValidity() === false) {
@@ -116,40 +110,5 @@
                 });
             }, false);
         })();
-    </script>
-
-    <script>
-        function validateNumber(evt) {
-            var e = evt || window.event;
-            var key = e.keyCode || e.which;
-
-            if (!e.shiftKey && !e.altKey && !e.ctrlKey &&
-                    key >= 48 && key <= 57 ||
-                    key >= 96 && key <= 105 ||
-                    key == 8 || key == 9 || key == 13 ||
-                    key == 35 || key == 36 ||
-                    key == 37 || key == 39 ||
-                    key == 46 || key == 45) {
-
-            } else {
-
-                e.returnValue = false;
-                if (e.preventDefault)
-                    e.preventDefault();
-            }
-        }
-
-        function Calcular() {
-            nota1 = eval(document.getElementById('n1').value);
-            nota2 = eval(document.getElementById('n2').value);
-            media = (nota1 + nota2) / 2;
-            if (media >= 6) {
-                alert("Aprovado com média: " + media);
-            } else {
-                alert("Reprovado com média: " + media);
-            }
-        }
-
-
     </script>
 </html>
