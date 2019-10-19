@@ -3,7 +3,6 @@ package br.com.mileniumfalcon.controllers;
 import br.com.mileniumfalcon.dao.ClienteDAO;
 import br.com.mileniumfalcon.models.Cliente;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +31,7 @@ public class PesquisarClienteServlet extends HttpServlet {
                request.setAttribute("idAttr", cliente.getId());
                request.setAttribute("nomeAttr", cliente.getNome());
                request.setAttribute("documentoAttr", cliente.getDocumento());
+               request.setAttribute("tamanhoDocAttr", cliente.getDocumento());
            } else {
                request.setAttribute("naoEncontradoAttr", true);
            }

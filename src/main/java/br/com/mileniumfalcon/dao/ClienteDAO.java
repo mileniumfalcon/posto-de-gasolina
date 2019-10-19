@@ -8,7 +8,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  *
@@ -55,7 +54,7 @@ public class ClienteDAO {
         DbConnectionDAO.closeConnection(connection);
         return retorno;
     }
-    
+
     public static boolean salvarJuridico(PessoaJuridica cliente) {
         Connection connection = null;
         boolean retorno = false;
@@ -93,7 +92,7 @@ public class ClienteDAO {
         DbConnectionDAO.closeConnection(connection);
         return retorno;
     }
-    
+
     public static Cliente pesquisarPorDocumento(String documento) {
         Connection connection = null;
 
@@ -108,10 +107,10 @@ public class ClienteDAO {
             Cliente cliente = new Cliente();
 
             while (rs.next()) {
-                
+
                 cliente.setId(rs.getInt("IdCliente"));
                 cliente.setNome(rs.getString("Nome"));
-                
+
                 if (rs.getString("CPF") != null) {
                     cliente.setDocumento(rs.getString("CPF"));
                 } else {
@@ -129,5 +128,191 @@ public class ClienteDAO {
             return null;
         }
     }
+
+    public static PessoaFisica pesquisarFisicoPorId(int id) {
+        Connection connection = null;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("SELECT IdCliente, Nome, Endereco, CPF, CEP, "
+                    + "DataNascimento, Email "
+                    + "FROM Cliente WHERE IdCliente = ?");
+            comando.setInt(1, id);
+
+            ResultSet rs = comando.executeQuery();
+
+            PessoaFisica cliente = new PessoaFisica();
+
+            while (rs.next()) {
+                cliente.setId(rs.getInt("IdCliente"));
+                cliente.setNome(rs.getString("Nome"));
+                cliente.setEndereco(rs.getString("Endereco"));
+                cliente.setCpf(rs.getString("CPF"));
+                cliente.setCep(rs.getString("CEP"));
+                cliente.setDataNascimento(rs.getDate("DataNascimento"));
+                cliente.setEmail(rs.getString("Email"));
+            }
+
+            DbConnectionDAO.closeConnection(connection);
+            return cliente;
+
+        } catch (ClassNotFoundException ex) {
+            return null;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+
+    public static PessoaJuridica pesquisarJuridicoPorId(int id) {
+        Connection connection = null;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("SELECT IdCliente, Nome, Endereco, CNPJ, CEP, "
+                    + "Telefone, Email "
+                    + "FROM Cliente WHERE IdCliente = ?");
+            comando.setInt(1, id);
+
+            ResultSet rs = comando.executeQuery();
+
+            PessoaJuridica cliente = new PessoaJuridica();
+
+            while (rs.next()) {
+                cliente.setId(rs.getInt("IdCliente"));
+                cliente.setNome(rs.getString("Nome"));
+                cliente.setEndereco(rs.getString("Endereco"));
+                cliente.setCnpj(rs.getString("CNPJ"));
+                cliente.setCep(rs.getString("CEP"));
+                cliente.setTelefone(rs.getString("Telefone"));
+                cliente.setEmail(rs.getString("Email"));
+            }
+
+            DbConnectionDAO.closeConnection(connection);
+            return cliente;
+
+        } catch (ClassNotFoundException ex) {
+            return null;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+
+    public static boolean editarFisico(PessoaFisica cliente) {
+        Connection connection = null;
+        boolean retorno;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("UPDATE Cliente "
+                    + "SET Nome = ?, Endereco = ?, CEP = ?, CPF = ?, "
+                    + "DataNascimento = ?, Email = ? "
+                    + "WHERE IdCliente = ?");
+
+            comando.setString(1, cliente.getNome());
+            comando.setString(2, cliente.getEndereco());
+            comando.setString(3, cliente.getCep());
+            comando.setString(4, cliente.getCpf());
+            comando.setDate(5, new Date(cliente.getDataNascimento().getTime()));
+            comando.setString(6, cliente.getEmail());
+            comando.setInt(7, cliente.getId());
+            
+            int linhasAfetadas = comando.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+
+                retorno = true;
+
+            } else {
+                retorno = false;
+            }
+
+        } catch (ClassNotFoundException ex) {
+            retorno = false;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            retorno = false;
+        }
+
+        DbConnectionDAO.closeConnection(connection);
+        return retorno;
+
+    }
     
+    public static boolean editarJuridico(PessoaJuridica cliente) {
+        Connection connection = null;
+        boolean retorno;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("UPDATE Cliente "
+                    + "SET Nome = ?, Endereco = ?, CEP = ?, CNPJ = ?, "
+                    + "Telefone = ?, Email = ? "
+                    + "WHERE IdCliente = ?");
+
+            comando.setString(1, cliente.getNome());
+            comando.setString(2, cliente.getEndereco());
+            comando.setString(3, cliente.getCep());
+            comando.setString(4, cliente.getCnpj());
+            comando.setString(5, cliente.getTelefone());
+            comando.setString(6, cliente.getEmail());
+            comando.setInt(7, cliente.getId());
+            
+            int linhasAfetadas = comando.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+
+                retorno = true;
+
+            } else {
+                retorno = false;
+            }
+
+        } catch (ClassNotFoundException ex) {
+            retorno = false;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            retorno = false;
+        }
+
+        DbConnectionDAO.closeConnection(connection);
+        return retorno;
+
+    }
+    
+    public static boolean excluir(int id) {
+        Connection connection = null;
+        boolean retorno = false;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("DELETE FROM Cliente "
+                    + "WHERE IdCliente = ?");
+            comando.setInt(1, id);
+
+            int linhasAfetadas = comando.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                retorno = true;
+
+            } else {
+                retorno = false;
+            }
+
+        } catch (ClassNotFoundException ex) {
+            retorno = false;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            retorno = false;
+        }
+
+        DbConnectionDAO.closeConnection(connection);
+        return retorno;
+
+    }
+
+
 }
