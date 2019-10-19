@@ -36,7 +36,7 @@ public class ProdutoDAO {
             enviar.setString(2, produto.getTipoProduto());
             enviar.setDouble(3, produto.getQtdProduto());
             enviar.setDouble(4, produto.getVlrUnitario());
-           // enviar.setInt(5, produto.getIdFilial());
+            // enviar.setInt(5, produto.getIdFilial());
 
             int linhasAfetadas = enviar.executeUpdate();
 
@@ -54,52 +54,109 @@ public class ProdutoDAO {
         DbConnectionDAO.closeConnection(connection);
         return retorno;
     }
-    public static ProdutoModel pesquisarProduto (String nome){
-        
+
+    public static ProdutoModel pesquisarProduto(String nome) {
+
         Connection connection = null;
         System.out.println(nome);
-        try{
+        try {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement("SELECT * FROM Produto WHERE Nome LIKE ?");
-            comando.setString(1, nome);
+            comando.setString(1, "%" + nome + "%");
             ResultSet rs = comando.executeQuery();
-            
-            ProdutoModel produto = null;
-            
-            while(rs.next()){
-             produto.setIdProduto(rs.getInt("IdProduto"));
-             produto.setNome(rs.getString("Nome"));
-             produto.setTipoProduto(rs.getString("TipoProduto"));
-             produto.setQtdProduto(rs.getDouble("QntEstoque"));
-             produto.setVlrUnitario(rs.getDouble("ValorUnitario"));
-             
+
+            ProdutoModel produto = new ProdutoModel();
+
+            while (rs.next()) {
+                produto.setIdProduto(rs.getInt("IdProduto"));
+                produto.setNome(rs.getString("Nome"));
+                produto.setTipoProduto(rs.getString("TipoProduto"));
+                produto.setQtdProduto(rs.getDouble("QntEstoque"));
+                produto.setVlrUnitario(rs.getDouble("ValorUnitario"));
+
             }
-             DbConnectionDAO.closeConnection(connection);
-             return produto;
-            
-        }catch(ClassNotFoundException ex){
+            DbConnectionDAO.closeConnection(connection);
+            return produto;
+
+        } catch (ClassNotFoundException ex) {
             return null;
-            
+
         } catch (SQLException ex) {
             System.out.println(ex);
             return null;
         }
     }
-    public static void deletarProduto (String nome)throws SQLException{
-       Connection connection = null;
-       try{
-           connection = DbConnectionDAO.openConnection();
-           PreparedStatement comando = connection.prepareStatement("delete from Produto where nome = ?");
-           comando.setString(1, nome);
-       }catch(ClassNotFoundException ex){
-           
-       }catch(SQLException ex){
-           
-       }catch(Exception e){
-           System.out.println(e);
-       }
-       
+
+    public static void deletarProduto(int id) throws SQLException {
+        Connection connection = null;
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("delete from Produto where IdProduto = ?");
+            comando.setInt(1, id);
+
+        } catch (ClassNotFoundException ex) {
+
+        } catch (SQLException ex) {
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 
-   
+    public static ProdutoModel pesquisarParaEditar(int id) {
+
+        Connection connection = null;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("SELECT * FROM Produto WHERE IdProduto = ?");
+            comando.setInt(1, id);
+            ResultSet rs = comando.executeQuery();
+
+            ProdutoModel produto = new ProdutoModel();
+
+            while (rs.next()) {
+                produto.setNome(rs.getString("Nome"));
+                produto.setTipoProduto("TipoProduto");
+                produto.setQtdProduto(rs.getDouble("QntEstoque"));
+                produto.setVlrUnitario(rs.getDouble("ValorUnitario"));
+            }
+            DbConnectionDAO.closeConnection(connection);
+            return produto;
+
+        } catch (ClassNotFoundException ex) {
+            return null;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+    public static boolean editarProduto(ProdutoModel produto, int id){
+        Connection connection = null;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("UPDATE Produto "
+                    + "SET Nome = ?, TipoProduto = ?, QntEstoque = ?, ValorUnitario = ? WHERE IdProduto = ?", Statement.RETURN_GENERATED_KEYS);
+                                                
+            comando.setString(1, produto.getNome());
+            comando.setString(2, produto.getTipoProduto());
+            comando.setDouble(3, produto.getQtdProduto());
+            comando.setDouble(4, produto.getVlrUnitario());
+            comando.setInt(5, id);
+            ResultSet rs = comando.executeQuery();
+            return true;
+            
+
+        } catch (ClassNotFoundException ex) {
+            return false;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
+        
+    }
 }

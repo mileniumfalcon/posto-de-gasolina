@@ -40,9 +40,6 @@ public class ProdutoServlet extends HttpServlet {
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cadastrar-produto.jsp");
         //request.setAttribut("filiaisAttr");
-        int id;
-        
-        
         
         dispatcher.forward(request, response);
     }

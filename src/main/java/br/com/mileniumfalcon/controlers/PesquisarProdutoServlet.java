@@ -33,9 +33,9 @@ public class PesquisarProdutoServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pesquisar-produto.jsp");
         String nome = request.getParameter("nome");
-        
+
         ProdutoModel produto = ProdutoDAO.pesquisarProduto(nome);
-        
+
         if (produto != null) {
             request.setAttribute("idAttr", Integer.toString(produto.getIdProduto()));
             request.setAttribute("nomeAttr", produto.getNome());
@@ -47,18 +47,23 @@ public class PesquisarProdutoServlet extends HttpServlet {
         }
         dispatcher.forward(request, response);
     }
-        /*Criar classe para EDITAR PRODUTO*/
+
+    /*Criar classe para EDITAR PRODUTO*/
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pesquisar-produto.jsp");
-        String nome = request.getParameter("nome");
+        int id = Integer.parseInt(request.getParameter("id"));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/backoffice.jsp");
+
         try {
-            ProdutoDAO.deletarProduto(nome);
+            ProdutoDAO.deletarProduto(id);
+
+            request.setAttribute("deletadoAttr", true);
+            dispatcher.forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(PesquisarProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         dispatcher.forward(request, response);
     }
 

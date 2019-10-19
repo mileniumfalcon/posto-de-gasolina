@@ -67,21 +67,27 @@
                         <th scope="col">Tipo</th>
                         <th scope="col">Valor Unitário</th>
                         <th scope="col"></th>
-                        <th scope="col"> </th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th <c:out value="${idAttr}"/>></th>
+                       <!-- <th <c:out value="${idAttr}"/>></th> -->
                         <td ><c:out value="${nomeAttr}"/></td>
                         <td> <c:out value="${tipoAttr}"/></td>
                         <td> <c:out value="${QntdAttr}"/></td>
                         <td><c:out value="${vlrUnitarioAttr}"/></td>
                         <td><a data-method="get" href="${pageContext.request.contextPath}/backoffice/editar-produto?id=${idAttr}" class="btn btn-primary mb-1">Editar</a></td>
-                        <td><a data-confirm="Tem certeza?" data-method="post" href="${pageContext.request.contextPath}/backoffice/pesquisar-produto?id=${nomeAttr}" class="btn btn-primary mb-1">Excluir</a></td>
+                     
                     </tr>
+                    
                 </tbody>
+                
             </table>
+                        <form action="${pageContext.request.contextPath}/backoffice/pesquisar-produto" method="post">
+                            <button class="btn btn-alert" type="submit" name="id" value="${idAttr}">Excluir</button>
+                        </form>
+                          
         </c:if>
     </body>
     <script>

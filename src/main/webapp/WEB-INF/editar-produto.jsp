@@ -1,3 +1,8 @@
+<%-- 
+    Document   : editar-produto
+    Created on : 18/10/2019, 19:56:31
+    Author     : pablo.osantana
+--%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -32,11 +37,12 @@
             </li>
         </ul>
 
-        <form method="post" action="${pageContext.request.contextPath}/backoffice/cadastrar-produto" class="needs-validation" novalidate>
+        <form method="post" action="${pageContext.request.contextPath}/backoffice/editar-produto" class="needs-validation" novalidate>
+            <input type="hidden" name="id" value="${idAttr}">
             <div class="form-group row">
                 <label for="inputNome" class="col-md-1 offset-md-3">Nome*:</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" name="nome" id="inputNome" placeholder="Digite o nome do Produto" required>
+                    <input type="text" class="form-control" name="nome" id="inputNome" value="${nomeAttr}" placeholder="Digite o nome do Produto" required>
                     <div class="invalid-feedback">
                         Digite um nome
                     </div>
@@ -60,7 +66,7 @@
             <div class="form-group row">
                 <label for="inputPreco" class="col-md-1 offset-md-3">Preço*:</label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" name="preco" id="inputPreco" placeholder="9.999,00-" required onkeydown="validateNumber(event)">
+                    <input type="text" class="form-control" name="preco" id="inputPreco" value="${precoAttr}" placeholder="9.999,00" required onkeydown="validateNumber(event)">
                     <div class="invalid-feedback">
                         Digite um Preço
                     </div>
@@ -68,7 +74,7 @@
 
                 <label for="inputQtd" class="col-sm-1 col-form-label">Quantidade*:</label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" name="qtdProduto" id="inputQtd" placeholder="12,5 para litros ou 15 para unidade" required onkeydown="validateNumber(event)">
+                    <input type="text" class="form-control" name="qtdProduto" value="${qntAttr}" id="inputQtd" placeholder="12,5 para litros ou 15 para unidade" required onkeydown="validateNumber(event)">
                     <div class="invalid-feedback">
                         Digite uma quantidade
                     </div>
@@ -91,7 +97,7 @@
               <input type="checkbox" name="filial" id="filial" value="Rio de Janeiro">Rio de Janeiro
               </div>   -->
             <div class="button-group">
-                <button class="btn btn-lg btn-success col-md-2 offset-md-4" type="submit">Cadastrar</button>
+                <button class="btn btn-lg btn-success col-md-2 offset-md-4" type="submit">Confirmar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="${pageContext.request.contextPath}/backoffice/backoffice" class="col-md-2 btn btn-lg btn-danger">Cancelar</a>
             </div>

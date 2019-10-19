@@ -22,8 +22,11 @@ public class ProdutoModel {
     private String tipoProduto;
     private double qtdProduto;
     private double vlrUnitario;
-    private int idFilial;
+    //private int idFilial;
 //    private Date dtCriado;
+
+    public ProdutoModel() {
+    }
 
     
       public ProdutoModel(String nome, String tipoProduto, double qtdProduto, double vlrUnitario) {
@@ -39,7 +42,7 @@ public class ProdutoModel {
         this.tipoProduto = tipoProduto;
         this.qtdProduto = qtdProduto;
         this.vlrUnitario = vlrUnitario;
-        this.idFilial = idFilial;
+       // this.idFilial = idFilial;
       //  this.dtCriado = dtCriado;
     }
 
@@ -49,7 +52,7 @@ public class ProdutoModel {
         this.tipoProduto = tipoProduto;
         this.qtdProduto = qtdProduto;
         this.vlrUnitario = vlrUnitario;
-        this.idFilial = idFilial;
+      //  this.idFilial = idFilial;
       //  this.dtCriado = dtCriado;
     }
 
@@ -85,13 +88,13 @@ public class ProdutoModel {
         this.vlrUnitario = vlrUnitario;
     }
 
-    public int getIdFilial() {
-        return idFilial;
-    }
+//    public int getIdFilial() {
+//        return idFilial;
+//    }
 
-    public void setIdFilial(int idFilial) {
-        this.idFilial = idFilial;
-    }
+//    public void setIdFilial(int idFilial) {
+//        this.idFilial = idFilial;
+//    }
 
     public double getQtdProduto() {
         return qtdProduto;
