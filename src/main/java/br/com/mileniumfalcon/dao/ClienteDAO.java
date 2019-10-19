@@ -1,5 +1,6 @@
 package br.com.mileniumfalcon.dao;
 
+import br.com.mileniumfalcon.models.Cliente;
 import br.com.mileniumfalcon.models.PessoaFisica;
 import br.com.mileniumfalcon.models.PessoaJuridica;
 import java.sql.Connection;
@@ -92,5 +93,41 @@ public class ClienteDAO {
         DbConnectionDAO.closeConnection(connection);
         return retorno;
     }
+    
+    public static Cliente pesquisarPorDocumento(String documento) {
+        Connection connection = null;
 
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("SELECT IdCliente, Nome, CPF, CNPJ "
+                    + "FROM Cliente WHERE CPF LIKE ? OR CNPJ LIKE ?");
+            comando.setString(1, documento);
+            comando.setString(2, documento);
+            ResultSet rs = comando.executeQuery();
+
+            Cliente cliente = new Cliente();
+
+            while (rs.next()) {
+                
+                cliente.setId(rs.getInt("IdCliente"));
+                cliente.setNome(rs.getString("Nome"));
+                
+                if (rs.getString("CPF") != null) {
+                    cliente.setDocumento(rs.getString("CPF"));
+                } else {
+                    cliente.setDocumento(rs.getString("CNPJ"));
+                }
+            }
+
+            DbConnectionDAO.closeConnection(connection);
+            return cliente;
+
+        } catch (ClassNotFoundException ex) {
+            return null;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+    
 }

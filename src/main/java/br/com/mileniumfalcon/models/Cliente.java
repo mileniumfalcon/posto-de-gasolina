@@ -11,6 +11,7 @@ public class Cliente {
     private String endereco;
     private String cep;
     private String email;
+    private String documento;
 
     public Cliente(int id, String nome, String endereco, String cep, String email) {
         this.id = id;
@@ -67,5 +68,13 @@ public class Cliente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public String getDocumento() {
+        return documento;
+    }
+    
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 }

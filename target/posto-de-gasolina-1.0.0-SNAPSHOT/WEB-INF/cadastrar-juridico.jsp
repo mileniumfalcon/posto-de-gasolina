@@ -72,7 +72,7 @@
               <div class="col-sm-2">
                 <input type="text" class="form-control" name="cnpj" id="inputCnpj" placeholder="xx.xxx.xxx/xxxx-xx" onkeypress="$(this).mask('00.000.000/0000-00');" required>
                 <div class="invalid-feedback">
-                    Digite um CPF
+                    Digite um CNPJ
                 </div>
               </div>
             </div>
@@ -82,7 +82,7 @@
               <div class="col-sm-4">
                 <input type="text" class="form-control" name="telefone" id="inputTelefone" placeholder="(xx)xxxx-xxxx" onkeypress="$(this).mask('(00)0000-0000');" required>
                 <div class="invalid-feedback">
-                    Digite uma data de nascimento
+                    Digite um telefone
                 </div>
               </div>
             </div>

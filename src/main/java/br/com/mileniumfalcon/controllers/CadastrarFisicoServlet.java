@@ -57,8 +57,6 @@ public class CadastrarFisicoServlet extends HttpServlet {
             
             boolean salvou = ClienteDAO.salvarFisico(cliente);
             
-            
-
             if (salvou) {
                 request.setAttribute("criadoAttr", true);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vendedor.jsp");
