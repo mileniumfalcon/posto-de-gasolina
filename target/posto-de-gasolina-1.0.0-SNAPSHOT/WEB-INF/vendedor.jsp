@@ -20,31 +20,37 @@
   </header>
   <body>
       <div class="page-title">
-          <h1>Painel RH</h1>
+          <h1>Painel Vendas</h1>
       </div>
       
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath}/rh/cadastrar-funcionario">Cadastrar Funcionário</a>
+          <a class="nav-link" href="#">Realizar Venda</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath}/rh/pesquisar-funcionario">Pesquisar Funcionário</a>
+          <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/cadastrar-fisico">Cadastrar Pessoa Física</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/cadastrar-juridico">Cadastrar Pessoa Juridica</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/pesquisar-cliente">Pesquisar Cliente</a>
         </li>
       </ul>
         
       <c:if test="${criadoAttr}">
           <div class="alert alert-success">
-              Funcionário cadastrado com sucesso!
+              Cliente cadastrado com sucesso!
           </div>
       </c:if>
         <c:if test="${editadoAttr}">
           <div class="alert alert-success">
-              Funcionário editado com sucesso!
+              Cliente editado com sucesso!
           </div>
       </c:if>
       <c:if test="${excluidoAttr}">
           <div class="alert alert-success">
-              Funcionário excluido com sucesso!
+              Cliente excluido com sucesso!
           </div>
       </c:if>  
         

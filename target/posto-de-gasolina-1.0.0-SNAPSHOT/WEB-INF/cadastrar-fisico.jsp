@@ -12,7 +12,7 @@
   </head>
   <header>
       <nav class="navbar navbar-light nav-color">
-          <a class="navbar-brand" href="${pageContext.request.contextPath}/rh">Postos Tades</a>
+          <a class="navbar-brand" href="${pageContext.request.contextPath}/vendedor">Postos Tades</a>
       <div class="nav-item text-nowrap">
           <a class="nav-link" href="#">Sair</a>
       </div>
@@ -20,21 +20,27 @@
   </header>
   <body>
       <div class="page-title">
-          <h1>Cadastrar Funcionário</h1>
+          <h1>Cadastrar Pessoa Física</h1>
       </div>
-
+      
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath}/rh/cadastrar-funcionario">Cadastrar Funcionário</a>
+          <a class="nav-link" href="#">Realizar Venda</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath}/rh/pesquisar-funcionario">Pesquisar Funcionário</a>
+          <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/cadastrar-fisico">Cadastrar Pessoa Física</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/cadastrar-juridico">Cadastrar Pessoa Juridica</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/pesquisar-cliente">Pesquisar Cliente</a>
         </li>
       </ul>
       
         
-        <form method="post" action="${pageContext.request.contextPath}/rh/cadastrar-funcionario" class="needs-validation" novalidate>
-            <div class="form-group row">
+        <form method="post" action="${pageContext.request.contextPath}/vendedor/cadastrar-fisico" class="needs-validation" novalidate>
+            <div class="form-group row" style="margin-top: -100px;">
               <label for="inputNome" class="col-md-1 offset-md-3">Nome*:</label>
               <div class="col-sm-4">
                 <input type="text" class="form-control" name="nome" id="inputNome" placeholder="Digite o nome completo" required>
@@ -80,32 +86,6 @@
                 </div>
               </div>
             </div>
-            
-            <div class="form-group row">
-                <label class="col-md-1 offset-md-3">Cargo*:</label>
-                <div class="form-check-inline">
-                    <input class="form-check-input" type="radio" name="cargo" id="back-office" value="back-office" onclick="desabilitarCampos()" required>
-                    <label class="form-check-label" for="inlineRadio1">Back-Office</label>
-                    <input class="form-check-input" type="radio" name="cargo" id="rh" value="rh" onclick="desabilitarCampos()" required>
-                    <label class="form-check-label" for="inlineRadio1">Rh</label>
-                    <input class="form-check-input" type="radio" name="cargo" id="diretor" value="diretor" onclick="desabilitarCampos()" required>
-                    <label class="form-check-label" for="inlineRadio1">Diretor</label>
-                    <input class="form-check-input" type="radio" name="cargo" id="vendedor" value="vendedor" onclick="liberarCampos()" required>
-                    <label class="form-check-label" for="inlineRadio1">Vendedor</label>
-                    <input class="form-check-input" type="radio" name="cargo" id="gerente-vendas" value="gerente-vendas" onclick="liberarCampos()" required>
-                    <label class="form-check-label" for="inlineRadio1">Gerente Vendas</label>
-                </div>
-            </div>
-            
-            <div class="form-group row">
-                <label for="inputEmail" class="col-md-1 offset-md-3">Filial*:</label>
-                <div class="form-check-inline">
-                     <c:forEach items="${filiaisAttr}" var="filial">
-                         <input class="form-check-input" type="radio" name="filial" id="${filial}" value="${filial}" disabled="disabled" required>
-                         <label class="form-check-label" for="filial"><c:out value="${filial}" /></label>
-                    </c:forEach>
-                </div>
-            </div>
              
             <div class="form-group row">
               <label for="inputEmail" class="col-md-1 offset-md-3">Email*:</label>
@@ -116,22 +96,14 @@
                 </div>
               </div>
             </div>
-            <div class="form-group row">
-              <label for="inputSenha" class="col-md-1 offset-md-3">Senha*:</label>
-              <div class="col-sm-4">
-                <input type="password" class="form-control" name="senha" id="inputSenha" placeholder="Digite a senha do funcionário" required>
-                <div class="invalid-feedback">
-                    Digite uma senha
-                </div>
-              </div>
-            </div>
+            
             <div class="button-group">
                 <button class="btn btn-lg btn-success col-md-2 offset-md-4" type="submit">Cadastrar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="${pageContext.request.contextPath}/rh" class="col-md-2 btn btn-lg btn-danger">Cancelar</a>
+                <a href="${pageContext.request.contextPath}/vendedor" class="col-md-2 btn btn-lg btn-danger">Cancelar</a>
             </div>
         </form>
-        <div style="margin-top: -634px; width: 203px; height: 640px; background-color: black;"></div>
+        <div style="margin-top: -620px; width: 205px; height: 640px; background-color: black;"></div>
   </body>
   <script>
     (function() {
@@ -149,22 +121,6 @@
         });
       }, false);
     })();
-    
-    function liberarCampos() {
-        <c:forEach items="${filiaisAttr}" var="filial">
-            if(document.getElementById('${filial}').disabled==true) {
-                document.getElementById('${filial}').disabled=false
-            }
-        </c:forEach> 
-    }
-    
-    function desabilitarCampos() {
-        <c:forEach items="${filiaisAttr}" var="filial">
-            if(document.getElementById('${filial}').disabled==false) {
-                document.getElementById('${filial}').disabled=true
-            }
-        </c:forEach> 
-    }    
    </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
