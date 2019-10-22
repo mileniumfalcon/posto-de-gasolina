@@ -14,6 +14,17 @@ public class DbConnectionDAO {
     private static final String LOGIN = "erick";
     private static final String PASSWORD = "123456";
     private static final String URL = "jdbc:mysql://" + SERVER + "/" + DATABASE + "?useTimezone=true&serverTimezone=UTC";
+    
+    
+    //victor
+       String driver = "com.mysql.jdbc.Driver";
+        String server = "localhost:3306";
+        String database = "postostades";
+        //dev
+        String url = "jdbc:mysql://" + server + "/" + database + "?useTimezone=true&serverTimezone=UTC";
+        String user = "produtobd";
+        String password = "";
+
 
     public static Connection openConnection() throws SQLException, ClassNotFoundException {
          try {
