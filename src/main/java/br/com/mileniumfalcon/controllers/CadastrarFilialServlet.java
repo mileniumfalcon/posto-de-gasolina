@@ -2,6 +2,8 @@
 package br.com.mileniumfalcon.controllers;
 
 import br.com.mileniumfalcon.dao.ClienteDAO;
+import br.com.mileniumfalcon.dao.FilialDAO;
+import br.com.mileniumfalcon.models.Filial;
 import br.com.mileniumfalcon.models.PessoaFisica;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -35,35 +37,22 @@ public class CadastrarFilialServlet extends HttpServlet {
      @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-
-            String nome = request.getParameter("nome");
-            String endereco = request.getParameter("endereco");
-            String cep = request.getParameter("cep");
-            String cpf = request.getParameter("cpf");
-            String dataNascimentoString = request.getParameter("dataNascimento");
-            String email = request.getParameter("email");
-
-            Timestamp dataInclusao = new Timestamp(System.currentTimeMillis());
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-
-            Date dataNascimento = formato.parse(dataNascimentoString);
-
-            PessoaFisica cliente = new PessoaFisica(nome, endereco, cep, email,
-                                                    cpf, dataNascimento);
-            
-            boolean salvou = ClienteDAO.salvarFisico(cliente);
-            
-            if (salvou) {
-                request.setAttribute("criadoAttr", true);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/filial.jsp");
-                dispatcher.forward(request, response);
-            } else {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cadastrar-filial.jsp");
-                dispatcher.forward(request, response);
-            }
-        } catch (ParseException ex) {
-            Logger.getLogger(CadastrarFisicoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        String nome = request.getParameter("nome");
+        String endereco = request.getParameter("endereco");
+        String cep = request.getParameter("cep");
+        String estado = request.getParameter("estado");
+        Timestamp dataInclusao = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Filial filial = new Filial(nome,estado,endereco,cep);
+        boolean salvou = FilialDAO.insertFilial(filial);
+        if (salvou) {
+            request.setAttribute("criadoAttr", true);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/filial.jsp");
+            dispatcher.forward(request, response);
+        } 
+        else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cadastrar-filial.jsp");
+            dispatcher.forward(request, response);
         }
 
     }

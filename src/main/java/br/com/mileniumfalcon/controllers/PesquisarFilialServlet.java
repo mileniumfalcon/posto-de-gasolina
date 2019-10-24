@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.mileniumfalcon.controllers;
 
+import br.com.mileniumfalcon.dao.FilialDAO;
+import br.com.mileniumfalcon.models.Filial;
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,5 +14,34 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Victor
  */
-@WebServlet(name = "PesquisarFilialServlet", urlPatterns = {"/PesquisarFilialServlet"})
-public class PesquisarFilialServlet extends HttpServlet {}
+@WebServlet(name = "PesquisarFilialServlet", urlPatterns = {"/filial/pesquisar-filial"})
+public class PesquisarFilialServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pesquisar-filial.jsp");
+        String nome = request.getParameter("nome");
+
+        Filial filial = FilialDAO.pesquisarFilial(nome);
+
+        if (filial.getNome() != null) {
+            request.setAttribute("idfilial", Integer.toString(filial.getId()));
+            request.setAttribute("nomefilial", filial.getNome());
+            request.setAttribute("estadofilial", filial.getEstado());
+            request.setAttribute("enderecofilial", filial.getEndereco());
+            request.setAttribute("cepfilial", filial.getCep());
+        } else {
+            request.setAttribute("naoEncontradoAttr", true);
+        }
+
+        dispatcher.forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+    }
+}

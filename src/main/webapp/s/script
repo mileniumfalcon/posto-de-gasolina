@@ -1,0 +1,105 @@
+CREATE DATABASE postostades;
+
+USE postostades;
+
+CREATE TABLE Filial(
+IdFilial INT(11) AUTO_INCREMENT NOT NULL,
+Nome VARCHAR(20) NOT NULL,
+Estado VARCHAR(50) NOT NULL,
+Endereco VARCHAR(50) NOT NULL,
+CEP VARCHAR(9) NOT NULL,
+PRIMARY KEY (IdFilial)
+);
+
+CREATE TABLE Cliente (
+IdCliente INT(11) AUTO_INCREMENT NOT NULL,
+Nome VARCHAR(30) NOT NULL,
+CPF VARCHAR(14) UNIQUE,
+CNPJ VARCHAR(18) UNIQUE,
+DataNascimento DATE,
+Telefone VARCHAR(20),
+Email VARCHAR(30) NOT NULL,
+Endereco VARCHAR(50) NOT NULL,
+CEP VARCHAR(9) NOT NULL, 
+Tipo VARCHAR(20) NOT NULL,
+PRIMARY KEY (IdCliente)
+);
+
+CREATE TABLE Funcionario(
+IdFuncionario INT(11) AUTO_INCREMENT NOT NULL,
+Nome VARCHAR(30) NOT NULL,
+Endereco VARCHAR(50) NOT NULL,
+CEP VARCHAR(9) NOT NULL,
+CPF VARCHAR(14) NOT NULL UNIQUE,
+DataNascimento DATE NOT NULL,
+DataInclusao DATE NOT NULL,
+Tipo VARCHAR(20) NOT NULL,
+PRIMARY KEY (IdFuncionario)	
+);
+
+CREATE TABLE Usuario(
+IdFuncionario INT(11) NOT NULL,
+Email VARCHAR(30) NOT NULL,
+Senha VARCHAR(30) NOT NULL,
+PRIMARY KEY (IdFuncionario),
+FOREIGN KEY (IdFuncionario) REFERENCES Funcionario(IdFuncionario) ON DELETE CASCADE
+);
+
+CREATE TABLE Vendedor(
+IdFuncionario INT(11) NOT NULL,
+Gerente TINYINT(1) NOT NULL,
+PRIMARY KEY (IdFuncionario),
+FOREIGN KEY (IdFuncionario) REFERENCES Funcionario(IdFuncionario) ON DELETE CASCADE
+);
+
+CREATE TABLE filial_vendedor(
+IdFilial INT(11) NOT NULL,
+IdFuncionario INT(11) NOT NULL,
+PRIMARY KEY (IdFilial, IdFuncionario),
+FOREIGN KEY (IdFilial) REFERENCES Filial(IdFilial),
+FOREIGN KEY (IdFuncionario) REFERENCES Vendedor(IdFuncionario) ON DELETE CASCADE
+);
+
+CREATE TABLE Produto(
+IdProduto INT(11) AUTO_INCREMENT NOT NULL,
+Nome VARCHAR(30) NOT NULL,
+TipoProduto VARCHAR(20) NOT NULL,
+QntEstoque DOUBLE NOT NULL DEFAULT 0,
+ValorUnitario DOUBLE NOT NULL,
+PRIMARY KEY (IdProduto)
+);
+
+CREATE TABLE filial_produto(
+IdFilial INT(11) NOT NULL,
+IdProduto INT(11) NOT NULL,
+PRIMARY KEY (IdFilial, IdProduto),
+FOREIGN KEY (IdFilial) REFERENCES Filial(IdFilial),
+FOREIGN KEY (IdProduto) REFERENCES Produto(IdProduto) ON DELETE CASCADE
+);
+
+CREATE TABLE Venda(
+IdVenda INT(11) AUTO_INCREMENT NOT NULL,
+ValorTotal DOUBLE NOT NULL,
+DataVenda DATE NOT NULL,
+IdCliente INT(11) NOT NULL,
+IdFilial INT(11) NOT NULL,
+PRIMARY KEY(IdVenda),
+FOREIGN KEY (IdCliente) REFERENCES Cliente(IdCliente),
+FOREIGN KEY (IdFilial) REFERENCES Filial(IdFilial)
+);
+
+CREATE TABLE ItemVenda(
+IdProduto INT(11) NOT NULL,
+IdVenda INT(11) NOT NULL,
+Quantidade INT(11) NOT NULL,
+PRIMARY KEY (IdProduto, IdVenda),
+FOREIGN KEY (IdProduto) REFERENCES Produto(IdProduto),
+FOREIGN KEY (IdVenda) REFERENCES Venda(IdVenda)
+);
+
+
+INSERT INTO Filial (nome, estado, endereco, cep) VALUES ('Filial 1', 'SP', 'Av etc, 121', '11111-111');
+INSERT INTO Filial (nome, estado, endereco, cep) VALUES ('Filial 2', 'RJ', 'Av etc, 121', '11111-111');
+INSERT INTO Filial (nome, estado, endereco, cep) VALUES ('Filial 3', 'MG', 'Av etc, 121', '11111-111');
+INSERT INTO Filial (nome, estado, endereco, cep) VALUES ('Filial 4', 'RS', 'Av etc, 121', '11111-111');
+INSERT INTO Filial (nome, estado, endereco, cep) VALUES ('Filial 5', 'BA', 'Av etc, 121', '11111-111');

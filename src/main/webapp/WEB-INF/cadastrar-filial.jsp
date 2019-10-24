@@ -1,8 +1,14 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <!-- Meta tags Obrigatórias -->
-    <meta charset="utf-8">
+    <!-- Meta tags ObrigatÃ³rias -->
+  <!-- HTML 4 -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- HTML5 -->
+<meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -29,19 +35,19 @@
             <ul class="nav flex-column">
               <br><br><br><br>
               <li class="nav-item">
-                <a class="nav-link active" href="#">               
+                <a class="nav-link active" href="${pageContext.request.contextPath}/filial/cadastrar-filial">               
                   Cadastrar filial 
                 </a>
                 <br><br><br><br><br><br>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="${pageContext.request.contextPath}/filial/pesquisar-filial">
                  Pesquisar Filial
                 </a>
               </li>
               <br><br><br><br><br><br>
 
-<li class="nav-item"><a class="nav-link" href="#">
+<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/filial/relatorio-filial">
 Emitir Relatório
  </a>
 </li><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>     
@@ -55,11 +61,11 @@ Emitir Relatório
             <div class="btn-toolbar mb-2 mb-md-0">
               </div>
           </div><div><br><br><br><br></div>
-         <form method="post" action="${pageContext.request.contextPath}/filial/cadastrar-fisico" class="needs-validation" novalidate>
+         <form method="post" action="${pageContext.request.contextPath}/filial/cadastrar-filial" class="needs-validation" novalidate>
             <div class="form-group row" style="margin-top: -100px;">
               <label for="inputNome" class="col-md-1 offset-md-3">Nome*:</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" name="nome" id="inputNome" placeholder="Digite o nome completo" required>
+                <input type="text" class="form-control" name="nome" id="inputNome" placeholder="Digite o nome de uma filial" required>
                  <div class="invalid-feedback">
                     Digite o nome da filial
                 </div>
@@ -82,15 +88,39 @@ Emitir Relatório
                     Digite um CEP
                 </div>
               </div>         
-              
+              <br><br>
                 <div class="form-group row">
-                  <div class="col-sm-4">
-                <select>
+                  <div class="col-sm-10">
+                <select class="form-control" name="estado" id="estado">
                   <option selected>Estados</option>
-                  <option>SP</option>
-                  <option>MG</option>
-                  <option>RJ</option>
-                  <option>ES</option>
+               <option value="AC">Acre</option>
+    <option value="AL">Alagoas</option>
+    <option value="AP">Amapá</option>
+    <option value="AM">Amazonas</option>
+    <option value="BA">Bahia</option>
+    <option value="CE">Ceará</option>
+    <option value="DF">Distrito Federal</option>
+    <option value="ES">Espírito Santo</option>
+    <option value="GO">Goiás</option>
+    <option value="MA">Maranhão</option>
+    <option value="MT">Mato Grosso</option>
+    <option value="MS">Mato Grosso do Sul</option>
+    <option value="MG">Minas Gerais</option>
+    <option value="PA">Pará</option>
+    <option value="PB">Paraíba</option>
+    <option value="PR">Paraná</option>
+    <option value="PE">Pernambuco</option>
+    <option value="PI">Piauí</option>
+    <option value="RJ">Rio de Janeiro</option>
+    <option value="RN">Rio Grande do Norte</option>
+    <option value="RS">Rio Grande do Sul</option>
+    <option value="RO">Rondônia</option>
+    <option value="RR">Roraima</option>
+    <option value="SC">Santa Catarina</option>
+    <option value="SP">São Paulo</option>
+    <option value="SE">Sergipe</option>
+    <option value="TO">Tocantins</option>
+    <option value="EX">Estrangeiro</option>
                </select>
               </div>
             </div>               
@@ -106,7 +136,7 @@ Emitir Relatório
         </main>
     <!-- Principal JavaScript do Bootstrap
     ================================================== -->
-    <!-- Foi colocado no final para a página carregar mais rápido -->
+    <!-- Foi colocado no final para a pÃ¡gina carregar mais rÃ¡pido -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="../../assets/js/vendor/popper.min.js"></script>
@@ -130,7 +160,7 @@ Emitir Relatório
     })();
    </script>
     <script>
-      feather.replace()
+      feather.replace();
     </script>
 
 
