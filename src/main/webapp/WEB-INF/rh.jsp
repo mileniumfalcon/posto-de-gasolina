@@ -32,6 +32,8 @@
         </li>
       </ul>
         
+      <div style="float: left; margin-top: 0px; width: 203px; height: 640px; background-color: black;"></div>
+        
       <c:if test="${criadoAttr}">
           <div class="alert alert-success">
               Funcionário cadastrado com sucesso!
@@ -47,7 +49,5 @@
               Funcionário excluido com sucesso!
           </div>
       </c:if>  
-        
-      <div style="margin-top: -100px; width: 203px; height: 640px; background-color: black;"></div>
   </body>
 </html>

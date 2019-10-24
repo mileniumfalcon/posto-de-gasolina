@@ -31,12 +31,13 @@
           <a class="nav-link" href="${pageContext.request.contextPath}/rh/pesquisar-funcionario">Pesquisar Funcionário</a>
         </li>
       </ul>
-        
+      <div style="float: left; margin-top: 0px; width: 203px; height: 640px; background-color: black;"></div>
+      
         <form method="post" action="${pageContext.request.contextPath}/rh/editar-funcionario" class="needs-validation" novalidate>
             <input type="hidden" name="id" value="${idAttr}">
             
             <div class="form-group row">
-              <label for="inputNome" class="col-md-1 offset-md-3">Nome*:</label>
+              <label for="inputNome" class="col-md-1 offset-md-2">Nome*:</label>
               <div class="col-sm-4">
                 <input type="text" class="form-control" name="nome" id="inputNome" placeholder="Digite o nome completo" value="${nomeAttr}" required>
                  <div class="invalid-feedback">
@@ -45,7 +46,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputEndereco" class="col-md-1 offset-md-3">Endereço*:</label>
+              <label for="inputEndereco" class="col-md-1 offset-md-2">Endereço*:</label>
               <div class="col-sm-4">
                 <input type="text" class="form-control" name="endereco" id="inputEndereco" placeholder="Av/Rua fulano, 234" value="${enderecoAttr}" required>
                 <div class="invalid-feedback">
@@ -55,7 +56,7 @@
             </div>
             
             <div class="form-group row">
-              <label for="inputCep" class="col-md-1 offset-md-3">CEP*:</label>
+              <label for="inputCep" class="col-md-1 offset-md-2">CEP*:</label>
               <div class="col-sm-2">
                 <input type="text" class="form-control" name="cep" id="inputCep" placeholder="xxxxx-xxx" value="${cepAttr}" onkeypress="$(this).mask('00000-000');" required>
                 <div class="invalid-feedback">
@@ -73,7 +74,7 @@
             </div>
             
             <div class="form-group row">
-              <label for="inputDataNascimento" class="col-md-1 offset-md-3">Data Nasc*:</label>
+              <label for="inputDataNascimento" class="col-md-1 offset-md-2">Data Nasc*:</label>
               <div class="col-sm-4">
                 <input type="text" class="form-control" name="dataNascimento" id="inputDataNascimento" placeholder="xx/xx/xxxx" value="${dataNascimentoAttr}" onkeypress="$(this).mask('00/00/0000');" required>
                 <div class="invalid-feedback">
@@ -83,7 +84,7 @@
             </div>
             
             <div class="form-group row">
-                <label class="col-md-1 offset-md-3">Cargo*:</label>
+                <label class="col-md-1 offset-md-2">Cargo*:</label>
                 <div class="form-check-inline">
                     <input class="form-check-input" type="radio" name="cargo" id="back-office" value="back-office" onclick="desabilitarCampos()" required>
                     <label class="form-check-label" for="inlineRadio1">Back-Office</label>
@@ -99,7 +100,7 @@
             </div>
             
             <div class="form-group row">
-                <label for="inputEmail" class="col-md-1 offset-md-3">Filial*:</label>
+                <label for="inputEmail" class="col-md-1 offset-md-2">Filial*:</label>
                 <div class="form-check-inline">
                      <c:forEach items="${filiaisAttr}" var="filial">
                          <input class="form-check-input" type="radio" name="filial" id="${filial}" value="${filial}" disabled="disabled" required>
@@ -109,7 +110,7 @@
             </div>
              
             <div class="form-group row">
-              <label for="inputEmail" class="col-md-1 offset-md-3">Email*:</label>
+              <label for="inputEmail" class="col-md-1 offset-md-2">Email*:</label>
               <div class="col-sm-4">
                 <input type="email" class="form-control" name="email" id="inputNome" placeholder="seuemail@email.com" value="${emailAttr}" required>
                 <div class="invalid-feedback">
@@ -118,7 +119,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputSenha" class="col-md-1 offset-md-3">Senha*:</label>
+              <label for="inputSenha" class="col-md-1 offset-md-2">Senha*:</label>
               <div class="col-sm-4">
                 <input type="password" class="form-control" name="senha" id="inputSenha" placeholder="Digite a senha do funcionário" value="${senhaAttr}" required>
                 <div class="invalid-feedback">
@@ -127,12 +128,11 @@
               </div>
             </div>
             <div class="button-group">
-                <button class="btn btn-lg btn-success col-md-2 offset-md-4" type="submit">Editar</button>
+                <button class="btn btn-lg btn-success col-md-2 offset-md-2" type="submit">Editar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="${pageContext.request.contextPath}/rh" class="col-md-2 btn btn-lg btn-danger">Cancelar</a>
             </div>
         </form>
-        <div style="margin-top: -634px; width: 203px; height: 640px; background-color: black;"></div>
   </body>
   <script>
     (function() {

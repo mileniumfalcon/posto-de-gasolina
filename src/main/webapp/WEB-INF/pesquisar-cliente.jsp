@@ -38,7 +38,7 @@
           <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/pesquisar-cliente">Pesquisar Cliente</a>
         </li>
       </ul>
-            
+      <div style="float: left; margin-top: 0px; width: 203px; height: 640px; background-color: black;"></div>
         <form method="get" action="${pageContext.request.contextPath}/vendedor/pesquisa-de-cliente" class="needs-validation" novalidate>
             <div class="form-group row" style="margin-top: -80px;">
               <label for="inputDoc" class="col-md-1 offset-md-3">CPF/CNPJ:</label>
@@ -60,7 +60,7 @@
                 </div>
             </c:if>
             
-            <c:if test="${idAttr != null}">
+            <c:if test="${nomeAttr != null}">
                 <table class="table table-sm offset-md-2" style="width: 75%;">
                     <thead>
                       <tr>
@@ -108,7 +108,6 @@
                 </div>
             </c:if>
     </body>
-    <div style="margin-top: -180px; width: 203px; height: 640px; background-color: black;"></div>
     <script>
         (function() {
           'use strict';

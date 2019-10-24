@@ -34,10 +34,10 @@
                 <a class="nav-link" href="#">Visualizar Vendas</a>
             </li>
         </ul>
-
+        <div style="float: left; margin-top: 0px; width: 203px; height: 640px; background-color: black;"></div>
         <form method="get" action="${pageContext.request.contextPath}/backoffice/pesquisa-de-produto" class="needs-validation" novalidate>
             <div class="form-group row">
-                <label for="inputNome" class="col-md-1 offset-md-3">Nome:</label>
+                <label for="inputNome" class="col-md-1 offset-md-2">Nome:</label>
                 <div class="col-sm-4">
                     <input type="text" class="form-control" name="nome" id="nome" placeholder="Digite o nome do Produto" required>
                     <div class="invalid-feedback">
@@ -56,7 +56,7 @@
             </div>
         </c:if>
             
-        <c:if test="${idAttr != null}">
+        <c:if test="${not empty produtosAttr}">
             <table class="table table-sm offset-md-2" style="width: 75%;">
                 <thead>
                     <tr>
@@ -69,36 +69,38 @@
                     </tr>
                 </thead>
                 <tbody>
+                     <c:forEach items="${produtosAttr}" var="produto">
                     <tr>
-                        <th> <c:out value="${idAttr}"/></th>
-                        <td ><c:out value="${nomeAttr}"/></td>
-                        <td><c:out value="${vlrUnitarioAttr}"/></td>
-                        <td> <c:out value="${QntdAttr}"/></td>
-                        <td><a data-method="get" href="${pageContext.request.contextPath}/backoffice/editar-produto?id=${idAttr}" class="btn btn-primary mb-1" >Editar</a></td>
-                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmar">Excluir</button></td>    
-                    </tr>
+                        <th> <c:out value="${produto.getId()}"/></th>
+                        <td ><c:out value="${produto.getNome()}"/></td>
+                        <td><c:out value="${produto.getVlrUnitario()}"/></td>
+                        <td> <c:out value="${produto.getQtdProduto()}"/></td>
+                        <td><a data-method="get" href="${pageContext.request.contextPath}/backoffice/editar-produto?id=${produto.getId()}" class="btn btn-primary mb-1" >Editar</a></td>
+                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${produto.getNome()}">Excluir</button></td> 
+                     </tr>  
                 </tbody>
-            </table>
-             <!-- Modal -->
-                <div class="modal fade" id="modalConfirmar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="${produto.getNome()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-body">
-                        Tem certeza que deseja excluir o produto <c:out value="${nomeAttr}"/> ?
+                          Tem certeza que deseja excluir o produto <c:out value="${produto.getNome()}"/>
                       </div>
                       <div class="modal-footer">
                         <form action="${pageContext.request.contextPath}/backoffice/excluir-produto" method="post">
-                            <button class="btn btn-success" type="submit" name="id" value="${idAttr}">Confirmar</button>
+                            <button class="btn btn-success" type="submit" name="id" id="confirmDeleteButton" value="${produto.getId()}">Confirmar</button>
                         </form>
                         
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                       </div>
                     </div>
                   </div>
-                </div>  
+                </div> 
+               </c:forEach>
+            </table>
+                
+                
         </c:if>
     </body>
-      <div style="margin-top: -180px; width: 203px; height: 640px; background-color: black;"></div>
     
       <script>
         (function () {
