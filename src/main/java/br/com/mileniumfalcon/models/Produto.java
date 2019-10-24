@@ -1,5 +1,7 @@
 package br.com.mileniumfalcon.models;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author pablo.osantana
@@ -11,25 +13,27 @@ public class Produto {
     private String tipoProduto;
     private double qtdProduto;
     private double vlrUnitario;
-    private Filial filial;
+    private ArrayList<Filial> filiais;
 
 
     public Produto() { }
     
-    public Produto(int id, String nome, String tipoProduto, double qtdProduto, double vlrUnitario, Filial filial) {
+    public Produto(int id, String nome, String tipoProduto, double qtdProduto, double vlrUnitario,
+                   ArrayList<Filial> filiais) {
         this.id = id;
         this.nome = nome;
         this.tipoProduto = tipoProduto;
         this.qtdProduto = qtdProduto;
         this.vlrUnitario = vlrUnitario;
-        this.filial = filial;
+        this.filiais = filiais;
     }
-    public Produto(String nome, String tipoProduto, double qtdProduto, double vlrUnitario, Filial filial) {
+    public Produto(String nome, String tipoProduto, double qtdProduto, double vlrUnitario,
+            ArrayList<Filial> filiais) {
         this.nome = nome;
         this.tipoProduto = tipoProduto;
         this.qtdProduto = qtdProduto;
         this.vlrUnitario = vlrUnitario;
-        this.filial = filial;
+        this.filiais = filiais;
     }
 
 
@@ -65,12 +69,12 @@ public class Produto {
         this.vlrUnitario = vlrUnitario;
     }
 
-    public Filial getFilial() {
-        return filial;
+    public ArrayList<Filial> getFiliais() {
+        return filiais;
     }
 
-    public void setFilialFilial() {
-        this.filial = filial;
+    public void setFilialFilial(ArrayList<Filial> filiais) {
+        this.filiais = filiais;
     }
 
     public double getQtdProduto() {

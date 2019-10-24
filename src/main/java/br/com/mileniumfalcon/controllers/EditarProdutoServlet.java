@@ -58,10 +58,16 @@ public class EditarProdutoServlet extends HttpServlet {
         String tipo = request.getParameter("tipo");
         double preco = Double.parseDouble(request.getParameter("preco"));
         double quantidade = Double.parseDouble(request.getParameter("quantidade"));
-        String filialStr = request.getParameter("filial");
-        Filial filial = FuncionarioDAO.getFilial(filialStr);
+        String [] filiaisStr = request.getParameterValues("filial");
+         
+         ArrayList<Filial> filiais = new ArrayList<Filial>();
+         
+         for(String filialStr : filiaisStr) {
+            Filial filial = FuncionarioDAO.getFilial(filialStr);
+            filiais.add(filial);
+         }
 
-        Produto produto = new Produto(id, nome, tipo, quantidade, preco, filial);
+        Produto produto = new Produto(id, nome, tipo, quantidade, preco, filiais);
         
         boolean editou = ProdutoDAO.editar(produto);
 

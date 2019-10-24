@@ -8,6 +8,7 @@ package br.com.mileniumfalcon.controllers;
 import br.com.mileniumfalcon.dao.ProdutoDAO;
 import br.com.mileniumfalcon.models.Produto;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,13 +30,11 @@ public class PesquisarProdutoServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pesquisar-produto.jsp");
         String nome = request.getParameter("nome");
 
-        Produto produto = ProdutoDAO.pesquisarProduto(nome);
+        ArrayList<Produto> produtos = ProdutoDAO.pesquisarProduto(nome);
 
-        if (produto.getNome() != null) {
-            request.setAttribute("idAttr", Integer.toString(produto.getId()));
-            request.setAttribute("nomeAttr", produto.getNome());
-            request.setAttribute("QntdAttr", Double.toString(produto.getQtdProduto()));
-            request.setAttribute("vlrUnitarioAttr", Double.toString(produto.getVlrUnitario()));
+        if (!produtos.isEmpty()) {
+            request.setAttribute("produtosAttr", produtos);
+            
         } else {
             request.setAttribute("naoEncontradoAttr", true);
         }

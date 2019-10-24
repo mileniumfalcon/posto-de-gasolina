@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.mileniumfalcon.dao;
 
+import br.com.mileniumfalcon.models.Filial;
 import br.com.mileniumfalcon.models.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -42,17 +39,19 @@ public class ProdutoDAO {
                     idProduto = resultSet.getInt(1);
                 }
 
-                comando = connection.prepareStatement("INSERT INTO filial_produto "
-                        + "(IdFilial, IdProduto) VALUES (?, ?);");
-                comando.setInt(1, produto.getFilial().getId());
-                comando.setInt(2, idProduto);
+                for (Filial filial : produto.getFiliais()) {
+                    comando = connection.prepareStatement("INSERT INTO filial_produto "
+                            + "(IdFilial, IdProduto) VALUES (?, ?);");
+                    comando.setInt(1, filial.getId());
+                    comando.setInt(2, idProduto);
 
-                linhasAfetadas = comando.executeUpdate();
+                    linhasAfetadas = comando.executeUpdate();
 
-                if (linhasAfetadas > 0) {
-                    retorno = true;
-                } else {
-                    retorno = false;
+                    if (linhasAfetadas > 0) {
+                        retorno = true;
+                    } else {
+                        retorno = false;
+                    }
                 }
 
             } else {
@@ -70,28 +69,29 @@ public class ProdutoDAO {
         return retorno;
     }
 
-    public static Produto pesquisarProduto(String nome) {
-
+    public static ArrayList<Produto> pesquisarProduto(String nome) {
+        ArrayList<Produto> produtos = new ArrayList<Produto>();
         Connection connection = null;
-        System.out.println(nome);
+
         try {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement("SELECT * FROM Produto WHERE Nome LIKE ?");
             comando.setString(1, "%" + nome + "%");
             ResultSet rs = comando.executeQuery();
 
-            Produto produto = new Produto();
-
             while (rs.next()) {
+                Produto produto = new Produto();
                 produto.setId(rs.getInt("IdProduto"));
                 produto.setNome(rs.getString("Nome"));
                 produto.setTipoProduto(rs.getString("TipoProduto"));
                 produto.setQtdProduto(rs.getDouble("QntEstoque"));
                 produto.setVlrUnitario(rs.getDouble("ValorUnitario"));
-
+                
+                produtos.add(produto);
             }
+            
             DbConnectionDAO.closeConnection(connection);
-            return produto;
+            return produtos;
 
         } catch (ClassNotFoundException ex) {
             return null;
@@ -165,7 +165,7 @@ public class ProdutoDAO {
 
     public static boolean editar(Produto produto) {
         Connection connection = null;
-        boolean retorno;
+        boolean retorno = false;
 
         try {
             connection = DbConnectionDAO.openConnection();
@@ -177,19 +177,31 @@ public class ProdutoDAO {
             comando.setDouble(3, produto.getQtdProduto());
             comando.setDouble(4, produto.getVlrUnitario());
             comando.setInt(5, produto.getId());
+            
             int linhasAfetadas = comando.executeUpdate();
 
             if (linhasAfetadas > 0) {
+                comando = connection.prepareStatement("DELETE FROM filial_produto "
+                        + "WHERE IdProduto = ?");
 
-                comando = connection.prepareStatement("UPDATE filial_produto SET "
-                        + "IdFilial = ? WHERE IdProduto = ?");
-                comando.setInt(1, produto.getFilial().getId());
-                comando.setInt(2, produto.getId());
-
+                comando.setInt(1, produto.getId());
                 linhasAfetadas = comando.executeUpdate();
 
                 if (linhasAfetadas > 0) {
-                    retorno = true;
+                    for (Filial filial : produto.getFiliais()) {
+                        comando = connection.prepareStatement("INSERT INTO filial_produto "
+                                + "(IdFilial, IdProduto) VALUES (?, ?);");
+                        comando.setInt(1, filial.getId());
+                        comando.setInt(2, produto.getId());
+
+                        linhasAfetadas = comando.executeUpdate();
+
+                        if (linhasAfetadas > 0) {
+                            retorno = true;
+                        } else {
+                            retorno = false;
+                        }
+                    }
                 } else {
                     retorno = false;
                 }

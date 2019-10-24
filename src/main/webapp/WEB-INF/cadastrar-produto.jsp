@@ -34,10 +34,10 @@
                 <a class="nav-link" href="#">Visualizar Vendas</a>
             </li>
         </ul>
-
+        <div style="float: left; margin-top: 0px; width: 203px; height: 640px; background-color: black;"></div>
         <form method="post" action="${pageContext.request.contextPath}/backoffice/cadastrar-produto" class="needs-validation" novalidate>
             <div class="form-group row">
-                <label for="inputNome" class="col-md-1 offset-md-3">Nome*:</label>
+                <label for="inputNome" class="col-md-1 offset-md-2">Nome*:</label>
                 <div class="col-sm-4">
                     <input type="text" class="form-control" name="nome" id="inputNome" placeholder="Digite o nome do Produto" required>
                     <div class="invalid-feedback">
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="inputTipo" class="col-md-1 offset-md-3">Tipo*:</label>
+                <label for="inputTipo" class="col-md-1 offset-md-2">Tipo*:</label>
                 <div class="col-sm-4">
                     <select name="tipo" id="tpProduto" class="form-control">
                         <option selected>Outros</option>
@@ -61,7 +61,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="inputPreco" class="col-md-1 offset-md-3">Preço*:</label>
+                <label for="inputPreco" class="col-md-1 offset-md-2">Preço*:</label>
                 <div class="col-sm-2">
                     <input type="number" class="form-control" name="preco" id="inputPreco" placeholder="9,99" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any" required>
                     <div class="invalid-feedback">
@@ -78,21 +78,20 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="inputEmail" class="col-md-1 offset-md-3">Filial*:</label>
+                <label for="inputEmail" class="col-md-1 offset-md-2">Filial*:</label>
                 <div class="form-check-inline">
                      <c:forEach items="${filiaisAttr}" var="filial">
-                         <input class="form-check-input" type="radio" name="filial" id="${filial}" value="${filial}" required>
+                         <input class="form-check-input" type="checkbox" name="filial" id="${filial}" value="${filial}">
                          <label class="form-check-label" for="filial"><c:out value="${filial}" /></label>
                     </c:forEach>
                 </div>
             </div>
             <div class="button-group">
-                <button class="btn btn-lg btn-success col-md-2 offset-md-4" type="submit">Cadastrar</button>
+                <button class="btn btn-lg btn-success col-md-2 offset-md-2" type="submit">Cadastrar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="${pageContext.request.contextPath}/backoffice/backoffice" class="col-md-2 btn btn-lg btn-danger">Cancelar</a>
             </div>
         </form>
-        <div style="margin-top: -500px; width: 203px; height: 640px; background-color: black;"></div>
     </body>
     <script>
         (function () {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.mileniumfalcon.controllers;
 
 import br.com.mileniumfalcon.dao.FuncionarioDAO;
@@ -45,10 +40,16 @@ public class CadastrarProdutoServlet extends HttpServlet {
          String tipo = request.getParameter("tipo");
          double preco = Double.parseDouble(request.getParameter("preco"));
          double quantidade = Double.parseDouble(request.getParameter("quantidade"));
-         String filialStr = request.getParameter("filial");
-         Filial filial = FuncionarioDAO.getFilial(filialStr);
+         String [] filiaisStr = request.getParameterValues("filial");
          
-         Produto produto = new Produto(nome, tipo, quantidade, preco, filial);
+         ArrayList<Filial> filiais = new ArrayList<Filial>();
+         
+         for(String filialStr : filiaisStr) {
+            Filial filial = FuncionarioDAO.getFilial(filialStr);
+            filiais.add(filial);
+         }
+         
+         Produto produto = new Produto(nome, tipo, quantidade, preco, filiais);
          boolean salvou = ProdutoDAO.salvar(produto);
          
           if (salvou) {
