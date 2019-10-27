@@ -3,6 +3,7 @@
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/models/Usuario.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/dao/ClienteDAO.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/models/BackOffice.java
+/home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/controllers/ExcluirClienteServlet.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/controllers/VendedorServlet.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/models/PessoaJuridica.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/controllers/EditarFuncionarioServlet.java

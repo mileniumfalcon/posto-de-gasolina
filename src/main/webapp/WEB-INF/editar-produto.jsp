@@ -1,8 +1,3 @@
-<%-- 
-    Document   : editar-produto
-    Created on : 18/10/2019, 19:56:31
-    Author     : pablo.osantana
---%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -28,21 +23,21 @@
             <h1>Editar Produto</h1>
         </div>
 
-        <ul class="nav flex-column">
+        <ul class="nav flex-column" style="float: left;">
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/backoffice/cadastrar-produto">Cadastrar Produto</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/backoffice/pesquisar-produto">Pesquisar Produto</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item nav-item-last">
                 <a class="nav-link" href="#">Visualizar Vendas</a>
             </li>
         </ul>
-        <div style="float: left; margin-top: 0px; width: 203px; height: 640px; background-color: black;"></div>
+        
         <form method="post" action="${pageContext.request.contextPath}/backoffice/editar-produto" class="needs-validation" novalidate>
             <input type="hidden" name="id" value="${idAttr}">
-            
+            <br>
             <input type="hidden" name="id" value="${idAttr}">
             <div class="form-group row">
                 <label for="inputNome" class="col-md-1 offset-md-2">Nome*:</label>
@@ -98,25 +93,9 @@
             <div class="button-group">
                 <button class="btn btn-lg btn-success col-md-2 offset-md-2" type="submit">Confirmar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="${pageContext.request.contextPath}/backoffice/backoffice" class="col-md-2 btn btn-lg btn-danger">Cancelar</a>
+                <a href="${pageContext.request.contextPath}/backoffice" class="col-md-2 btn btn-lg btn-danger">Cancelar</a>
             </div>
         </form>
     </body>
-    <script>
-        (function () {
-            'use strict';
-            window.addEventListener('load', function () {
-                var forms = document.getElementsByClassName('needs-validation');
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
-    </script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
 </html>

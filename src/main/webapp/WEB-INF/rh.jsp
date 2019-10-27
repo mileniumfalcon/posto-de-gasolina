@@ -23,17 +23,15 @@
           <h1>Painel RH</h1>
       </div>
       
-      <ul class="nav flex-column">
+      <ul class="nav flex-column" style="float: left;">
         <li class="nav-item">
           <a class="nav-link" href="${pageContext.request.contextPath}/rh/cadastrar-funcionario">Cadastrar Funcionário</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item nav-item-last">
           <a class="nav-link" href="${pageContext.request.contextPath}/rh/pesquisar-funcionario">Pesquisar Funcionário</a>
         </li>
       </ul>
-        
-      <div style="float: left; margin-top: 0px; width: 203px; height: 640px; background-color: black;"></div>
-        
+
       <c:if test="${criadoAttr}">
           <div class="alert alert-success">
               Funcionário cadastrado com sucesso!

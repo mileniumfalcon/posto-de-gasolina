@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/mainto.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.scss" media="screen" />
         <title>Posto Tades</title>
     </head>
     <header>
@@ -23,19 +23,20 @@
             <h1>Cadastrar Produto</h1>
         </div>
 
-        <ul class="nav flex-column">
+        <ul class="nav flex-column" style="float: left;">
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/backoffice/cadastrar-produto">Cadastrar Produto</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/backoffice/pesquisar-produto">Pesquisar Produto</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item  nav-item-last">
                 <a class="nav-link" href="#">Visualizar Vendas</a>
             </li>
         </ul>
-        <div style="float: left; margin-top: 0px; width: 203px; height: 640px; background-color: black;"></div>
+
         <form method="post" action="${pageContext.request.contextPath}/backoffice/cadastrar-produto" class="needs-validation" novalidate>
+            <br>
             <div class="form-group row">
                 <label for="inputNome" class="col-md-1 offset-md-2">Nome*:</label>
                 <div class="col-sm-4">
@@ -89,25 +90,9 @@
             <div class="button-group">
                 <button class="btn btn-lg btn-success col-md-2 offset-md-2" type="submit">Cadastrar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="${pageContext.request.contextPath}/backoffice/backoffice" class="col-md-2 btn btn-lg btn-danger">Cancelar</a>
+                <a href="${pageContext.request.contextPath}/backoffice" class="col-md-2 btn btn-lg btn-danger">Cancelar</a>
             </div>
         </form>
     </body>
-    <script>
-        (function () {
-            'use strict';
-            window.addEventListener('load', function () {
-                var forms = document.getElementsByClassName('needs-validation');
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
-    </script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
 </html>
