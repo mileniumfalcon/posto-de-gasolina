@@ -76,6 +76,36 @@ public class FuncionarioDAO {
             return null;
         }
     }
+    
+    public static Filial getFilialPorId(int id) {
+        Connection connection = null;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("SELECT IdFilial, Nome, Estado, Endereco, CEP FROM Filial WHERE IdFilial = ?");
+            comando.setInt(1, id);
+            ResultSet rs = comando.executeQuery();
+
+            Filial filial = new Filial();
+
+            while (rs.next()) {
+                filial.setId(rs.getInt("IdFilial"));
+                filial.setNome(rs.getString("Nome"));
+                filial.setEstado(rs.getString("Estado"));
+                filial.setEndereco(rs.getString("Endereco"));
+                filial.setCep(rs.getString("Cep"));
+            }
+
+            DbConnectionDAO.closeConnection(connection);
+            return filial;
+
+        } catch (ClassNotFoundException ex) {
+            return null;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
 
     public static boolean salvar(Funcionario funcionario) {
         Connection connection = null;

@@ -3,7 +3,6 @@ package br.com.mileniumfalcon.controllers;
 import br.com.mileniumfalcon.dao.ClienteDAO;
 import br.com.mileniumfalcon.models.PessoaFisica;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -50,6 +49,8 @@ public class EditarFisicoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            request.setCharacterEncoding("UTF-8");
+            
             int id = Integer.parseInt(request.getParameter("id"));
 
             String nome = request.getParameter("nome");

@@ -59,6 +59,8 @@ public class EditarFuncionarioServlet extends HttpServlet {
             throws ServletException, IOException {
         
          try {
+            request.setCharacterEncoding("UTF-8");
+             
             int id = Integer.parseInt(request.getParameter("id"));
             String nome = request.getParameter("nome");
             String endereco = request.getParameter("endereco");

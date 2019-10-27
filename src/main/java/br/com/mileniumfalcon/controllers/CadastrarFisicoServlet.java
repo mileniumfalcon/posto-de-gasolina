@@ -39,6 +39,7 @@ public class CadastrarFisicoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            request.setCharacterEncoding("UTF-8");
 
             String nome = request.getParameter("nome");
             String endereco = request.getParameter("endereco");

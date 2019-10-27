@@ -47,6 +47,8 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
             throws ServletException, IOException {
         
         try {
+            request.setCharacterEncoding("UTF-8");
+            
             String nome = request.getParameter("nome");
             String endereco = request.getParameter("endereco");
             String cep = request.getParameter("cep");

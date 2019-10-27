@@ -65,6 +65,7 @@
                         <th scope="col">Nome</th>
                         <th scope="col">Preco</th>
                         <th scope="col">Quantidade</th>
+                        <th scope="col">Filial</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
@@ -76,6 +77,7 @@
                         <td ><c:out value="${produto.getNome()}"/></td>
                         <td><c:out value="${produto.getVlrUnitario()}"/></td>
                         <td> <c:out value="${produto.getQtdProduto()}"/></td>
+                        <td> <c:out value="${produto.getFilial().getNome()}"/></td>
                         <td><a data-method="get" href="${pageContext.request.contextPath}/backoffice/editar-produto?id=${produto.getId()}" class="btn btn-primary mb-1" >Editar</a></td>
                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#p${produto.getId()}">Excluir</button></td> 
                      </tr>  

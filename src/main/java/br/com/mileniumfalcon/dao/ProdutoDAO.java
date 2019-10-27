@@ -22,37 +22,19 @@ public class ProdutoDAO {
         try {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement("INSERT INTO Produto "
-                    + "(Nome, TipoProduto, QntEstoque, ValorUnitario) "
-                    + "VALUES (?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+                    + "(Nome, TipoProduto, QntEstoque, ValorUnitario, IdFilial) "
+                    + "VALUES (?, ?, ?, ?, ?);");
             comando.setString(1, produto.getNome());
-            comando.setString(2, produto.getTipoProduto());
+            comando.setString(2, produto.getTipo());
             comando.setDouble(3, produto.getQtdProduto());
             comando.setDouble(4, produto.getVlrUnitario());
+            comando.setInt(5, produto.getFilial().getId());
 
             int linhasAfetadas = comando.executeUpdate();
 
             if (linhasAfetadas > 0) {
-                int idProduto = 0;
-                ResultSet resultSet = comando.getGeneratedKeys();
 
-                while (resultSet.next()) {
-                    idProduto = resultSet.getInt(1);
-                }
-
-                for (Filial filial : produto.getFiliais()) {
-                    comando = connection.prepareStatement("INSERT INTO filial_produto "
-                            + "(IdFilial, IdProduto) VALUES (?, ?);");
-                    comando.setInt(1, filial.getId());
-                    comando.setInt(2, idProduto);
-
-                    linhasAfetadas = comando.executeUpdate();
-
-                    if (linhasAfetadas > 0) {
-                        retorno = true;
-                    } else {
-                        retorno = false;
-                    }
-                }
+                retorno = true;
 
             } else {
                 retorno = false;
@@ -86,10 +68,12 @@ public class ProdutoDAO {
                 produto.setTipoProduto(rs.getString("TipoProduto"));
                 produto.setQtdProduto(rs.getDouble("QntEstoque"));
                 produto.setVlrUnitario(rs.getDouble("ValorUnitario"));
-                
+                Filial filial = FuncionarioDAO.getFilialPorId(rs.getInt("IdFilial"));
+                produto.setFilial(filial);
+
                 produtos.add(produto);
             }
-            
+
             DbConnectionDAO.closeConnection(connection);
             return produtos;
 
@@ -146,10 +130,12 @@ public class ProdutoDAO {
             Produto produto = new Produto();
 
             while (rs.next()) {
+                Filial filial = FuncionarioDAO.getFilialPorId(rs.getInt("IdFilial"));
                 produto.setNome(rs.getString("Nome"));
                 produto.setTipoProduto("TipoProduto");
                 produto.setQtdProduto(rs.getDouble("QntEstoque"));
                 produto.setVlrUnitario(rs.getDouble("ValorUnitario"));
+                produto.setFilial(filial);
             }
             DbConnectionDAO.closeConnection(connection);
             return produto;
@@ -170,41 +156,22 @@ public class ProdutoDAO {
         try {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement("UPDATE Produto "
-                    + "SET Nome = ?, TipoProduto = ?, QntEstoque = ?, ValorUnitario = ? WHERE IdProduto = ?");
+                    + "SET Nome = ?, TipoProduto = ?, QntEstoque = ?, ValorUnitario = ?, "
+                    + "IdFilial = ? WHERE IdProduto = ?");
 
             comando.setString(1, produto.getNome());
-            comando.setString(2, produto.getTipoProduto());
+            comando.setString(2, produto.getTipo());
             comando.setDouble(3, produto.getQtdProduto());
             comando.setDouble(4, produto.getVlrUnitario());
-            comando.setInt(5, produto.getId());
-            
+            comando.setInt(5, produto.getFilial().getId());
+            comando.setInt(6, produto.getId());
+
             int linhasAfetadas = comando.executeUpdate();
 
             if (linhasAfetadas > 0) {
-                comando = connection.prepareStatement("DELETE FROM filial_produto "
-                        + "WHERE IdProduto = ?");
 
-                comando.setInt(1, produto.getId());
-                linhasAfetadas = comando.executeUpdate();
+                retorno = true;
 
-                if (linhasAfetadas > 0) {
-                    for (Filial filial : produto.getFiliais()) {
-                        comando = connection.prepareStatement("INSERT INTO filial_produto "
-                                + "(IdFilial, IdProduto) VALUES (?, ?);");
-                        comando.setInt(1, filial.getId());
-                        comando.setInt(2, produto.getId());
-
-                        linhasAfetadas = comando.executeUpdate();
-
-                        if (linhasAfetadas > 0) {
-                            retorno = true;
-                        } else {
-                            retorno = false;
-                        }
-                    }
-                } else {
-                    retorno = false;
-                }
             } else {
                 retorno = false;
             }

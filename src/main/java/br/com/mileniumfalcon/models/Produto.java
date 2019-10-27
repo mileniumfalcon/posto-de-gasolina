@@ -10,30 +10,30 @@ public class Produto {
 
     private int id;
     private String nome;
-    private String tipoProduto;
+    private String tipo;
     private double qtdProduto;
     private double vlrUnitario;
-    private ArrayList<Filial> filiais;
+    private Filial filial;
 
 
     public Produto() { }
     
-    public Produto(int id, String nome, String tipoProduto, double qtdProduto, double vlrUnitario,
-                   ArrayList<Filial> filiais) {
+    public Produto(int id, String nome, String tipo, double qtdProduto, double vlrUnitario,
+                   Filial filial) {
         this.id = id;
         this.nome = nome;
-        this.tipoProduto = tipoProduto;
+        this.tipo = tipo;
         this.qtdProduto = qtdProduto;
         this.vlrUnitario = vlrUnitario;
-        this.filiais = filiais;
+        this.filial = filial;
     }
-    public Produto(String nome, String tipoProduto, double qtdProduto, double vlrUnitario,
-            ArrayList<Filial> filiais) {
+    public Produto(String nome, String tipo, double qtdProduto, double vlrUnitario,
+            Filial filial) {
         this.nome = nome;
-        this.tipoProduto = tipoProduto;
+        this.tipo = tipo;
         this.qtdProduto = qtdProduto;
         this.vlrUnitario = vlrUnitario;
-        this.filiais = filiais;
+        this.filial = filial;
     }
 
 
@@ -53,12 +53,12 @@ public class Produto {
         this.nome = nome;
     }
 
-    public String getTipoProduto() {
-        return tipoProduto;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setTipoProduto(String tipoProduto) {
-        this.tipoProduto = tipoProduto;
+    public void setTipoProduto(String tipo) {
+        this.tipo = tipo;
     }
 
     public double getVlrUnitario() {
@@ -69,12 +69,12 @@ public class Produto {
         this.vlrUnitario = vlrUnitario;
     }
 
-    public ArrayList<Filial> getFiliais() {
-        return filiais;
+    public Filial getFilial() {
+        return filial;
     }
 
-    public void setFilialFilial(ArrayList<Filial> filiais) {
-        this.filiais = filiais;
+    public void setFilial(Filial filial) {
+        this.filial = filial;
     }
 
     public double getQtdProduto() {
