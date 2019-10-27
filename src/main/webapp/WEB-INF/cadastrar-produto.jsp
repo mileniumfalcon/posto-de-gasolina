@@ -82,7 +82,7 @@
                 <label for="inputEmail" class="col-md-1 offset-md-2">Filial*:</label>
                 <div class="form-check-inline">
                      <c:forEach items="${filiaisAttr}" var="filial">
-                         <input class="form-check-input" type="checkbox" name="filial" id="${filial}" value="${filial}">
+                         <input class="form-check-input" type="radio" name="filial" id="${filial}" value="${filial}" required>
                          <label class="form-check-label" for="filial"><c:out value="${filial}" /></label>
                     </c:forEach>
                 </div>

@@ -34,11 +34,13 @@ public class EditarProdutoServlet extends HttpServlet {
 
         try {
             if (produto != null) {
-                
+
                 request.setAttribute("idAttr", id);
                 request.setAttribute("nomeAttr", produto.getNome());
                 request.setAttribute("precoAttr", produto.getVlrUnitario());
                 request.setAttribute("qntAttr", produto.getQtdProduto());
+                request.setAttribute("tipoAttr", produto.getTipo());
+                request.setAttribute("filialAttr", produto.getFilial().getNome());
             }
 
         } catch (Exception ex) {
@@ -51,6 +53,7 @@ public class EditarProdutoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
 
         int id = Integer.parseInt(request.getParameter("id"));
 
@@ -58,17 +61,12 @@ public class EditarProdutoServlet extends HttpServlet {
         String tipo = request.getParameter("tipo");
         double preco = Double.parseDouble(request.getParameter("preco"));
         double quantidade = Double.parseDouble(request.getParameter("quantidade"));
-        String [] filiaisStr = request.getParameterValues("filial");
-         
-         ArrayList<Filial> filiais = new ArrayList<Filial>();
-         
-         for(String filialStr : filiaisStr) {
-            Filial filial = FuncionarioDAO.getFilial(filialStr);
-            filiais.add(filial);
-         }
+        String filialStr = request.getParameter("filial");
 
-        Produto produto = new Produto(id, nome, tipo, quantidade, preco, filiais);
-        
+        Filial filial = FuncionarioDAO.getFilial(filialStr);
+
+        Produto produto = new Produto(id, nome, tipo, quantidade, preco, filial);
+
         boolean editou = ProdutoDAO.editar(produto);
 
         if (editou) {

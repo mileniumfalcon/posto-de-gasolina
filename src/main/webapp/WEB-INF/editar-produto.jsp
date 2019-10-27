@@ -52,10 +52,10 @@
                 <label for="inputTipo" class="col-md-1 offset-md-2">Tipo*:</label>
                 <div class="col-sm-4">
                     <select name="tipo" id="tipo" class="form-control">
-                        <option selected>Outros</option>
-                        <option>Combustivel</option>
-                        <option>Acessórios</option>
-                        <option>Óleo</option>
+                        <option ${tipoAttr != 'Combustivel' ? '' : 'selected'}>Combustivel</option>
+                        <option ${tipoAttr != 'Acessórios' ? '' : 'selected'}>Acessórios</option>
+                        <option ${tipoAttr != 'Óleo' ? '' : 'selected'}>Óleo</option>
+                        <option ${tipoAttr != 'Outros' ? '' : 'selected'}>Outros</option>
                     </select>
                     <div class="invalid-feedback">
                         Selecione um tipo
@@ -84,7 +84,7 @@
                 <label for="inputEmail" class="col-md-1 offset-md-2">Filial*:</label>
                 <div class="form-check-inline">
                      <c:forEach items="${filiaisAttr}" var="filial">
-                         <input class="form-check-input" type="checkbox" name="filial" id="${filial}" value="${filial}">
+                         <input class="form-check-input" type="radio" ${filialAttr != filial ? '' : 'checked'} name="filial" id="${filial}" value="${filial}">
                          <label class="form-check-label" for="filial"><c:out value="${filial}" /></label>
                     </c:forEach>
                 </div>

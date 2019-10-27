@@ -7,10 +7,13 @@ package br.com.mileniumfalcon.controllers;
 
 import br.com.mileniumfalcon.dao.FilialDAO;
 import java.io.IOException;
+<<<<<<< refs/remotes/origin/dev:src/main/java/br/com/mileniumfalcon/controllers/ExcluirFilialServlet.java
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+=======
+>>>>>>> produto possui apenas uma filial:src/main/java/br/com/mileniumfalcon/controllers/ExcluirClienteServlet.java
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

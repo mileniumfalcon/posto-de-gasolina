@@ -40,6 +40,7 @@ public class EditarJuridicoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         
         int id = Integer.parseInt(request.getParameter("id"));
         String nome = request.getParameter("nome");
