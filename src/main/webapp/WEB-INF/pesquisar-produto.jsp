@@ -23,19 +23,20 @@
             <h1>Pesquisar Produto</h1>
         </div>
 
-        <ul class="nav flex-column">
+        <ul class="nav flex-column" style="float: left">
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/backoffice/cadastrar-produto">Cadastrar Produto</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/backoffice/pesquisar-produto">Pesquisar Produto</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item nav-item-last">
                 <a class="nav-link" href="#">Visualizar Vendas</a>
             </li>
         </ul>
-        <div style="float: left; margin-top: 0px; width: 203px; height: 640px; background-color: black;"></div>
+        
         <form method="get" action="${pageContext.request.contextPath}/backoffice/pesquisa-de-produto" class="needs-validation" novalidate>
+            <br>
             <div class="form-group row">
                 <label for="inputNome" class="col-md-1 offset-md-2">Nome:</label>
                 <div class="col-sm-4">
@@ -76,10 +77,10 @@
                         <td><c:out value="${produto.getVlrUnitario()}"/></td>
                         <td> <c:out value="${produto.getQtdProduto()}"/></td>
                         <td><a data-method="get" href="${pageContext.request.contextPath}/backoffice/editar-produto?id=${produto.getId()}" class="btn btn-primary mb-1" >Editar</a></td>
-                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${produto.getNome()}">Excluir</button></td> 
+                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#p${produto.getId()}">Excluir</button></td> 
                      </tr>  
                 </tbody>
-                <div class="modal fade" id="${produto.getNome()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="p${produto.getId()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-body">
@@ -102,25 +103,9 @@
         </c:if>
     </body>
     
-      <script>
-        (function () {
-            'use strict';
-            window.addEventListener('load', function () {
-                var forms = document.getElementsByClassName('needs-validation');
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
-    </script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 </html>

@@ -23,18 +23,19 @@
             <h1>Pesquisar Funcionário</h1>
         </div>
 
-        <ul class="nav flex-column">
+        <ul class="nav flex-column" style="float: left;">
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/rh/cadastrar-funcionario">Cadastrar Funcionário</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item nav-item-last">
                 <a class="nav-link" href="${pageContext.request.contextPath}/rh/pesquisar-funcionario">Pesquisar Funcionário</a>
             </li>
         </ul>
             
         <form method="get" action="${pageContext.request.contextPath}/rh/pesquisa-de-funcionario" class="needs-validation" novalidate>
+            <br>
             <div class="form-group row">
-              <label for="inputCpf" class="col-md-1 offset-md-3">CPF:</label>
+              <label for="inputCpf" class="col-md-1 offset-md-2">CPF:</label>
               <div class="col-sm-4">
                 <input type="text" class="form-control" name="cpf" id="inputCpf" placeholder="Digite o cpf do funcionário" onkeypress="$(this).mask('000.000.000-00');" required>
                  <div class="invalid-feedback">
@@ -96,24 +97,7 @@
             </c:if>
             
     </body>
-    <div style="margin-top: -180px; width: 203px; height: 640px; background-color: black;"></div>
-    <script>
-        (function() {
-          'use strict';
-          window.addEventListener('load', function() {
-            var forms = document.getElementsByClassName('needs-validation');
-            var validation = Array.prototype.filter.call(forms, function(form) {
-              form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                  event.preventDefault();
-                  event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-              }, false);
-            });
-          }, false);
-        })();
-    </script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

@@ -23,7 +23,7 @@
           <h1>Painel Vendas</h1>
       </div>
       
-      <ul class="nav flex-column">
+      <ul class="nav flex-column" style="float: left;">
         <li class="nav-item">
           <a class="nav-link" href="#">Realizar Venda</a>
         </li>
@@ -33,27 +33,25 @@
         <li class="nav-item">
           <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/cadastrar-juridico">Cadastrar Pessoa Juridica</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item nav-item-last">
           <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/pesquisar-cliente">Pesquisar Cliente</a>
         </li>
       </ul>
         
       <c:if test="${criadoAttr}">
-          <div class="alert alert-success" style="margin-top: -100px;">
+          <div class="alert alert-success">
               Cliente cadastrado com sucesso!
           </div>
       </c:if>
         <c:if test="${editadoAttr}">
-          <div class="alert alert-success" style="margin-top: -100px;">
+          <div class="alert alert-success">
               Cliente editado com sucesso!
           </div>
       </c:if>
       <c:if test="${excluidoAttr}">
-          <div class="alert alert-success" style="margin-top: -100px;">
+          <div class="alert alert-success">
               Cliente excluido com sucesso!
           </div>
       </c:if>  
-        
-      <div style="margin-top: -100px; width: 203px; height: 640px; background-color: black;"></div>
   </body>
 </html>

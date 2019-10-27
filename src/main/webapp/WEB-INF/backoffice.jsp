@@ -23,14 +23,14 @@
           <h1>Painel BackOffice</h1>
       </div>
       
-      <ul class="nav flex-column">
+      <ul class="nav flex-column" style="float: left;">
         <li class="nav-item">
           <a class="nav-link" href="${pageContext.request.contextPath}/backoffice/cadastrar-produto">Cadastrar Produto</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="${pageContext.request.contextPath}/backoffice/pesquisar-produto">Pesquisar Produto</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item nav-item-last"">
           <a class="nav-link" href="#">Visualizar Vendas    </a>
         </li>
       </ul>
@@ -50,7 +50,5 @@
               Produto editado com sucesso!
           </div>
       </c:if>
-        
-      <div style="margin-top: -100px; width: 203px; height: 640px; background-color: black;"></div>
   </body>
 </html>
