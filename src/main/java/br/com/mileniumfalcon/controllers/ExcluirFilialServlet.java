@@ -7,7 +7,6 @@ package br.com.mileniumfalcon.controllers;
 
 import br.com.mileniumfalcon.dao.FilialDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ExcluirFilialServlet", urlPatterns = {"//filial/excluir-filial"})
 public class ExcluirFilialServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -36,7 +36,7 @@ public class ExcluirFilialServlet extends HttpServlet {
 
         int id = Integer.parseInt(request.getParameter("id"));
         boolean excluiu;
-        
+
         try {
             excluiu = FilialDAO.excluirFilial(id);
 
