@@ -2,10 +2,8 @@
 # Edit at https://www.gitignore.io/?templates=maven,windows,java-web,netbeans
 
 ### Java-Web ###
-## ignoring target file
-target/
-
 ### Maven ###
+target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -17,6 +15,7 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 .flattened-pom.xml
 
+# End of https://www.gitignore.io/api/maven
 ### NetBeans ###
 **/nbproject/private/
 **/nbproject/Makefile-*.mk
