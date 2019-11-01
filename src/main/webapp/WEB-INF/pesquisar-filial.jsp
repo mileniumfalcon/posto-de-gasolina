@@ -18,7 +18,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <!-- Style CSS --> 
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" media="screen" />
     <title>Posto Tades</title>
   </head>
   <body>
@@ -35,24 +36,24 @@
 
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+        <nav class="col-md-2 d-none d-md-block bg-preto sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <br><br><br><br>
               <li class="nav-item">
-                <a class="nav-link " href="${pageContext.request.contextPath}/diretor/cadastrar-filial">               
+                <a class="nav-link linha " href="${pageContext.request.contextPath}/diretor/cadastrar-filial">               
                   Cadastrar filial 
                 </a>
                 <br><br><br><br><br><br>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="${pageContext.request.contextPath}/diretor/pesquisar-filial">
+                <a class="nav-link active linha" href="${pageContext.request.contextPath}/diretor/pesquisar-filial">
                  Pesquisar Filial
                 </a>
               </li>
               <br><br><br><br><br><br>
 
-<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/diretor/relatorio-filial">
+<li class="nav-item"><a class="nav-link linha" href="${pageContext.request.contextPath}/diretor/relatorio-filial">
 Emitir Relatório
  </a>
 </li><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>     
@@ -106,10 +107,28 @@ Emitir Relatório
                         <td> <c:out value="${estadofilial}"/></td>
                         <td> <c:out value="${cepfilial}"/></td>
                         <td><a data-method="get" href="${pageContext.request.contextPath}/diretor/editar-filial?id=${idfilial}" class="btn btn-primary mb-1" >Editar</a></td>
-                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmar">Excluir</button></td>    
+                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#p${filial.getId()}">Excluir</button></td>   
                     </tr>
                 </tbody>
             </table>
+                    
+                    <!-- Modal de Confirmação de Exclusão-->
+                       <div class="modal fade" id="p${filial.getId()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-body">
+                          Tem certeza que deseja excluir a Filial <c:out value="${filial.getNome()}"/>
+                      </div>
+                      <div class="modal-footer">
+                        <form action="${pageContext.request.contextPath}/diretor/excluir-filial" method="post">
+                            <button class="btn btn-success" type="submit" name="id" id="confirmDeleteButton" value="${idfilial}">Confirmar</button>
+                        </form>
+                        
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
              </c:if>
         </main>
     <!-- Principal JavaScript do Bootstrap

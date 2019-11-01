@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Victor
  */
-@WebServlet(name = "ExcluirFilialServlet", urlPatterns = {"//filial/excluir-filial"})
+@WebServlet(name = "ExcluirFilialServlet", urlPatterns = {"/diretor/excluir-filial"})
 public class ExcluirFilialServlet extends HttpServlet {
 
     @Override
@@ -33,7 +33,7 @@ public class ExcluirFilialServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+String uiID = request.getParameter("id");
         int id = Integer.parseInt(request.getParameter("id"));
         boolean excluiu;
 

@@ -1,0 +1,27 @@
+.nav-link{
+color: white;
+font-size: large;
+font-family: sans-serif;
+    }
+    
+    .active{
+        color: grey;
+        
+    }
+    
+    .bg-preto {
+      background-color: black;
+        
+    }
+
+    .linha{
+     
+        border-style: solid;
+  border-bottom-width: 5px;
+  border-top-width: 0;
+  border-right-width: 0;
+  border-left-width: 0;
+            border-color: orange;
+        
+        
+    }

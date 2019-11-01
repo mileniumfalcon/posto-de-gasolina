@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <!-- Meta tags ObrigatÃ³rias -->
+
   <!-- HTML 4 -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- HTML5 -->
@@ -13,41 +13,42 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+       <!-- Style CSS --> 
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" media="screen" />
     <title>Posto Tades</title>
   </head>
   <body>
       
   
     <nav class="navbar navbar-dark fixed-top bg-warning  flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Postos Tades</a>
-          <ul class="navbar-nav px-3">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0 " href="#">Postos Tades</a>
+          <ul class="navbar-nav px-3 ">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sair</a>
+          <a class="nav-link " href="#">Sair</a>
         </li>
       </ul>
     </nav>
 
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+        <nav class="col-md-2 d-none d-md-block bg-preto sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <br><br><br><br>
-              <li class="nav-item">
-                <a class="nav-link active" href="${pageContext.request.contextPath}/diretor/cadastrar-filial">               
+              <li class="nav-item ">
+                <a class="nav-link active linha " href="${pageContext.request.contextPath}/diretor/cadastrar-filial">               
                   Cadastrar filial 
                 </a>
                 <br><br><br><br><br><br>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/diretor/pesquisar-filial">
+                <a class="nav-link linha" href="${pageContext.request.contextPath}/diretor/pesquisar-filial">
                  Pesquisar Filial
                 </a>
               </li>
               <br><br><br><br><br><br>
 
-<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/diretor/relatorio-filial">
+<li class="nav-item"><a class="nav-link linha" href="${pageContext.request.contextPath}/diretor/relatorio-filial">
 Emitir Relatório
  </a>
 </li><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>     
@@ -134,40 +135,18 @@ Emitir Relatório
             </div>
         </form>       
         </main>
-    <!-- Principal JavaScript do Bootstrap
-    ================================================== -->
-    <!-- Foi colocado no final para a pÃ¡gina carregar mais rÃ¡pido -->
+     
+    <!-- Script Principal da Pagina================================================== -->    
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
+   <!-- Principal JavaScript do Bootstrap================================================== -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="../../assets/js/vendor/popper.min.js"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>
-
-   <script>
-    (function() {
-      'use strict';
-      window.addEventListener('load', function() {
-        var forms = document.getElementsByClassName('needs-validation');
-        var validation = Array.prototype.filter.call(forms, function(form) {
-          form.addEventListener('submit', function(event) {
-            if (form.checkValidity() === false) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-            form.classList.add('was-validated');
-          }, false);
-        });
-      }, false);
-    })();
-   </script>
-    <script>
-      feather.replace();
-    </script>
-
-
     <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
->>>>>>> pesquisar e editar filial
+
 </html>
