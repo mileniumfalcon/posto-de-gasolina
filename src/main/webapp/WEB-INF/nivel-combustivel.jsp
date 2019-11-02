@@ -12,7 +12,7 @@
   </head>
   <header>
       <nav class="navbar navbar-light nav-color">
-      <a class="navbar-brand" href="${pageContext.request.contextPath}/gerente-vendas">Postos Tades</a>
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/gerente-vendas"><i class="fas fa-gas-pump"></i> Postos Tades</a>
       <div class="nav-item text-nowrap">
           <a class="nav-link" href="#">Sair</a>
       </div>
@@ -34,7 +34,6 @@
           <a class="nav-link" href="${pageContext.request.contextPath}/gerente-vendas/nivel-combustivel">Nível de Combustível</a>
         </li>
       </ul>
-        
-      
   </body>
+  <script src="https://kit.fontawesome.com/1803175e4f.js" crossorigin="anonymous"></script>
 </html>

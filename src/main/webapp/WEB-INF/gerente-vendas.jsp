@@ -12,7 +12,7 @@
   </head>
   <header>
       <nav class="navbar navbar-light nav-color">
-      <a class="navbar-brand">Postos Tades</a>
+      <a class="navbar-brand"><i class="fas fa-gas-pump"></i> Postos Tades</a>
       <div class="nav-item text-nowrap">
           <a class="nav-link" href="#">Sair</a>
       </div>
@@ -41,4 +41,5 @@
           </div>
       </c:if>
   </body>
+  <script src="https://kit.fontawesome.com/1803175e4f.js" crossorigin="anonymous"></script>
 </html>
