@@ -12,6 +12,7 @@
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/controllers/EditarFisicoServlet.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/controllers/RhServlet.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/controllers/FormularioPesquisarFuncionarioServlet.java
+/home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/controllers/FormularioPesquisarVendasGerenteServlet.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/models/Rh.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/controllers/ExcluirFuncionarioServlet.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/models/Cliente.java
@@ -35,6 +36,7 @@
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/dao/DbConnectionDAO.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/controllers/CadastrarFuncionarioServlet.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/dao/ProdutoDAO.java
+/home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/controllers/GerenteVendasServlet.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/models/Filial.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/dao/FuncionarioDAO.java
 /home/erick/workspace/posto-de-gasolina/src/main/java/br/com/mileniumfalcon/controllers/EditarFilial.java
