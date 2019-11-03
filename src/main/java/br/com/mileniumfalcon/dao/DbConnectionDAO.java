@@ -25,7 +25,7 @@ public class DbConnectionDAO {
     //dev
     private static final String URL = "jdbc:mysql://" + SERVER + "/" + DATABASE + "?useTimezone=true&serverTimezone=UTC";
     private static final String LOGIN = "root";
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD = "";
 
     public static Connection openConnection() throws SQLException, ClassNotFoundException {
         try {

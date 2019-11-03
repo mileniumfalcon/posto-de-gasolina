@@ -81,7 +81,7 @@ Emitir Relatório
                 </div>
             </div>
         </form> 
- <c:if test="${naoEncontradoAttr}">
+ <c:if test="${naoEncontradoAttr == true}">
             <div class="alert alert-danger">
                Filial não encontrada
             </div>
