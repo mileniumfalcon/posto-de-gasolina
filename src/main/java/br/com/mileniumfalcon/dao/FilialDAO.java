@@ -51,7 +51,7 @@ public class FilialDAO {
 
         try {
             connection = DbConnectionDAO.openConnection();
-            PreparedStatement comando = connection.prepareStatement("insert into filial(Nome,Estado,Endereco,CEP)" + " values (?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement comando = connection.prepareStatement("insert into Filial(Nome,Estado,Endereco,CEP)" + " values (?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
 
             comando.setString(1, filial.getNome());
             comando.setString(2, filial.getEstado());
@@ -85,7 +85,7 @@ public class FilialDAO {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement("SELECT IdFilial, Nome, Endereco, Estado, CEP "
                     + "FROM Filial WHERE Nome LIKE ?");
-            comando.setString(1, "%" + nome + "%");
+            comando.setString(1,  nome + "%");
             ResultSet rs = comando.executeQuery();
 
             Filial filial = new Filial();
@@ -127,7 +127,7 @@ public class FilialDAO {
             comando.setString(2, filial.getEndereco());
             comando.setString(3, filial.getCep());
             comando.setString(4, filial.getEstado());
-            comando.setString(4, filial.getEndereco());
+            comando.setString(5, filial.getEndereco());
             comando.setInt(6, filial.getId());
 
             int linhasAfetadas = comando.executeUpdate();
@@ -136,6 +136,7 @@ public class FilialDAO {
 
         } catch (ClassNotFoundException ex) {
             editada = false;
+            System.out.println(ex);
 
         } catch (SQLException ex) {
             System.out.println(ex);

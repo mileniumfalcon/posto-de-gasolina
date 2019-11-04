@@ -55,7 +55,8 @@ public class EditarFilial extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/filial.jsp");
             dispatcher.forward(request, response);
         } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/editar-filial.jsp");
+ request.setAttribute("editadoAttr", false);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/filial.jsp");
             dispatcher.forward(request, response);
         }
 

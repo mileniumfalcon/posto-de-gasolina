@@ -20,7 +20,7 @@ public class DbConnectionDAO {
 
     //victor
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String SERVER = "localhost:3306";
+    private static final String SERVER = "localhost:3308";
     private static final String DATABASE = "postostades";
     //dev
     private static final String URL = "jdbc:mysql://" + SERVER + "/" + DATABASE + "?useTimezone=true&serverTimezone=UTC";
@@ -47,3 +47,4 @@ public class DbConnectionDAO {
         }
     }
 }
+

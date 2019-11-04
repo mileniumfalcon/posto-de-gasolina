@@ -12,47 +12,50 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+         <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Style CSS --> 
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" media="screen" />
+   
         <title>Posto Tades</title>
     </head>
     <body>
 
-        <nav class="navbar navbar-dark fixed-top bg-warning  flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Postos Tades</a>
-            <ul class="navbar-nav px-3">
-                <li class="nav-item text-nowrap">
-                    <a class="nav-link" href="#">Sair</a>
-                </li>
+    <nav class="navbar navbar-dark fixed-top bg-warning  flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Postos Tades</a>
+          <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">Sair</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-preto sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <br><br><br><br>
+              <li class="nav-item">
+                <a class="nav-link linha " href="${pageContext.request.contextPath}/diretor/cadastrar-filial">               
+                  Cadastrar filial 
+                </a>
+                <br><br><br><br><br><br>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active linha" href="${pageContext.request.contextPath}/diretor/pesquisar-filial">
+                 Pesquisar Filial
+                </a>
+              </li>
+              <br><br><br><br><br><br>
+
+<li class="nav-item"><a class="nav-link linha" href="${pageContext.request.contextPath}/diretor/relatorio-filial">
+Emitir Relatório
+ </a>
+</li><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>     
             </ul>
+          </div>
         </nav>
-
-        <div class="container-fluid">
-            <div class="row">
-                <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
-                    <div class="sidebar-sticky">
-                        <ul class="nav flex-column">
-                            <br><br><br><br>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="${pageContext.request.contextPath}/diretor/cadastrar-filial">               
-                                    Cadastrar filial 
-                                </a>
-                                <br><br><br><br><br><br>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/diretor/pesquisar-filial">
-                                    Pesquisar Filial
-                                </a>
-                            </li>
-                            <br><br><br><br><br><br>
-
-                            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/diretor/relatorio-filial">
-                                    Emitir Relatório
-                                </a>
-                            </li><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>     
-                        </ul>
-                    </div>
-                </nav>
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                         <br> <br><br><br><br><br><br><br><br><br><br>
@@ -71,7 +74,7 @@
                             Filial editado com sucesso!
                         </div>
                     </c:if>
-                    <c:if test="${excluidoAttr}">
+                    <c:if test="${deletadoAttr}">
                         <div class="alert alert-success">
                             Filial excluido com sucesso!
                         </div>
