@@ -1,10 +1,7 @@
 package br.com.mileniumfalcon.dao;
 
 import br.com.mileniumfalcon.models.Filial;
-import br.com.mileniumfalcon.models.PessoaFisica;
-import br.com.mileniumfalcon.models.PessoaJuridica;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,9 +11,37 @@ import java.sql.Statement;
  *
  * @author Victor
  */
-
-
 public class FilialDAO {
+
+    public static Filial pesquisarFilialPorID(int id) {
+        Connection connection = null;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("SELECT IdFilial, Nome, Estado, Endereco, CEP FROM Filial WHERE IdFilial = ?");
+            comando.setInt(1, id);
+            ResultSet rs = comando.executeQuery();
+
+            Filial filial = new Filial();
+
+            while (rs.next()) {
+                filial.setId(rs.getInt("IdFilial"));
+                filial.setNome(rs.getString("Nome"));
+                filial.setEstado(rs.getString("Estado"));
+                filial.setEndereco(rs.getString("Endereco"));
+                filial.setCep(rs.getString("Cep"));
+            }
+
+            DbConnectionDAO.closeConnection(connection);
+            return filial;
+
+        } catch (ClassNotFoundException ex) {
+            return null;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
 
     private DbConnectionDAO dbConnection = new DbConnectionDAO();
 
@@ -26,7 +51,7 @@ public class FilialDAO {
 
         try {
             connection = DbConnectionDAO.openConnection();
-            PreparedStatement comando = connection.prepareStatement("insert into filial(Nome,Estado,Endereco,CEP)" + " values (?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement comando = connection.prepareStatement("insert into Filial(Nome,Estado,Endereco,CEP)" + " values (?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
 
             comando.setString(1, filial.getNome());
             comando.setString(2, filial.getEstado());
@@ -60,7 +85,7 @@ public class FilialDAO {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement("SELECT IdFilial, Nome, Endereco, Estado, CEP "
                     + "FROM Filial WHERE Nome LIKE ?");
-            comando.setString(1, "%" + nome + "%");
+            comando.setString(1,  nome + "%");
             ResultSet rs = comando.executeQuery();
 
             Filial filial = new Filial();
@@ -89,7 +114,7 @@ public class FilialDAO {
 
     public static boolean editarFilial(Filial filial) {
         Connection connection = null;
-        boolean retorno;
+        boolean editada;
 
         try {
             connection = DbConnectionDAO.openConnection();
@@ -102,29 +127,24 @@ public class FilialDAO {
             comando.setString(2, filial.getEndereco());
             comando.setString(3, filial.getCep());
             comando.setString(4, filial.getEstado());
-            comando.setString(4, filial.getEndereco());
+            comando.setString(5, filial.getEndereco());
             comando.setInt(6, filial.getId());
 
             int linhasAfetadas = comando.executeUpdate();
 
-            if (linhasAfetadas > 0) {
-
-                retorno = true;
-
-            } else {
-                retorno = false;
-            }
+            editada = linhasAfetadas > 0;
 
         } catch (ClassNotFoundException ex) {
-            retorno = false;
+            editada = false;
+            System.out.println(ex);
 
         } catch (SQLException ex) {
             System.out.println(ex);
-            retorno = false;
+            editada = false;
         }
 
         DbConnectionDAO.closeConnection(connection);
-        return retorno;
+        return editada;
 
     }
 

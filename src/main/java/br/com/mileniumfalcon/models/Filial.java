@@ -22,6 +22,14 @@ public class Filial {
     public Filial() {
     }
 
+    public Filial(int id, String nome, String endereco, String cep, String estado) {
+        this.id = id;
+        this.cep = cep;
+        this.endereco = endereco;
+        this.nome = nome;
+        this.estado = estado;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -63,4 +71,3 @@ public class Filial {
     }
 
 }
-
