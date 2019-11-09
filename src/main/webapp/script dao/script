@@ -81,7 +81,7 @@ CREATE TABLE Venda(
 IdVenda INT(11) AUTO_INCREMENT NOT NULL,
 ValorTotal DOUBLE NOT NULL,
 DataVenda DATE NOT NULL,
-IdCliente INT(11) NOT NULL,
+IdCliente INT(11),
 IdFilial INT(11) NOT NULL,
 PRIMARY KEY(IdVenda),
 FOREIGN KEY (IdCliente) REFERENCES Cliente(IdCliente),
