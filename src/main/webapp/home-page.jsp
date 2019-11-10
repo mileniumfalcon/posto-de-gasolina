@@ -17,31 +17,7 @@
           <h1><i class="fas fa-gas-pump"></i> Postos Tades</h1>
       </div>
       <br>
-      <form method="get" action="${pageContext.request.contextPath}/" class="needs-validation" novalidate>
-          <h2 class="page-title">Login</h2>
-            <br>
-            <div class="form-group row">
-                <label for="inputEmail" class="col-md-1 offset-md-4">Email: </label>
-                <div class="col-sm-3">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="fulano@email.com" required>
-                    <div class="invalid-feedback">
-                        Digite um endereço de email
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="inputSenha" class="col-md-1 offset-md-4">Senha: </label>
-                <div class="col-sm-3">
-                    <input type="password" class="form-control" name="senha" id="senha" placeholder="*****" required>
-                    <div class="invalid-feedback">
-                        Digite uma data específica
-                    </div>
-                </div>
-            </div>
-            <br>
-            <button class="btn btn-lg btn-primary col-md-2 offset-md-5" type="submit">Login</button>
-            <br>
-        </form>
+      <h2>Teste Home</h2>
   </body>
   <script src="https://kit.fontawesome.com/1803175e4f.js" crossorigin="anonymous"></script>
 </html>

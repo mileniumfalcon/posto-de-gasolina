@@ -32,6 +32,8 @@ public class Usuario {
         this.senha = senha;
     }
     
-    
+    public boolean validarSenha(String senha) {
+        return this.senha.equals(senha);
+    }
     
 }

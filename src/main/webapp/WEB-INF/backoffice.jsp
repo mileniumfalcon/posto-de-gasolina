@@ -14,7 +14,7 @@
       <nav class="navbar navbar-light nav-color">
       <a class="navbar-brand"><i class="fas fa-gas-pump"></i> Postos Tades</a>
       <div class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sair</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/logout">Sair</a>
       </div>
     </nav>
   </header>
