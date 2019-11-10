@@ -3,7 +3,6 @@ package br.com.mileniumfalcon.controllers;
 import br.com.mileniumfalcon.dao.UsuarioDAO;
 import br.com.mileniumfalcon.models.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +25,7 @@ public class LoginServlet extends HttpServlet {
         
         if (sessao.getAttribute("usuario") != null) {
             Usuario usuario = (Usuario) sessao.getAttribute("usuario");
-            String url = "/" + usuario.getClass().getSimpleName().toLowerCase();
+            String url = usuario.montarUrl();
             
             response.sendRedirect(request.getContextPath() + url);
             return;
@@ -48,7 +47,7 @@ public class LoginServlet extends HttpServlet {
         if (usuario != null && usuario.validarSenha(senha)) {
             HttpSession sessao = request.getSession();
             sessao.setAttribute("usuario", usuario);
-            String url = "/" + usuario.getClass().getSimpleName().toLowerCase();
+            String url = usuario.montarUrl();
             
             response.sendRedirect(request.getContextPath() + url);
             

@@ -36,4 +36,18 @@ public class Usuario {
         return this.senha.equals(senha);
     }
     
+    public boolean verificarFuncao(String funcao) {
+        return this.getClass().getSimpleName().equals(funcao);
+    }
+    
+    public String montarUrl() {
+        String funcao = this.getClass().getSimpleName();
+        
+        if (funcao.equalsIgnoreCase("GerenteVendas")) {
+            return "/gerente-vendas";
+        }
+        
+        return "/" + funcao;
+    }
+    
 }

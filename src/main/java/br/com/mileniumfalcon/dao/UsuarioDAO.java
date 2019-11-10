@@ -8,6 +8,7 @@ package br.com.mileniumfalcon.dao;
 import br.com.mileniumfalcon.models.BackOffice;
 import br.com.mileniumfalcon.models.Diretor;
 import br.com.mileniumfalcon.models.Funcionario;
+import br.com.mileniumfalcon.models.GerenteVendas;
 import br.com.mileniumfalcon.models.Rh;
 import br.com.mileniumfalcon.models.Usuario;
 import br.com.mileniumfalcon.models.Vendedor;
@@ -43,8 +44,10 @@ public class UsuarioDAO {
                     usuario = new BackOffice();
                 } else if (rs.getString("tipo").equals("Diretor")) {
                     usuario = new Diretor();
-                } else {
+                } else if (rs.getString("tipo").equals("Vendedor")){
                     usuario = new Vendedor();
+                } else {
+                    usuario = new GerenteVendas();
                 }
 
     
