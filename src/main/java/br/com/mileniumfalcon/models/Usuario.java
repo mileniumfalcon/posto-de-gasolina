@@ -47,7 +47,7 @@ public class Usuario {
             return "/gerente-vendas";
         }
         
-        return "/" + funcao;
+        return "/" + funcao.toLowerCase();
     }
     
 }
