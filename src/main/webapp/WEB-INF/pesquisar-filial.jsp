@@ -77,18 +77,21 @@ Emitir Relatório
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <button type="submit" class="btn btn-primary mb-2">Pesquisar</button>
+                    <button type="submit" class="btn btn-warning mb-2">Pesquisar</button>
                 </div>
             </div>
         </form> 
- <c:if test="${naoEncontradoAttr}">
+ <c:if test="${naoEncontradoAttr == true}">
             <div class="alert alert-danger">
                Filial não encontrada
             </div>
         </c:if>
+           <c:if test="${naoEncontradoAttr == null}">
+
+        </c:if>
 
          <c:if test="${idfilial != null}">
-                 <table class="table table-sm offset-md-2" style="width: 75%;">
+                 <table class="table-borderless table-sm" style="width: 75%;">
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
@@ -97,6 +100,7 @@ Emitir Relatório
                         <th scope="col">Endereço</th>
                         <th scope="col">Cep</th>
                         <th scope="col"></th>
+                          <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -106,8 +110,8 @@ Emitir Relatório
                         <td><c:out value="${enderecofilial}"/></td>
                         <td> <c:out value="${estadofilial}"/></td>
                         <td> <c:out value="${cepfilial}"/></td>
-                        <td><a data-method="get" href="${pageContext.request.contextPath}/diretor/editar-filial?id=${idfilial}" class="btn btn-primary mb-1" >Editar</a></td>
-                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#p${filial.getId()}">Excluir</button></td>   
+                        <td><a data-method="get" href="${pageContext.request.contextPath}/diretor/editar-filial?id=${idfilial}" class="btn btn-warning mb-1" >Editar</a></td>
+                        <td><a class="btn  mb-1 btn-warning" data-toggle="modal" data-target="#p${filial.getId()}">Excluir</a></td>   
                     </tr>
                 </tbody>
             </table>
