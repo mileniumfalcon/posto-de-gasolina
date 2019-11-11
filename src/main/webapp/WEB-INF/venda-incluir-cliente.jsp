@@ -47,7 +47,7 @@
         </li>
       </ul>
       
-        <form method="get" action="${pageContext.request.contextPath}/vendedor/pesquisa-de-cliente" class="needs-validation" novalidate>
+        <form method="post" action="${pageContext.request.contextPath}/vendedor/venda-incluir-cliente" class="needs-validation" novalidate>
             <br>
             <div class="form-group row">
               <label for="inputDoc" class="col-md-1 offset-md-2">CPF/CNPJ:</label>
@@ -58,10 +58,10 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <a data-method="get" href="${pageContext.request.contextPath}/vendedor/#?id=${idAttr}" class="btn btn-primary mb-1" >Incluir</a>
+                  <button class="btn btn-primary" type="submit" name="id">Incluir</button>
                 <br>
                 <br>
-                 <a data-method="get" href="${pageContext.request.contextPath}/vendedor/#?id=${idAttr}" class="btn btn-primary mb-1" >Não Incluir</a>
+                 <a data-method="post" href="${pageContext.request.contextPath}/vendedor/realizar-venda" class="btn btn-primary mb-1" >Não Incluir</a>
               </div>
             </div>
         </form>

@@ -22,18 +22,29 @@ public class ProdutoDAO {
         try {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement("INSERT INTO Produto "
-                    + "(Nome, TipoProduto, QntEstoque, ValorUnitario, IdFilial) "
-                    + "VALUES (?, ?, ?, ?, ?);");
+                    + "(Nome, TipoProduto, QntEstoque, ValorUnitario) "
+                    + "VALUES (?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
             comando.setString(1, produto.getNome());
             comando.setString(2, produto.getTipo());
             comando.setDouble(3, produto.getQtdProduto());
             comando.setDouble(4, produto.getVlrUnitario());
-            comando.setInt(5, produto.getFilial().getId());
+           
 
             int linhasAfetadas = comando.executeUpdate();
-
+            
+            
             if (linhasAfetadas > 0) {
-
+                int idProduto = 0;
+               ResultSet resultSet = comando.getGeneratedKeys();
+               
+               while(resultSet.next()){
+                   idProduto = resultSet.getInt(1);
+               }
+               
+               comando = connection.prepareStatement("INSERT INTO filial_produto"
+                                                            +"(IdFilial, IdProduto) VALUES (?,?);");
+               comando.setInt(1, produto.getFilial().getId());
+               comando.setInt(2, idProduto);
                 retorno = true;
 
             } else {
@@ -59,6 +70,40 @@ public class ProdutoDAO {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement("SELECT * FROM Produto WHERE Nome LIKE ?");
             comando.setString(1, "%" + nome + "%");
+            ResultSet rs = comando.executeQuery();
+
+            while (rs.next()) {
+                Produto produto = new Produto();
+                produto.setId(rs.getInt("IdProduto"));
+                produto.setNome(rs.getString("Nome"));
+                produto.setTipoProduto(rs.getString("TipoProduto"));
+                produto.setQtdProduto(rs.getDouble("QntEstoque"));
+                produto.setVlrUnitario(rs.getDouble("ValorUnitario"));
+//                Filial filial = FuncionarioDAO.getFilialPorId(rs.getInt("IdFilial"));
+//                produto.setFilial(filial);
+
+                produtos.add(produto);
+            }
+
+            DbConnectionDAO.closeConnection(connection);
+            return produtos;
+
+        } catch (ClassNotFoundException ex) {
+            return null;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+     public static ArrayList<Produto> pesquisarProdutos() {
+        ArrayList<Produto> produtos = new ArrayList<Produto>();
+        Connection connection = null;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("SELECT * FROM Produto");
+           
             ResultSet rs = comando.executeQuery();
 
             while (rs.next()) {

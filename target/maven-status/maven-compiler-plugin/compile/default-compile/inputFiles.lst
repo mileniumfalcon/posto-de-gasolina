@@ -1,8 +1,10 @@
 D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controllers\FormularioPesquisarFuncionarioServlet.java
+D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controllers\IncluirClienteServlet.java
 D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controllers\FormularioPesquisarProdutoServlet.java
 D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\models\Produto.java
 D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\dao\FilialDAO.java
 D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controllers\PesquisarClienteServlet.java
+D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controllers\RealizarVenda.java
 D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\dao\DbConnectionDAO.java
 D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controllers\ExcluirClienteServlet.java
 D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\dao\ProdutoDAO.java
@@ -13,7 +15,6 @@ D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\milen
 D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controllers\FormularioPesquisarCliente.java
 D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\models\Funcionario.java
 D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controllers\PesquisarFilialServlet.java
-D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controllers\VendaServlet.java
 D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\models\Rh.java
 D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controllers\EditarFilial.java
 D:\Users\Pablo de Oliveira\Projects\posto-de-gasolina\src\main\java\br\com\mileniumfalcon\controllers\ExcluirFilialServlet.java
