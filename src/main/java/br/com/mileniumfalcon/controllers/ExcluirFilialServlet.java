@@ -42,7 +42,7 @@ String uiID = request.getParameter("id");
 
             if (excluiu) {
                 request.setAttribute("deletadoAttr", true);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/filial.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/diretor.jsp");
                 dispatcher.forward(request, response);
             } else {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pesquisar-filial.jsp");

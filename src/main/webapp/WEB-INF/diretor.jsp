@@ -45,7 +45,7 @@
               Filial editada com sucesso!
           </div>
       </c:if>
-      <c:if test="${excluidoAttr}">
+      <c:if test="${deletadoAttr}">
           <div class="alert alert-success">
               Filial excluida com sucesso!
           </div>

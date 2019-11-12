@@ -52,11 +52,11 @@ public class EditarFilial extends HttpServlet {
         boolean editou = FilialDAO.editarFilial(filial);
         if (editou) {
             request.setAttribute("editadoAttr", true);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/filial.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/diretor.jsp");
             dispatcher.forward(request, response);
         } else {
  request.setAttribute("editadoAttr", false);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/filial.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/diretor.jsp");
             dispatcher.forward(request, response);
         }
 

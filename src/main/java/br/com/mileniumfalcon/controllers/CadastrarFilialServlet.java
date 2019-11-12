@@ -39,7 +39,7 @@ public class CadastrarFilialServlet extends HttpServlet {
         boolean salvou = FilialDAO.insertFilial(filial);
         if (salvou) {
             request.setAttribute("criadoAttr", true);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/filial.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/diretor.jsp");
             dispatcher.forward(request, response);
         } 
         else {
