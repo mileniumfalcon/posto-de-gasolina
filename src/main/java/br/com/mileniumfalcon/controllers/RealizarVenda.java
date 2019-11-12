@@ -29,13 +29,14 @@ public class RealizarVenda extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/realizar-venda.jsp");
-        dispatcher.forward(request, response);
+       
         
         ArrayList<Produto> produto = ProdutoDAO.pesquisarProdutos();
         try{
-            if(!produto.isEmpty()){
+            if(produto!=null){
                
                     request.setAttribute("produtosAttr", produto);
+                     dispatcher.forward(request, response);
                    
             }
         }catch(Exception ex){

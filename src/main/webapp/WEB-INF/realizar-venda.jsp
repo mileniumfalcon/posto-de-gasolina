@@ -43,27 +43,30 @@
                 <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/pesquisar-cliente">Pesquisar Cliente</a>
             </li>
         </ul>
-        <div class="table-wrapper-scroll-y my-custom-scrollbar">
-            <table class="table table-sm offset-md-2" style="width: 35%; margin-top: 70px;">
-                <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Preco</th>
-                        <th scope="col">Quantidade</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach items="${produtosAttr}" var="produto">
+        <form method="get">
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                <table class="table table-sm offset-md-2" style="width: 35%; margin-top: 70px;">
+                    <thead>
                         <tr>
-                            <th> <c:out value="${produto.getId()}"/></th>
-                            <td ><c:out value="${produto.getNome()}"/></td>
-                            <td><c:out value="${produto.getVlrUnitario()}"/></td>
-                            <td> <c:out value="${produto.getQtdProduto()}"/></td>
-                        </tr>  
-                    </tbody>
-                </c:forEach>    
-            </table>
-        </div>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Preco</th>
+                            <th scope="col">Quantidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <c:forEach items="${produtosAttr}" var="produto">
+                            <tr>
+                                <th> <c:out value="${produto.getId()}"/></th>
+                                <td ><c:out value="${produto.getNome()}"/></td>
+                                <td><c:out value="${produto.getVlrUnitario()}"/></td>
+                                <td> <c:out value="${produto.getQtdProduto()}"/></td>
+                            </tr>  
+                        </tbody>
+                    </c:forEach>    
+                </table>
+            </div>
+        </form>
     </body>
 </html>
