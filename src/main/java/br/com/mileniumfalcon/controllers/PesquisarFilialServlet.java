@@ -23,7 +23,8 @@ public class PesquisarFilialServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pesquisar-filial.jsp");
         String nome = request.getParameter("nome");
-
+        request.setAttribute("naoEncontradoAttr", null);
+        if(nome != null){
         Filial filial = FilialDAO.pesquisarFilial(nome);
 
         if (filial.getNome() != null) {
@@ -32,9 +33,10 @@ public class PesquisarFilialServlet extends HttpServlet {
             request.setAttribute("estadofilial", filial.getEstado());
             request.setAttribute("enderecofilial", filial.getEndereco());
             request.setAttribute("cepfilial", filial.getCep());
-        } else {
+            request.setAttribute("naoEncontradoAttr", false);
+        } if(filial.getNome() == null){
             request.setAttribute("naoEncontradoAttr", true);
-        }
+        }}
 
         dispatcher.forward(request, response);
     }

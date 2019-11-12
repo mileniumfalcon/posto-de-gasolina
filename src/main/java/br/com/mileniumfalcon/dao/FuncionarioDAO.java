@@ -4,6 +4,7 @@ import br.com.mileniumfalcon.models.BackOffice;
 import br.com.mileniumfalcon.models.Diretor;
 import br.com.mileniumfalcon.models.Filial;
 import br.com.mileniumfalcon.models.Funcionario;
+import br.com.mileniumfalcon.models.GerenteVendas;
 import br.com.mileniumfalcon.models.Rh;
 import br.com.mileniumfalcon.models.Vendedor;
 import java.sql.Connection;
@@ -76,7 +77,7 @@ public class FuncionarioDAO {
             return null;
         }
     }
-    
+
     public static Filial getFilialPorId(int id) {
         Connection connection = null;
 
@@ -174,7 +175,12 @@ public class FuncionarioDAO {
                 PreparedStatement comando = connection.prepareStatement("INSERT INTO Vendedor "
                         + "(IdFuncionario, Gerente) VALUES (?, ?);");
                 comando.setInt(1, id);
-                comando.setBoolean(2, vendedor.isGerente());
+
+                if (vendedor.getClass().getSimpleName().equals("Vendedor")) {
+                    comando.setBoolean(2, false);
+                } else {
+                    comando.setBoolean(2, true);
+                }
 
                 int linhasAfetadas = comando.executeUpdate();
 
@@ -273,7 +279,12 @@ public class FuncionarioDAO {
                 if (isVendedor) {
                     PreparedStatement comando = connection.prepareStatement("UPDATE Vendedor SET "
                             + "Gerente = ? WHERE IdFuncionario = ?");
-                    comando.setBoolean(1, vendedor.isGerente());
+                    if (vendedor.getClass().getSimpleName().equals("Vendedor")) {
+                        comando.setBoolean(1, false);
+                    } else {
+                        comando.setBoolean(1, true);
+                    }
+
                     comando.setInt(2, id);
 
                     int linhasAfetadas = comando.executeUpdate();
@@ -297,7 +308,12 @@ public class FuncionarioDAO {
                     PreparedStatement comando = connection.prepareStatement("INSERT INTO Vendedor "
                             + "(IdFuncionario, Gerente) VALUES (?, ?);");
                     comando.setInt(1, id);
-                    comando.setBoolean(2, vendedor.isGerente());
+                    
+                    if (vendedor.getClass().getSimpleName().equals("Vendedor")) {
+                        comando.setBoolean(2, false);
+                    } else {
+                        comando.setBoolean(2, true);
+                    }
 
                     int linhasAfetadas = comando.executeUpdate();
 
@@ -384,8 +400,10 @@ public class FuncionarioDAO {
                     funcionario = new BackOffice();
                 } else if (rs.getString("tipo").equals("Diretor")) {
                     funcionario = new Diretor();
-                } else {
+                } else if (rs.getString("tipo").equals("Vendedor")) {
                     funcionario = new Vendedor();
+                } else {
+                    funcionario = new GerenteVendas();
                 }
 
                 funcionario.setId(rs.getInt("IdFuncionario"));
@@ -428,8 +446,10 @@ public class FuncionarioDAO {
                     funcionario = new BackOffice();
                 } else if (rs.getString("tipo").equals("Diretor")) {
                     funcionario = new Diretor();
-                } else {
+                } else if (rs.getString("tipo").equals("Vendedor")){
                     funcionario = new Vendedor();
+                } else {
+                    funcionario = new GerenteVendas();
                 }
 
                 funcionario.setId(rs.getInt("IdFuncionario"));
