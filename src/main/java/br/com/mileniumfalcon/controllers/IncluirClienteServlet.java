@@ -36,14 +36,13 @@ public class IncluirClienteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sessao = request.getSession();
-      String documento = request.getParameter("documento");
+        String documento = request.getParameter("documento");
         
         try{
             Cliente cliente = ClienteDAO.pesquisarPorDocumento(documento);
-            if(cliente!=null){ //?id=${idAttr}
-              response.sendRedirect(request.getContextPath()+"/vendedor/realizar-venda?id=" + cliente.getId());
-                
-            }
+            if(cliente!=null){ 
+              response.sendRedirect(request.getContextPath()+"/vendedor/realizar-venda?idCliente=" + cliente.getId());
+             }
         }catch(Exception e){
             
         }

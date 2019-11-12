@@ -24,7 +24,7 @@
       </div>
       <ul class="nav flex-column" style="float: left;">
         <li class="nav-item">
-          <a class="nav-link" href="#">Realizar Venda</a>
+          <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/venda-incluir-cliente">Realizar Venda</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/cadastrar-fisico">Cadastrar Pessoa Física</a>

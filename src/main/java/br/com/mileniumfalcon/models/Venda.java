@@ -5,6 +5,7 @@
  */
 package br.com.mileniumfalcon.models;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -14,21 +15,21 @@ import java.util.Date;
 public class Venda {
    private int idVenda;
    private double valorTotal;
-   private Date dataVenda;
+   private Timestamp dataVenda;
    private int idCliente;
    private int idFilial;
 
     public Venda() {
     }
 
-    public Venda(double valorTotal, Date dataVenda, int idCliente, int idFilial) {
+    public Venda(double valorTotal, Timestamp dataVenda, int idCliente, int idFilial) {
         this.valorTotal = valorTotal;
         this.dataVenda = dataVenda;
         this.idCliente = idCliente;
         this.idFilial = idFilial;
     }
 
-    public Venda(double valorTotal, Date dataVenda, int idFilial) {
+    public Venda(double valorTotal, Timestamp dataVenda, int idFilial) {
         this.valorTotal = valorTotal;
         this.dataVenda = dataVenda;
         this.idFilial = idFilial;
@@ -54,11 +55,11 @@ public class Venda {
         this.valorTotal = valorTotal;
     }
 
-    public Date getDataVenda() {
+    public Timestamp getDataVenda() {
         return dataVenda;
     }
 
-    public void setDataVenda(Date dataVenda) {
+    public void setDataVenda(Timestamp dataVenda) {
         this.dataVenda = dataVenda;
     }
 

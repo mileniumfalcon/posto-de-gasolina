@@ -22,31 +22,18 @@ public class ProdutoDAO {
         try {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement("INSERT INTO Produto "
-                    + "(Nome, TipoProduto, QntEstoque, ValorUnitario) "
-                    + "VALUES (?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+                    + "(Nome, TipoProduto, QntEstoque, ValorUnitario, IdFilial) "
+                    + "VALUES (?, ?, ?, ?, ?);");
             comando.setString(1, produto.getNome());
             comando.setString(2, produto.getTipo());
             comando.setDouble(3, produto.getQtdProduto());
             comando.setDouble(4, produto.getVlrUnitario());
-           
+            comando.setInt(5, produto.getFilial().getId());
 
             int linhasAfetadas = comando.executeUpdate();
-            
-            
-            if (linhasAfetadas > 0) {
-                int idProduto = 0;
-               ResultSet resultSet = comando.getGeneratedKeys();
-               
-               while(resultSet.next()){
-                   idProduto = resultSet.getInt(1);
-               }
-               
-               comando = connection.prepareStatement("INSERT INTO filial_produto"
-                                                            +"(IdFilial, IdProduto) VALUES (?,?);");
-               comando.setInt(1, produto.getFilial().getId());
-               comando.setInt(2, idProduto);
-                retorno = true;
 
+            if (linhasAfetadas > 0) {
+                return true;
             } else {
                 retorno = false;
             }
@@ -96,14 +83,15 @@ public class ProdutoDAO {
             return null;
         }
     }
-     public static ArrayList<Produto> pesquisarProdutos() {
+
+    public static ArrayList<Produto> pesquisarProdutos() {
         ArrayList<Produto> produtos = new ArrayList<Produto>();
         Connection connection = null;
 
         try {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement("SELECT * FROM Produto");
-           
+
             ResultSet rs = comando.executeQuery();
 
             while (rs.next()) {
