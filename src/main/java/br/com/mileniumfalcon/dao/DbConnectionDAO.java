@@ -14,7 +14,7 @@ public class DbConnectionDAO {
     private static final String SERVER = "localhost:3306";
     private static final String DATABASE = "postostades";
     private static final String LOGIN = "root";
-    private static final String PASSWORD = "adminadmin";
+    private static final String PASSWORD = "";
     private static final String URL = "jdbc:mysql://" + SERVER + "/" + DATABASE + "?useTimezone=true&serverTimezone=UTC";
 
 //    //victor

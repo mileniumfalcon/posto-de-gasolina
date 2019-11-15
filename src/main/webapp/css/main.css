@@ -33,7 +33,9 @@ label{
     position: relative;
     height: 200px;
     overflow: auto;
+    margin-top: 75px;   
 }
 .table-wrapper-scroll-y {
     display: block;
+    width: 360px;
 }

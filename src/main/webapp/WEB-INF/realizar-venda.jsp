@@ -67,6 +67,26 @@
                     </c:forEach>    
                 </table>
             </div>
+
         </form>
+        <!-- <label for="inputQtd" class="col-md-1 offset-md-2">Quantidade</label>
+           <div class="col-sm-2">
+             <input type="text" class="form-control" name="quantidade" id="inputQtd" placeholder="Quanidade" required>
+              <div class="invalid-feedback">
+                 Digite uma quantidade do Produto selecionado
+             </div>
+         </div> -->
     </body>
+    <script>
+
+        $("#table tr").click(function () {
+            $(this).addClass('selected').siblings().removeClass('selected');
+            var value = $(this).find('td:first').html();
+            alert(value);
+        });
+
+        $('.ok').on('click', function (e) {
+            alert($("#table tr.selected td:first").html());
+        });
+    </script>
 </html>
