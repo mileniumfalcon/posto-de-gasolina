@@ -34,6 +34,46 @@
           <a class="nav-link" href="${pageContext.request.contextPath}/gerente-vendas/nivel-combustivel">Nível de Combustível</a>
         </li>
       </ul>
+      <br>
+      <c:if test="${naoEncontradoAttr}">
+            <div class="alert alert-danger">
+                Não há Combustíveis cadastrados nessa Filial
+            </div>
+        </c:if>
+            
+        <c:if test="${not empty produtosAttr}">
+            <table class="table table-sm offset-md-2" style="width: 75%;">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Nível</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                     <c:forEach items="${produtosAttr}" var="produto">
+                    <tr>
+                        <th> <c:out value="${produto.getId()}"/></th>
+                        <td ><c:out value="${produto.getNome()}"/></td>
+                        <td> <c:out value="${produto.getQtdProduto()}"/> litros</td>
+                        <c:choose>
+                            <c:when test="${produto.getQtdProduto() >= 10000}">
+                                <td style="color: green;">Ideal</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td style="color: red;">Abaixo</td>
+                            </c:otherwise>
+                        </c:choose>
+                     </tr>  
+                </tbody>
+               </c:forEach>
+            </table>
+                
+                
+        </c:if>
   </body>
   <script src="https://kit.fontawesome.com/1803175e4f.js" crossorigin="anonymous"></script>
 </html>
