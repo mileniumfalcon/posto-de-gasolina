@@ -20,7 +20,7 @@
   </header>
   <body>
       <div class="page-title">
-          <h1><c:out value="${dataAttr}" /></h1>
+          <h1>Detalhes Venda <c:out value="${vendaAttr.getId()}" /></h1>
       </div>
       <ul class="nav flex-column" style="float: left;">
         <li class="nav-item">
@@ -34,38 +34,64 @@
         </li>
       </ul>
         <br>
-        
-        <c:if test="${naoEncontradoAttr}">
-            <div class="alert alert-danger">
-                Não há vendas nessa data
-            </div>
-        </c:if>
-
-        <c:if test="${not empty produtosAttr}">
-            <table class="table table-sm offset-md-2" style="width: 75%;">
+        <strong><h3 style="text-align: center; margin-right: 100px;">Cliente</h3></strong>
+        <c:choose>
+            <c:when test="${vendaAttr.getCliente() == null}">
+                <table class="table table-sm offset-md-2" style="width: 75%;">
+                <tbody>
+                    <tr>
+                        <td style="text-align: center;">Não Identificado</td>
+                     </tr>  
+                </tbody>
+            </table>
+            </c:when>
+            <c:otherwise>
+                <table class="table table-sm offset-md-2" style="width: 75%;">
                 <thead>
                     <tr>
-                        <th scope="col">Rank</th>
-                        <th scope="col">Produto</th>
-                        <th scope="col">Quantidade</th>
-                        <th scope="col">Porcentagem da Venda</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Endereço</th>
+                        <th>CPF/CNPJ</th>
                     </tr>
                 </thead>
                 <tbody>
-                     <c:forEach items="${produtosAttr}" var="produto">
                     <tr>
-                        <th> x </th>
-                        <td ><c:out value="${produto.getNome()}"/></td>
-                        <td> <c:out value="${produto.getQuantidade()}"/></td>
-                        <td> <c:out value="${produto.getPorcentagem(totalAttr)}" /></td>
-                     </tr>  
+                        <td><c:out value="${vendaAttr.getCliente().getNome()}"/></td>
+                        <td><c:out value="${vendaAttr.getCliente().getEmail()}"/></td>
+                        <td><c:out value="${vendaAttr.getCliente().getEndereco()}"/></td>
+                        <td><c:out value="${vendaAttr.getCliente().getDocumento()}"/></td>
+                    </tr>  
                 </tbody>
-               </c:forEach>
             </table>
-            <br>
-            <hr>
-            <strong><p style="text-align: center; font-size: 40px;">Total do dia: R$<c:out value="${totalAttr}" /></p></strong>
-        </c:if>
+            </c:otherwise>
+        </c:choose>
+        <br>
+        <strong><h3 style="text-align: center; margin-right: 100px;">Itens</h3></strong>
+        <table class="table table-sm offset-md-2" style="width: 75%;">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${vendaAttr.getItens()}" var="item">
+                    <tr>
+                     
+                        <td><c:out value="${item.getProduto().getNome()}"/></td>
+                        <td>R$ <c:out value="${item.getProduto().getVlrUnitario()}"/></td>
+                        <td> <c:out value="${item.getQuantidade()}"/></td>
+                     </tr>                  
+               </c:forEach>
+               </tbody>
+            </table>
+        
+        <br>
+        <hr>
+        <strong><p style="text-align: center; font-size: 40px;">Total Venda: R$<c:out value="${vendaAttr.getValorTotal()}" /></p></strong>
+        <hr>
   </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

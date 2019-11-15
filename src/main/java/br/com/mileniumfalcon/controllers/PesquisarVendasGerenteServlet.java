@@ -1,10 +1,12 @@
 package br.com.mileniumfalcon.controllers;
 
 import br.com.mileniumfalcon.dao.FilialDAO;
+import br.com.mileniumfalcon.dao.ProdutoDAO;
 import br.com.mileniumfalcon.dao.VendaDAO;
 import br.com.mileniumfalcon.models.Usuario;
-import br.com.mileniumfalcon.services.ProdutoService;
+import br.com.mileniumfalcon.models.Venda;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,40 +24,33 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author erick
  */
-@WebServlet(name = "RelatoriosGerenteServlet", urlPatterns = {"/gerente-vendas/relatorios-gerente"})
-public class RelatoriosGerenteServlet extends HttpServlet {
+@WebServlet(name = "PesquisarVendasGerenteServlet", urlPatterns = {"/gerente-vendas/pesquisa-de-vendas"})
+public class PesquisarVendasGerenteServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         try {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/relatorios-gerente.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pesquisar-vendas-gerente.jsp");
+            String dataInicioString = request.getParameter("dataInicio");
+            String dataFinalString = request.getParameter("dataFinal");
 
-            String dataString = request.getParameter("data");
             HttpServletRequest httpRequest = (HttpServletRequest) request;
             Usuario usuario = (Usuario) httpRequest.getSession().getAttribute("usuario");
+
             int idFilial = FilialDAO.idFilialPorEmail(usuario.getEmail());
-            Date data;
 
-            if (dataString.equals("atual")) {
-                Date dataAtual = new Date();
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                String dataS = formato.format(dataAtual);
-                data = formato.parse(dataS);
-                request.setAttribute("dataAttr", dataS);
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataInicio = formato.parse(dataInicioString);
+            Date dataFinal;
 
-            } else {
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                data = formato.parse(dataString);
-                request.setAttribute("dataAttr", dataString);
-            }
+            dataFinal = formato.parse(dataFinalString);
 
-            ArrayList<ProdutoService> produtos = VendaDAO.dezMaisVendidosFilial(data, idFilial);
-            double totalVenda = VendaDAO.totalVendidoFilial(data, idFilial);
+            ArrayList<Venda> vendas = VendaDAO.getVendasPorData(dataInicio, dataFinal, idFilial);
 
-            if (!produtos.isEmpty()) {
-                request.setAttribute("produtosAttr", produtos);
-                request.setAttribute("totalAttr", totalVenda);
+            if (!vendas.isEmpty()) {
+                request.setAttribute("vendasAttr", vendas);
 
             } else {
                 request.setAttribute("naoEncontradoAttr", true);
@@ -63,8 +58,9 @@ public class RelatoriosGerenteServlet extends HttpServlet {
 
             dispatcher.forward(request, response);
         } catch (ParseException ex) {
-            Logger.getLogger(RelatoriosGerenteServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PesquisarVendasGerenteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     @Override
