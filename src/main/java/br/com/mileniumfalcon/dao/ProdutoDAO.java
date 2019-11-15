@@ -2,11 +2,13 @@ package br.com.mileniumfalcon.dao;
 
 import br.com.mileniumfalcon.models.Filial;
 import br.com.mileniumfalcon.models.Produto;
+import br.com.mileniumfalcon.services.ProdutoService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -221,6 +223,73 @@ public class ProdutoDAO {
         } catch (SQLException ex) {
             System.out.println(ex);
             return null;
+        }
+    }
+    
+    public static ArrayList<ProdutoService> dezMaisVendidosFilial(Date data, int id) {
+        ArrayList<ProdutoService> produtos = new ArrayList<ProdutoService>();
+        Connection connection = null;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement(
+                    "SELECT p.nome, p.ValorUnitario, i.quantidade FROM Produto p INNER JOIN ItemVenda i "
+                  + "ON p.IdProduto = i.IdProduto INNER JOIN Venda v ON "
+                  + "i.IdVenda = v.IdVenda WHERE v.IdFilial = ? AND v.DataVenda = ?"
+                  + "ORDER BY i.quantidade DESC LIMIT 10");
+            comando.setInt(1, id);
+            comando.setDate(2, new java.sql.Date(data.getTime()));
+
+            ResultSet rs = comando.executeQuery();
+
+            while (rs.next()) {
+                ProdutoService produto = new ProdutoService();
+    
+                produto.setNome(rs.getString("nome"));
+                produto.setQuantidade(rs.getInt("quantidade"));
+                produto.setValor(rs.getDouble("ValorUnitario"));
+
+                produtos.add(produto);
+            }
+
+            DbConnectionDAO.closeConnection(connection);
+            return produtos;
+
+        } catch (ClassNotFoundException ex) {
+            return null;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+    
+    public static double totalVendidoFilial(Date data, int idFilial) {
+        Connection connection = null;
+        double total = 0;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement(
+                    "SELECT SUM(ValorTotal) AS ValorTotal FROM Venda WHERE IdFilial = ? AND DataVenda = ?");
+            comando.setInt(1, idFilial);
+            comando.setDate(2, new java.sql.Date(data.getTime()));
+            
+            ResultSet rs = comando.executeQuery();
+
+            while (rs.next()) {
+                total = rs.getDouble("ValorTotal");
+            }
+
+            DbConnectionDAO.closeConnection(connection);
+            return total;
+
+        } catch (ClassNotFoundException ex) {
+            return total;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return total;
         }
     }
 }

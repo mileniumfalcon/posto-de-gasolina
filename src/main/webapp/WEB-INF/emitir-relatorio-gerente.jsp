@@ -35,12 +35,12 @@
         </li>
       </ul>
         
-      <form method="get" action="${pageContext.request.contextPath}/" class="needs-validation" novalidate>
+      <form method="get" action="${pageContext.request.contextPath}/gerente-vendas/relatorios-gerente" class="needs-validation" novalidate>
             <br>
             <div class="form-group row">
-                <label for="inputDataInicio" class="col-md-2 offset-md-3">Data Específica: </label>
+                <label for="inputData" class="col-md-2 offset-md-3">Data Específica: </label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="dataInicio" id="dataInicio" placeholder="xx/xx/xxxx" required>
+                    <input type="text" class="form-control" name="data" id="data" placeholder="xx/xx/xxxx" onkeypress="$(this).mask('00/00/0000');" required>
                     <div class="invalid-feedback">
                         Digite uma data específica
                     </div>
@@ -50,7 +50,7 @@
             <div class="button-group">
                 <button class="btn btn-primary btn-md mb-2 offset-md-3" type="submit">Data Específica</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="${pageContext.request.contextPath}/backoffice" class="btn btn-primary btn-md mb-2">Data Atual</a>
+                <td><a data-method="get" href="${pageContext.request.contextPath}/gerente-vendas/relatorios-gerente?data=atual" class="btn btn-primary mb-2" >Data Atual</a></td>
             </div>
         </form>
   </body>
