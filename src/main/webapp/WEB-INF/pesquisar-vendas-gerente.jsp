@@ -35,12 +35,12 @@
         </li>
       </ul>
         
-      <form method="get" action="${pageContext.request.contextPath}/" class="needs-validation" novalidate>
+      <form method="get" action="${pageContext.request.contextPath}/gerente-vendas/pesquisa-de-vendas" class="needs-validation" novalidate>
             <br>
             <div class="form-group row">
                 <label for="inputDataInicio" class="col-md-1 offset-md-1">Data Inicio: </label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" name="dataInicio" id="dataInicio" placeholder="xx/xx/xxxx" required>
+                    <input type="text" class="form-control" name="dataInicio" id="dataInicio" placeholder="xx/xx/xxxx" onkeypress="$(this).mask('00/00/0000');" required>
                     <div class="invalid-feedback">
                         Digite uma data inicial
                     </div>
@@ -48,7 +48,7 @@
          
                 <label for="inputDataFinal" class="col-md-1 offset-md-1">Data Final:</label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" name="dataFinal" id="dataFinal" placeholder="xx/xx/xxxx" required>
+                    <input type="text" class="form-control" name="dataFinal" id="dataFinal" placeholder="xx/xx/xxxx" onkeypress="$(this).mask('00/00/0000');" required>
                     <div class="invalid-feedback">
                         Digite uma data final
                     </div>
@@ -59,6 +59,60 @@
                 </div>
             </div>
         </form>
+        <br>
+        <c:if test="${naoEncontradoAttr}">
+            <div class="alert alert-danger">
+                Não há vendas para esta data
+            </div>
+        </c:if>
+            
+        <c:if test="${not empty vendasAttr}">
+            <table class="table table-sm offset-md-2" style="width: 75%;">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Valor Total</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                     <c:forEach items="${vendasAttr}" var="venda">
+                    <tr>
+                        <th><c:out value="${venda.getId()}"/></th>
+                        <c:choose>
+                            <c:when test="${venda.getCliente() != null}">
+                                <td><c:out value="${venda.getCliente().getNome()}"/></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td>Não informado</td>
+                            </c:otherwise>
+                        </c:choose>
+                        <td>R$ <c:out value="${venda.getValorTotal()}"/></td>
+                        <td><a data-method="get" href="${pageContext.request.contextPath}/gerente-vendas/detalhes-venda?id=${venda.getId()}" class="btn btn-primary mb-1" >Detalhes</a></td>
+                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#v${venda.getId()}">Cancelar</button></td> 
+                     </tr>  
+                </tbody>
+                <div class="modal fade" id="v${venda.getId()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-body">
+                          Tem certeza que deseja cancelar a Venda <c:out value="${venda.getId()}"/>
+                      </div>
+                      <div class="modal-footer">
+                        <form action="${pageContext.request.contextPath}/gerente-vendas/excluir-venda" method="post">
+                            <button class="btn btn-success" type="submit" name="id" id="confirmDeleteButton" value="${venda.getId()}">Confirmar</button>
+                        </form>
+                        
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+               </c:forEach>
+            </table>
+        </c:if>
   </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

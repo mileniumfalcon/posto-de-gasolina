@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.mileniumfalcon.dao;
 
 import br.com.mileniumfalcon.models.BackOffice;
 import br.com.mileniumfalcon.models.Diretor;
-import br.com.mileniumfalcon.models.Funcionario;
 import br.com.mileniumfalcon.models.GerenteVendas;
 import br.com.mileniumfalcon.models.Rh;
 import br.com.mileniumfalcon.models.Usuario;

@@ -20,9 +20,8 @@
   </header>
   <body>
       <div class="page-title">
-          <h1>Relatórios</h1>
+          <h1>Detalhes Venda <c:out value="${vendaAttr.getId()}" /></h1>
       </div>
-      
       <ul class="nav flex-column" style="float: left;">
         <li class="nav-item">
           <a class="nav-link" href="${pageContext.request.contextPath}/gerente-vendas/pesquisar-vendas">Pesquisar Vendas</a>
@@ -34,25 +33,65 @@
           <a class="nav-link" href="${pageContext.request.contextPath}/gerente-vendas/nivel-combustivel">Nível de Combustível</a>
         </li>
       </ul>
+        <br>
+        <strong><h3 style="text-align: center; margin-right: 100px;">Cliente</h3></strong>
+        <c:choose>
+            <c:when test="${vendaAttr.getCliente() == null}">
+                <table class="table table-sm offset-md-2" style="width: 75%;">
+                <tbody>
+                    <tr>
+                        <td style="text-align: center;">Não Identificado</td>
+                     </tr>  
+                </tbody>
+            </table>
+            </c:when>
+            <c:otherwise>
+                <table class="table table-sm offset-md-2" style="width: 75%;">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Endereço</th>
+                        <th>CPF/CNPJ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><c:out value="${vendaAttr.getCliente().getNome()}"/></td>
+                        <td><c:out value="${vendaAttr.getCliente().getEmail()}"/></td>
+                        <td><c:out value="${vendaAttr.getCliente().getEndereco()}"/></td>
+                        <td><c:out value="${vendaAttr.getCliente().getDocumento()}"/></td>
+                    </tr>  
+                </tbody>
+            </table>
+            </c:otherwise>
+        </c:choose>
+        <br>
+        <strong><h3 style="text-align: center; margin-right: 100px;">Itens</h3></strong>
+        <table class="table table-sm offset-md-2" style="width: 75%;">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${vendaAttr.getItens()}" var="item">
+                    <tr>
+                     
+                        <td><c:out value="${item.getProduto().getNome()}"/></td>
+                        <td>R$ <c:out value="${item.getProduto().getVlrUnitario()}"/></td>
+                        <td> <c:out value="${item.getQuantidade()}"/></td>
+                     </tr>                  
+               </c:forEach>
+               </tbody>
+            </table>
         
-      <form method="get" action="${pageContext.request.contextPath}/gerente-vendas/relatorios-gerente" class="needs-validation" novalidate>
-            <br>
-            <div class="form-group row">
-                <label for="inputData" class="col-md-2 offset-md-3">Data Específica: </label>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" name="data" id="data" placeholder="xx/xx/xxxx" onkeypress="$(this).mask('00/00/0000');" required>
-                    <div class="invalid-feedback">
-                        Digite uma data específica
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="button-group">
-                <button class="btn btn-primary btn-md mb-2 offset-md-3" type="submit">Data Específica</button>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <td><a data-method="get" href="${pageContext.request.contextPath}/gerente-vendas/relatorios-gerente?data=atual" class="btn btn-primary mb-2" >Data Atual</a></td>
-            </div>
-        </form>
+        <br>
+        <hr>
+        <strong><p style="text-align: center; font-size: 40px;">Total Venda: R$<c:out value="${vendaAttr.getValorTotal()}" /></p></strong>
+        <hr>
   </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -1,9 +1,7 @@
 package br.com.mileniumfalcon.controllers;
 
-import br.com.mileniumfalcon.dao.ClienteDAO;
 import br.com.mileniumfalcon.dao.FilialDAO;
 import br.com.mileniumfalcon.models.Filial;
-import br.com.mileniumfalcon.models.PessoaFisica;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
