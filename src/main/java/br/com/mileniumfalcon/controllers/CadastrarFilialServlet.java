@@ -1,9 +1,7 @@
 package br.com.mileniumfalcon.controllers;
 
-import br.com.mileniumfalcon.dao.ClienteDAO;
 import br.com.mileniumfalcon.dao.FilialDAO;
 import br.com.mileniumfalcon.models.Filial;
-import br.com.mileniumfalcon.models.PessoaFisica;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,7 +37,7 @@ public class CadastrarFilialServlet extends HttpServlet {
         boolean salvou = FilialDAO.insertFilial(filial);
         if (salvou) {
             request.setAttribute("criadoAttr", true);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/filial.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/diretor.jsp");
             dispatcher.forward(request, response);
         } 
         else {

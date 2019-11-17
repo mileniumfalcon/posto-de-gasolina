@@ -32,6 +32,22 @@ public class Usuario {
         this.senha = senha;
     }
     
+    public boolean validarSenha(String senha) {
+        return this.senha.equals(senha);
+    }
     
+    public boolean verificarFuncao(String funcao) {
+        return this.getClass().getSimpleName().equals(funcao);
+    }
+    
+    public String montarUrl() {
+        String funcao = this.getClass().getSimpleName();
+        
+        if (funcao.equalsIgnoreCase("GerenteVendas")) {
+            return "/gerente-vendas";
+        }
+        
+        return "/" + funcao.toLowerCase();
+    }
     
 }

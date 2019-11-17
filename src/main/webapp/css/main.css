@@ -22,8 +22,11 @@
 label{
   display: inline-block;
   width: 160px;
+  padding-right: 0px !important;
+  margin-top: 10px !important;
 }
 
 .button-group{
     margin-bottom: 20px;
 }
+

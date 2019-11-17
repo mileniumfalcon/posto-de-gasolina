@@ -178,4 +178,32 @@ public class FilialDAO {
         return retorno;
 
     }
+    
+    public static int idFilialPorEmail(String email) {
+        Connection connection = null;
+        int id = 0;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement(
+                    "SELECT fi.IdFilial FROM filial_vendedor fi INNER JOIN Funcionario f " 
+                   + "ON fi.IdFuncionario = f.IdFuncionario INNER JOIN Usuario u " 
+                   + "ON f.IdFuncionario = u.IdFuncionario WHERE u.email LIKE ?");
+            comando.setString(1, email);
+            ResultSet rs = comando.executeQuery();
+
+            while (rs.next()) {
+                id = rs.getInt("IdFilial");
+            }
+
+            DbConnectionDAO.closeConnection(connection);
+            return id;
+
+        } catch (ClassNotFoundException ex) {
+            return 0;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return 0;
+        }
+    }
 }

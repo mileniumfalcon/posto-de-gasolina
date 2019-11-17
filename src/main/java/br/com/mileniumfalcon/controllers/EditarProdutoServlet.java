@@ -34,7 +34,6 @@ public class EditarProdutoServlet extends HttpServlet {
 
         try {
             if (produto != null) {
-
                 request.setAttribute("idAttr", id);
                 request.setAttribute("nomeAttr", produto.getNome());
                 request.setAttribute("precoAttr", produto.getVlrUnitario());
