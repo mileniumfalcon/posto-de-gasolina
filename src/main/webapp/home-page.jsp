@@ -17,7 +17,14 @@
           <h1><i class="fas fa-gas-pump"></i> Postos Tades</h1>
       </div>
       <br>
-      <h2>Teste Home</h2>
+      <div style="text-align: center;">
+        <h2>Projeto Integrador III - TADS A - 3º Semestre</h2>
+        <p>Este trabalho foi desenvolvido para a disciplina de projeto integrador III, do Centro Universitário Senac, pelos alunos:</p>
+        <p>Erick Gurian</p>
+        <p>Pablo de Oliveira Santana</p>
+        <p>Victor Alvez Souza</p>
+        <td><a data-method="get" href="${pageContext.request.contextPath}/login" class="btn btn-lg btn-primary mb-1" >Ir para o Login</a></td>
+      </div>
   </body>
   <script src="https://kit.fontawesome.com/1803175e4f.js" crossorigin="anonymous"></script>
 </html>

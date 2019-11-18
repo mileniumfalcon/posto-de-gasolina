@@ -29,6 +29,7 @@ label{
 .button-group{
     margin-bottom: 20px;
 }
+
 .my-custom-scrollbar {
     position: relative;
     height: 200px;
@@ -38,4 +39,5 @@ label{
 .table-wrapper-scroll-y {
     display: block;
     width: 360px;
+    border-color: black;
 }

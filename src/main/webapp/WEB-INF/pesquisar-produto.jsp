@@ -100,8 +100,6 @@
                 </div> 
                </c:forEach>
             </table>
-                
-                
         </c:if>
     </body>
     

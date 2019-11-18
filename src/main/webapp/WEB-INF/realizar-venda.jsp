@@ -43,12 +43,14 @@
                 <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/pesquisar-cliente">Pesquisar Cliente</a>
             </li>
         </ul>
-        <form method="get">
-            <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                <table class="table table-sm offset-md-2" style="width: 35%; margin-top: 70px;">
+            <form method="post" class="needs-validation col-sm-9" style="width: 1095px height: 4px;" 
+    
+>
+            <div class="table-wrapper-scroll-y my-custom-scrollbar col-sm-">
+                <table class="table table-sm-1 offset-md-1" style="width: 35%; margin-top: 65px; float:left;">
                     <thead>
                         <tr>
-                            <th scope="col">Id</th>
+                            <th scope="col">#</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Preco</th>
                             <th scope="col">Quantidade</th>
@@ -58,17 +60,51 @@
 
                         <c:forEach items="${produtosAttr}" var="produto">
                             <tr>
-                                <th> <c:out value="${produto.getId()}"/></th>
-                                <td ><c:out value="${produto.getNome()}"/></td>
-                                <td><c:out value="${produto.getVlrUnitario()}"/></td>
-                                <td> <c:out value="${produto.getQtdProduto()}"/></td>
+                                <td><input type="radio" id="idProduto" name="idProduto" value="${produto.getId()}" ></td>
+                                <td id="nomeProduto" name="nomeProduto">${produto.getNome()}</td>
+                                <td id="valor" name="valor">${produto.getVlrUnitario()}</td>
+                                <td id="qtdProduto" name="qtdProduto">${produto.getQtdProduto()}</td>
                             </tr>  
                         </tbody>
                     </c:forEach>    
                 </table>
             </div>
+                 <div class="col-sm-8" style="position: absolute; margin-left: 100px;">
+                <label for="inputQtd" class="col-md-2 offset-md-2">Qtd Item a venda:</label>
+                <input type="number" class="col-md-2 offset-md-2" name="qtdItem" id="qtdItem" placeholder="X" required>
 
+                <button class="btn btn-primary"type="submit" >Adicionar</button> 
+
+                <div class="invalid-feedback">
+                    Digite uma quantidade
+                </div>
+
+            </div>
         </form>
+
+        <!--<form method="post" action="${pageContext.request.contextPath}/vendedor/realizar-venda">
+           
+        </form> -->
+            
+            <table class="table table-sm-1 offset-md-1" style="width: 35%; margin-top: 1px; float:right;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Qtd</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${itensAttr}" var="itensVenda">
+                            <tr>
+                                <td id="nomeItem" name="nomeItem">${itensVenda.getProduto.getNome()}</td>
+                                <td id="qtdItem" name="qtdItem">${itensVenda.getQuantidade()}</td>
+                                <td id="totalItem" name="totalItem">${produto.getQtdProduto()}</td>
+                            </tr>  
+                    </tbody>
+                    </c:forEach>    
+                </table>
+
         <!-- <label for="inputQtd" class="col-md-1 offset-md-2">Quantidade</label>
            <div class="col-sm-2">
              <input type="text" class="form-control" name="quantidade" id="inputQtd" placeholder="Quanidade" required>

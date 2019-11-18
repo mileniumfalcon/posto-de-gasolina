@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -84,7 +83,7 @@ public class ProdutoDAO {
         }
     }
 
-    public static ArrayList<Produto> pesquisarProdutos() {
+    public static ArrayList<Produto> pesquisarProdutos(int id) {
         ArrayList<Produto> produtos = new ArrayList<Produto>();
         Connection connection = null;
 
@@ -220,5 +219,41 @@ public class ProdutoDAO {
         DbConnectionDAO.closeConnection(connection);
         return retorno;
 
+    }
+    
+    public static ArrayList<Produto> combustivelPorFilial(int id) {
+        ArrayList<Produto> produtos = new ArrayList<Produto>();
+        Connection connection = null;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement(
+                    "SELECT IdProduto, Nome, TipoProduto, QntEstoque, " 
+                  + "ValorUnitario, IdFilial FROM Produto WHERE " 
+                  + "TipoProduto LIKE 'Combustivel' AND IdFilial = ?");
+            comando.setInt(1, id);
+            ResultSet rs = comando.executeQuery();
+
+            while (rs.next()) {
+                Produto produto = new Produto();
+                produto.setId(rs.getInt("IdProduto"));
+                produto.setNome(rs.getString("Nome"));
+                produto.setTipoProduto(rs.getString("TipoProduto"));
+                produto.setQtdProduto(rs.getDouble("QntEstoque"));
+                produto.setVlrUnitario(rs.getDouble("ValorUnitario"));
+
+                produtos.add(produto);
+            }
+
+            DbConnectionDAO.closeConnection(connection);
+            return produtos;
+
+        } catch (ClassNotFoundException ex) {
+            return null;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
     }
 }

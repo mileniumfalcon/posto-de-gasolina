@@ -103,7 +103,10 @@
                 <div class="form-check-inline">
                      <c:forEach items="${filiaisAttr}" var="filial">
                          <input class="form-check-input" type="radio" name="filial" id="${filial}" value="${filial}" disabled="disabled" required>
-                         <label class="form-check-label" for="filial"><c:out value="${filial}" /></label>
+                         <label class="form-check-label" for="filial">
+                             
+                             
+                             <c:out value="${filial}" /></label>
                     </c:forEach>
                 </div>
             </div>
