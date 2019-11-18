@@ -39,6 +39,14 @@ public class CadastrarJuridicoServlet extends HttpServlet {
         String cnpj = request.getParameter("cnpj");
         String telefone = request.getParameter("telefone");
         String email = request.getParameter("email");
+        
+        boolean existe = ClienteDAO.buscaDocumento(cnpj);
+            
+            if (existe) {
+                request.setAttribute("jaExiste", true);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cadastrar-juridico.jsp");
+                dispatcher.forward(request, response);
+            }
 
         PessoaJuridica cliente = new PessoaJuridica(nome, endereco, cep, email,
                 cnpj, telefone);

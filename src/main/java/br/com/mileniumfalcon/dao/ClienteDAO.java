@@ -350,6 +350,33 @@ public class ClienteDAO {
         return retorno;
 
     }
+    
+    public static boolean buscaDocumento(String documento) {
+        Connection connection = null;
+        boolean retorno = false;
 
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("SELECT * FROM Cliente "
+                    + "WHERE CPF = ? OR CNPJ = ?");
+            comando.setString(1, documento);
+            comando.setString(2, documento);
 
+            ResultSet rs = comando.executeQuery();
+
+             while (rs.next()) {
+                if (rs.getString("CPF") != null || rs.getString("CNPJ") != null) {
+                    retorno = true;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            retorno = false;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            retorno = false;
+        }
+
+        DbConnectionDAO.closeConnection(connection);
+        return retorno;
+    }
 }

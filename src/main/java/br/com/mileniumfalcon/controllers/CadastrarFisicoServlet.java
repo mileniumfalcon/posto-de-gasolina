@@ -47,6 +47,14 @@ public class CadastrarFisicoServlet extends HttpServlet {
             String cpf = request.getParameter("cpf");
             String dataNascimentoString = request.getParameter("dataNascimento");
             String email = request.getParameter("email");
+            
+            boolean existe = ClienteDAO.buscaDocumento(cpf);
+            
+            if (existe) {
+                request.setAttribute("jaExiste", true);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cadastrar-fisico.jsp");
+                dispatcher.forward(request, response);
+            }
 
             Timestamp dataInclusao = new Timestamp(System.currentTimeMillis());
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
