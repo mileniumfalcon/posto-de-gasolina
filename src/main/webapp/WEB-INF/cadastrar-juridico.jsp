@@ -37,6 +37,12 @@
           <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/pesquisar-cliente">Pesquisar Cliente</a>
         </li>
       </ul>
+        
+        <c:if test="${jaExiste}">
+            <div class="alert alert-danger">
+                Já existe um cliente com este cnpj
+            </div>
+        </c:if>
      
         <form method="post" action="${pageContext.request.contextPath}/vendedor/cadastrar-juridico" class="needs-validation" novalidate>
             <br>
