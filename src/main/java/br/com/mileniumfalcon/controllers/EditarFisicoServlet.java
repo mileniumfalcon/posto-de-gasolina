@@ -37,7 +37,7 @@ public class EditarFisicoServlet extends HttpServlet {
         request.setAttribute("nomeAttr", cliente.getNome());
         request.setAttribute("enderecoAttr", cliente.getEndereco());
         request.setAttribute("cepAttr", cliente.getCep());
-        request.setAttribute("cpfAttr", cliente.getCpf());
+        request.setAttribute("cpfAttr", cliente.getDocumento());
         request.setAttribute("dataNascimentoAttr", dataNascimento);
         request.setAttribute("emailAttr", cliente.getEmail());
 
