@@ -473,6 +473,34 @@ public class FuncionarioDAO {
             return null;
         }
     }
+    
+    public static boolean buscaCpf(String cpf) {
+        Connection connection = null;
+        boolean retorno = false;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("SELECT * FROM Funcionario "
+                    + "WHERE CPF = ?");
+            comando.setString(1, cpf);
+
+            ResultSet rs = comando.executeQuery();
+
+             while (rs.next()) {
+                if (rs.getString("CPF") != null) {
+                    retorno = true;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            retorno = false;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            retorno = false;
+        }
+
+        DbConnectionDAO.closeConnection(connection);
+        return retorno;
+    }
 
     private static int getIdFuncionario(Funcionario funcionario) {
         int id = 0;

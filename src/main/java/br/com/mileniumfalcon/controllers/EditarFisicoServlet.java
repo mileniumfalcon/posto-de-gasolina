@@ -37,7 +37,7 @@ public class EditarFisicoServlet extends HttpServlet {
         request.setAttribute("nomeAttr", cliente.getNome());
         request.setAttribute("enderecoAttr", cliente.getEndereco());
         request.setAttribute("cepAttr", cliente.getCep());
-        request.setAttribute("cpfAttr", cliente.getCpf());
+        request.setAttribute("cpfAttr", cliente.getDocumento());
         request.setAttribute("dataNascimentoAttr", dataNascimento);
         request.setAttribute("emailAttr", cliente.getEmail());
 
@@ -67,7 +67,7 @@ public class EditarFisicoServlet extends HttpServlet {
             PessoaFisica cliente = new PessoaFisica(id, nome, endereco, cep, email,
                     cpf, dataNascimento);
 
-            boolean editou = ClienteDAO.editarFisico(cliente);
+            boolean editou = ClienteDAO.editar(cliente);
 
             if (editou) {
                 request.setAttribute("editadoAttr", true);
