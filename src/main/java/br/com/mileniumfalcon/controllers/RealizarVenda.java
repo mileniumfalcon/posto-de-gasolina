@@ -10,7 +10,6 @@ import br.com.mileniumfalcon.dao.ProdutoDAO;
 import br.com.mileniumfalcon.models.Produto;
 import br.com.mileniumfalcon.models.Usuario;
 import br.com.mileniumfalcon.models.ItemVenda;
-import com.sun.xml.internal.ws.transport.http.HttpAdapter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class RealizarVenda extends HttpServlet {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         Usuario usuario = (Usuario) httpRequest.getSession().getAttribute("usuario");
         int idFilial = FilialDAO.idFilialPorEmail(usuario.getEmail());
-        
+
         List<Produto> produtos = ProdutoDAO.pesquisarProdutos(idFilial);
         try {
             if (produtos != null) {
@@ -54,33 +53,30 @@ public class RealizarVenda extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+         
         try {
+            HttpSession sessao = request.getSession();
+            if(sessao.getAttribute("itensAttr")== null){
+                sessao.setAttribute("itensAttr", new ArrayList<ItemVenda>());
+            }
+             
             
-             
-             System.out.println("OPAAAA " +request.getAttribute("produtosAttr"));
-             System.out.println("TESTAAAAAANDO "+request.getParameter("produto.getNome"));
-             int idItem = Integer.parseInt(request.getParameter("idProduto"));
-             double qtdItem = Double.parseDouble(request.getParameter("qtdItem"));
-             
-             Produto produto = ProdutoDAO.pesquisarPorId(idItem);
-             ItemVenda item = new ItemVenda(produto, qtdItem);
-             
-             ArrayList<ItemVenda> itensVenda= new ArrayList<ItemVenda>();
-             
-             int i=0;
-             while(i<0){
-                 itensVenda.add(item);
-                 i++;
-             }
-             i=0;
-             
-             
-             request.setAttribute("itensAttr", itensVenda);
-             
+            List<ItemVenda> itensVenda = (List<ItemVenda>) sessao.getAttribute("itensAttr");
+            
+            System.out.println("AQUI O ID = " + request.getParameter("idProduto"));
+            int idItem = Integer.parseInt(request.getParameter("idProduto"));
+            double qtdItem = Double.parseDouble(request.getParameter("qtdItem"));
+
+            Produto produto = ProdutoDAO.pesquisarPorId(idItem);
            
-             
-       
+            
+            itensVenda.add( new ItemVenda(produto, qtdItem));
+          
+            
+            //request.setAttribute("itensAttr", itensVenda);
+            
+           response.sendRedirect(request.getContextPath()+"/vendedor/realizar-venda");
+           
         } catch (Exception ex) {
             System.out.println("AQUIIIIIIIIIII" + ex);
         }

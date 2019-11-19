@@ -43,7 +43,7 @@
                 <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/pesquisar-cliente">Pesquisar Cliente</a>
             </li>
         </ul>
-            <form method="post" class="needs-validation col-sm-9" style="width: 1095px height: 4px;" 
+            <form method="post" action="${pageContext.request.contextPath}/vendedor/realizar-venda"class="needs-validation col-sm-9" style="width: 1095px height 4px;">
     
 >
             <div class="table-wrapper-scroll-y my-custom-scrollbar col-sm-">
@@ -86,7 +86,7 @@
            
         </form> -->
             
-            <table class="table table-sm-1 offset-md-1" style="width: 35%; margin-top: 1px; float:right;">
+            <table class="table table-sm-1 offset-md-1" style="width: 35%; margin-top: -219px; float:right; margin-right: 70px;">
                     <thead>
                         <tr>
                             <th scope="col">Nome</th>
@@ -97,14 +97,14 @@
                     <tbody>
                     <c:forEach items="${itensAttr}" var="itensVenda">
                             <tr>
-                                <td id="nomeItem" name="nomeItem">${itensVenda.getProduto.getNome()}</td>
-                                <td id="qtdItem" name="qtdItem">${itensVenda.getQuantidade()}</td>
-                                <td id="totalItem" name="totalItem">${produto.getQtdProduto()}</td>
+                                <td id="nomeItem" name="nomeItem"><c:out value="${itensVenda.getProduto().getNome()}"/></td>
+                                <td id="qtdItem" name="qtdItem"><c:out value="${itensVenda.getQuantidade()}"/></td>
+                               <!-- <td id="totalItem" name="totalItem"></td> -->
                             </tr>  
                     </tbody>
                     </c:forEach>    
                 </table>
-
+ 
         <!-- <label for="inputQtd" class="col-md-1 offset-md-2">Quantidade</label>
            <div class="col-sm-2">
              <input type="text" class="form-control" name="quantidade" id="inputQtd" placeholder="Quanidade" required>

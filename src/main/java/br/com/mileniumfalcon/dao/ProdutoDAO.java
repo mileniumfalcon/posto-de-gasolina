@@ -163,6 +163,7 @@ public class ProdutoDAO {
 
             while (rs.next()) {
                 Filial filial = FuncionarioDAO.getFilialPorId(rs.getInt("IdFilial"));
+                produto.setId(rs.getInt("IdProduto"));
                 produto.setNome(rs.getString("Nome"));
                 produto.setTipoProduto("TipoProduto");
                 produto.setQtdProduto(rs.getDouble("QntEstoque"));
