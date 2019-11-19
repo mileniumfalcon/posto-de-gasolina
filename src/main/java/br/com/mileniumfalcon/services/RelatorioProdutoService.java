@@ -6,15 +6,15 @@ import java.text.DecimalFormat;
  *
  * @author erick
  */
-public class ProdutoService {
+public class RelatorioProdutoService implements IRelatorioServices {
     
     private String nome;
     private int quantidade;
     private double valor;
     
-    public ProdutoService() {}
+    public RelatorioProdutoService() {}
     
-    public ProdutoService(String nome, int quantidade, double valor) {
+    public RelatorioProdutoService(String nome, int quantidade, double valor) {
         this.nome = nome;
         this.quantidade = quantidade;
         this.valor = valor;
@@ -44,6 +44,7 @@ public class ProdutoService {
         this.valor = valor;
     }
     
+    @Override
     public String getPorcentagem(double totalVenda) {
         DecimalFormat df = new DecimalFormat("0.00");
         double porcentagem = (valor * quantidade) * 100 / totalVenda; 

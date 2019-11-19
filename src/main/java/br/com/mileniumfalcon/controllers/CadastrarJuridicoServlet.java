@@ -51,7 +51,7 @@ public class CadastrarJuridicoServlet extends HttpServlet {
         PessoaJuridica cliente = new PessoaJuridica(nome, endereco, cep, email,
                 cnpj, telefone);
 
-        boolean salvou = ClienteDAO.salvarJuridico(cliente);
+        boolean salvou = ClienteDAO.salvar(cliente);
 
         if (salvou) {
             request.setAttribute("criadoAttr", true);

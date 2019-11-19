@@ -3,7 +3,7 @@ package br.com.mileniumfalcon.controllers;
 import br.com.mileniumfalcon.dao.FilialDAO;
 import br.com.mileniumfalcon.dao.VendaDAO;
 import br.com.mileniumfalcon.models.Usuario;
-import br.com.mileniumfalcon.services.ProdutoService;
+import br.com.mileniumfalcon.services.RelatorioProdutoService;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,7 +50,7 @@ public class RelatoriosGerenteServlet extends HttpServlet {
                 request.setAttribute("dataAttr", dataString);
             }
 
-            ArrayList<ProdutoService> produtos = VendaDAO.dezMaisVendidosFilial(data, idFilial);
+            ArrayList<RelatorioProdutoService> produtos = VendaDAO.dezMaisVendidosFilial(data, idFilial);
             double totalVenda = VendaDAO.totalVendidoFilial(data, idFilial);
 
             if (!produtos.isEmpty()) {

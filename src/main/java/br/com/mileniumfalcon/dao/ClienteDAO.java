@@ -16,8 +16,16 @@ import java.sql.SQLException;
 public class ClienteDAO {
 
     private DbConnectionDAO dbConnection = new DbConnectionDAO();
+    
+    public static boolean salvar(Cliente cliente) {
+        if (cliente.getClass().getSimpleName().equals("PessoaFisica")) {
+            return salvarFisico((PessoaFisica) cliente);
+        } else {
+            return salvarJuridico((PessoaJuridica) cliente);
+        }
+    }
 
-    public static boolean salvarFisico(PessoaFisica cliente) {
+    private static boolean salvarFisico(PessoaFisica cliente) {
         Connection connection = null;
         boolean retorno = false;
 
@@ -55,7 +63,7 @@ public class ClienteDAO {
         return retorno;
     }
 
-    public static boolean salvarJuridico(PessoaJuridica cliente) {
+    private static boolean salvarJuridico(PessoaJuridica cliente) {
         Connection connection = null;
         boolean retorno = false;
 
@@ -238,8 +246,16 @@ public class ClienteDAO {
             return null;
         }
     }
+    
+    public static boolean editar(Cliente cliente) {
+        if (cliente.getClass().getSimpleName().equals("PessoaFisica")) {
+            return editarFisico((PessoaFisica) cliente);
+        } else {
+            return editarJuridico((PessoaJuridica) cliente);
+        }
+    }
 
-    public static boolean editarFisico(PessoaFisica cliente) {
+    private static boolean editarFisico(PessoaFisica cliente) {
         Connection connection = null;
         boolean retorno;
 

@@ -1,10 +1,8 @@
 package br.com.mileniumfalcon.controllers;
 
 import br.com.mileniumfalcon.dao.ClienteDAO;
-import br.com.mileniumfalcon.models.Cliente;
 import br.com.mileniumfalcon.models.PessoaFisica;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -64,7 +62,7 @@ public class CadastrarFisicoServlet extends HttpServlet {
             PessoaFisica cliente = new PessoaFisica(nome, endereco, cep, email,
                                                     cpf, dataNascimento);
             
-            boolean salvou = ClienteDAO.salvarFisico(cliente);
+            boolean salvou = ClienteDAO.salvar(cliente);
             
             if (salvou) {
                 request.setAttribute("criadoAttr", true);

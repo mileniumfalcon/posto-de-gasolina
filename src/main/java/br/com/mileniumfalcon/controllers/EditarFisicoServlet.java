@@ -67,7 +67,7 @@ public class EditarFisicoServlet extends HttpServlet {
             PessoaFisica cliente = new PessoaFisica(id, nome, endereco, cep, email,
                     cpf, dataNascimento);
 
-            boolean editou = ClienteDAO.editarFisico(cliente);
+            boolean editou = ClienteDAO.editar(cliente);
 
             if (editou) {
                 request.setAttribute("editadoAttr", true);
