@@ -1,7 +1,6 @@
 package br.com.mileniumfalcon.dao;
 
 import br.com.mileniumfalcon.models.Cliente;
-import br.com.mileniumfalcon.models.Filial;
 import br.com.mileniumfalcon.models.ItemVenda;
 import br.com.mileniumfalcon.models.Venda;
 import br.com.mileniumfalcon.services.RelatorioProdutoService;
