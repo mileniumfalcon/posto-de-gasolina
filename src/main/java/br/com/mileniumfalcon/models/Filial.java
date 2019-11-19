@@ -1,16 +1,19 @@
 package br.com.mileniumfalcon.models;
 
+import br.com.mileniumfalcon.services.Services;
+
 /**
  *
  * @author Victor
  */
-public class Filial {
+public class Filial extends Services {
 
     String nome;
     int id;
     String estado;
     String endereco;
     String cep;
+    
 
     public Filial(String nome, String estado, String endereco, String cep) {
         this.cep = cep;
