@@ -16,8 +16,16 @@ import java.sql.SQLException;
 public class ClienteDAO {
 
     private DbConnectionDAO dbConnection = new DbConnectionDAO();
+    
+    public static boolean salvar(Cliente cliente) {
+        if (cliente.getClass().getSimpleName().equals("PessoaFisica")) {
+            return salvarFisico((PessoaFisica) cliente);
+        } else {
+            return salvarJuridico((PessoaJuridica) cliente);
+        }
+    }
 
-    public static boolean salvarFisico(PessoaFisica cliente) {
+    private static boolean salvarFisico(PessoaFisica cliente) {
         Connection connection = null;
         boolean retorno = false;
 
@@ -30,7 +38,7 @@ public class ClienteDAO {
             comando.setString(1, cliente.getNome());
             comando.setString(2, cliente.getEndereco());
             comando.setString(3, cliente.getCep());
-            comando.setString(4, cliente.getCpf());
+            comando.setString(4, cliente.getDocumento());
             comando.setDate(5, new Date(cliente.getDataNascimento().getTime()));
             comando.setString(6, cliente.getEmail());
             comando.setString(7, "Pessoa Fisica");
@@ -55,7 +63,7 @@ public class ClienteDAO {
         return retorno;
     }
 
-    public static boolean salvarJuridico(PessoaJuridica cliente) {
+    private static boolean salvarJuridico(PessoaJuridica cliente) {
         Connection connection = null;
         boolean retorno = false;
 
@@ -68,7 +76,7 @@ public class ClienteDAO {
             comando.setString(1, cliente.getNome());
             comando.setString(2, cliente.getEndereco());
             comando.setString(3, cliente.getCep());
-            comando.setString(4, cliente.getCnpj());
+            comando.setString(4, cliente.getDocumento());
             comando.setString(5, cliente.getTelefone());
             comando.setString(6, cliente.getEmail());
             comando.setString(7, "Pessoa Juridica");
@@ -104,18 +112,19 @@ public class ClienteDAO {
             comando.setString(2, documento);
             ResultSet rs = comando.executeQuery();
 
-            Cliente cliente = new Cliente();
+            Cliente cliente = null;
 
             while (rs.next()) {
+                if (rs.getString("CPF") != null) {
+                    cliente = new PessoaFisica();
+                    cliente.setDocumento(rs.getString("CPF"));
+                } else {
+                    cliente = new PessoaJuridica();
+                    cliente.setDocumento(rs.getString("CNPJ"));
+                }
 
                 cliente.setId(rs.getInt("IdCliente"));
                 cliente.setNome(rs.getString("Nome"));
-
-                if (rs.getString("CPF") != null) {
-                    cliente.setDocumento(rs.getString("CPF"));
-                } else {
-                    cliente.setDocumento(rs.getString("CNPJ"));
-                }
             }
 
             DbConnectionDAO.closeConnection(connection);
@@ -128,7 +137,7 @@ public class ClienteDAO {
             return null;
         }
     }
-    
+
     public static Cliente pesquisarPorId(int id) {
         Connection connection = null;
 
@@ -137,22 +146,24 @@ public class ClienteDAO {
             PreparedStatement comando = connection.prepareStatement("SELECT IdCliente, Nome, CPF, CNPJ, Endereco, Email "
                     + "FROM Cliente WHERE IdCliente = ?");
             comando.setInt(1, id);
-            
+
             ResultSet rs = comando.executeQuery();
 
-            Cliente cliente = new Cliente();
+            Cliente cliente = null;
 
             while (rs.next()) {
+                if (rs.getString("CPF") != null) {
+                    cliente = new PessoaFisica();
+                    cliente.setDocumento(rs.getString("CPF"));
+                } else {
+                    cliente = new PessoaJuridica();
+                    cliente.setDocumento(rs.getString("CNPJ"));
+                }
+
                 cliente.setId(rs.getInt("IdCliente"));
                 cliente.setNome(rs.getString("Nome"));
                 cliente.setEndereco(rs.getString("Endereco"));
                 cliente.setEmail(rs.getString("Email"));
-
-                if (rs.getString("CPF") != null) {
-                    cliente.setDocumento(rs.getString("CPF"));
-                } else {
-                    cliente.setDocumento(rs.getString("CNPJ"));
-                }
             }
 
             DbConnectionDAO.closeConnection(connection);
@@ -184,7 +195,7 @@ public class ClienteDAO {
                 cliente.setId(rs.getInt("IdCliente"));
                 cliente.setNome(rs.getString("Nome"));
                 cliente.setEndereco(rs.getString("Endereco"));
-                cliente.setCpf(rs.getString("CPF"));
+                cliente.setDocumento(rs.getString("CPF"));
                 cliente.setCep(rs.getString("CEP"));
                 cliente.setDataNascimento(rs.getDate("DataNascimento"));
                 cliente.setEmail(rs.getString("Email"));
@@ -235,8 +246,16 @@ public class ClienteDAO {
             return null;
         }
     }
+    
+    public static boolean editar(Cliente cliente) {
+        if (cliente.getClass().getSimpleName().equals("PessoaFisica")) {
+            return editarFisico((PessoaFisica) cliente);
+        } else {
+            return editarJuridico((PessoaJuridica) cliente);
+        }
+    }
 
-    public static boolean editarFisico(PessoaFisica cliente) {
+    private static boolean editarFisico(PessoaFisica cliente) {
         Connection connection = null;
         boolean retorno;
 
@@ -250,11 +269,11 @@ public class ClienteDAO {
             comando.setString(1, cliente.getNome());
             comando.setString(2, cliente.getEndereco());
             comando.setString(3, cliente.getCep());
-            comando.setString(4, cliente.getCpf());
+            comando.setString(4, cliente.getDocumento());
             comando.setDate(5, new Date(cliente.getDataNascimento().getTime()));
             comando.setString(6, cliente.getEmail());
             comando.setInt(7, cliente.getId());
-            
+
             int linhasAfetadas = comando.executeUpdate();
 
             if (linhasAfetadas > 0) {
@@ -277,7 +296,7 @@ public class ClienteDAO {
         return retorno;
 
     }
-    
+
     public static boolean editarJuridico(PessoaJuridica cliente) {
         Connection connection = null;
         boolean retorno;
@@ -292,11 +311,11 @@ public class ClienteDAO {
             comando.setString(1, cliente.getNome());
             comando.setString(2, cliente.getEndereco());
             comando.setString(3, cliente.getCep());
-            comando.setString(4, cliente.getCnpj());
+            comando.setString(4, cliente.getDocumento());
             comando.setString(5, cliente.getTelefone());
             comando.setString(6, cliente.getEmail());
             comando.setInt(7, cliente.getId());
-            
+
             int linhasAfetadas = comando.executeUpdate();
 
             if (linhasAfetadas > 0) {
@@ -319,7 +338,7 @@ public class ClienteDAO {
         return retorno;
 
     }
-    
+
     public static boolean excluir(int id) {
         Connection connection = null;
         boolean retorno = false;
@@ -351,5 +370,32 @@ public class ClienteDAO {
 
     }
 
+    public static boolean buscaDocumento(String documento) {
+        Connection connection = null;
+        boolean retorno = false;
 
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("SELECT * FROM Cliente "
+                    + "WHERE CPF = ? OR CNPJ = ?");
+            comando.setString(1, documento);
+            comando.setString(2, documento);
+
+            ResultSet rs = comando.executeQuery();
+
+            while (rs.next()) {
+                if (rs.getString("CPF") != null || rs.getString("CNPJ") != null) {
+                    retorno = true;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            retorno = false;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            retorno = false;
+        }
+
+        DbConnectionDAO.closeConnection(connection);
+        return retorno;
+    }
 }

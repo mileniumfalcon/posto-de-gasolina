@@ -29,10 +29,6 @@ public class PessoaJuridica extends Cliente{
     
     public PessoaJuridica() {}
 
-    public String getCnpj() {
-        return cnpj;
-    }
-
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
@@ -45,4 +41,13 @@ public class PessoaJuridica extends Cliente{
         this.telefone = telefone;
     }
     
+    @Override
+    public String getDocumento() {
+        return cnpj;
+    }
+    
+    @Override
+    public void setDocumento(String cnpj) {
+        this.cnpj = cnpj;
+    }
 }

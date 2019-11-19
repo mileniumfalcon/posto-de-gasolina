@@ -29,7 +29,7 @@ public class EditarJuridicoServlet extends HttpServlet {
         request.setAttribute("nomeAttr", cliente.getNome());
         request.setAttribute("enderecoAttr", cliente.getEndereco());
         request.setAttribute("cepAttr", cliente.getCep());
-        request.setAttribute("cnpjAttr", cliente.getCnpj());
+        request.setAttribute("cnpjAttr", cliente.getDocumento());
         request.setAttribute("telefoneAttr", cliente.getTelefone());
         request.setAttribute("emailAttr", cliente.getEmail());
 
@@ -52,7 +52,7 @@ public class EditarJuridicoServlet extends HttpServlet {
         
         PessoaJuridica cliente = new PessoaJuridica(id, nome, endereco, cep, email,
                 cnpj, telefone);
-        boolean editou = ClienteDAO.editarJuridico(cliente);
+        boolean editou = ClienteDAO.editar(cliente);
         if (editou) {
             request.setAttribute("editadoAttr", true);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vendedor.jsp");
@@ -61,6 +61,5 @@ public class EditarJuridicoServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/editar-juridico.jsp");
             dispatcher.forward(request, response);
         }
-
     }
 }

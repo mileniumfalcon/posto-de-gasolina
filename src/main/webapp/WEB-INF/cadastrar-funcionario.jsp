@@ -32,6 +32,11 @@
         </li>
       </ul>
      
+             <c:if test="${jaExiste}">
+                <div class="alert alert-danger">
+                    Já existe um funcionário com este cpf
+                </div>
+            </c:if>
         
         <form method="post" action="${pageContext.request.contextPath}/rh/cadastrar-funcionario" class="needs-validation" novalidate>
             <br>

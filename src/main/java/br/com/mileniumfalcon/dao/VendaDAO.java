@@ -4,7 +4,7 @@ import br.com.mileniumfalcon.models.Cliente;
 import br.com.mileniumfalcon.models.Filial;
 import br.com.mileniumfalcon.models.ItemVenda;
 import br.com.mileniumfalcon.models.Venda;
-import br.com.mileniumfalcon.services.ProdutoService;
+import br.com.mileniumfalcon.services.RelatorioProdutoService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,8 +18,8 @@ import java.util.Date;
  */
 public class VendaDAO {
 
-    public static ArrayList<ProdutoService> dezMaisVendidosFilial(Date data, int id) {
-        ArrayList<ProdutoService> produtos = new ArrayList<ProdutoService>();
+    public static ArrayList<RelatorioProdutoService> dezMaisVendidosFilial(Date data, int id) {
+        ArrayList<RelatorioProdutoService> produtos = new ArrayList<RelatorioProdutoService>();
         Connection connection = null;
 
         try {
@@ -35,7 +35,7 @@ public class VendaDAO {
             ResultSet rs = comando.executeQuery();
 
             while (rs.next()) {
-                ProdutoService produto = new ProdutoService();
+                RelatorioProdutoService produto = new RelatorioProdutoService();
 
                 produto.setNome(rs.getString("nome"));
                 produto.setQuantidade(rs.getInt("quantidade"));

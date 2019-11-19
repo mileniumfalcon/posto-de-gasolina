@@ -59,6 +59,14 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
             
+            boolean existe = FuncionarioDAO.buscaCpf(cpf);
+            
+            if (existe) {
+                request.setAttribute("jaExiste", true);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cadastrar-funcionario.jsp");
+                dispatcher.forward(request, response);
+            }
+            
             Timestamp dataInclusao = new Timestamp(System.currentTimeMillis());
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             Date dataNascimento = formato.parse(dataNascimentoString);

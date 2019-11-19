@@ -4,14 +4,13 @@ package br.com.mileniumfalcon.models;
  *
  * @author erick
  */
-public class Cliente {
+public abstract class Cliente {
 
     private int id;
     private String nome;
     private String endereco;
     private String cep;
     private String email;
-    private String documento;
 
     public Cliente(int id, String nome, String endereco, String cep, String email) {
         this.id = id;
@@ -70,11 +69,7 @@ public class Cliente {
         this.email = email;
     }
     
-    public String getDocumento() {
-        return documento;
-    }
+    public abstract String getDocumento();
     
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
+    public abstract void setDocumento(String documento);
 }
