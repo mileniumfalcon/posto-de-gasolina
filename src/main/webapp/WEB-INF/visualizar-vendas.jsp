@@ -30,12 +30,12 @@
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/backoffice/pesquisar-produto">Pesquisar Produto</a>
       </li>
-      <li class="nav-item nav-item-last"">
-        <a class="nav-link" href="${pageContext.request.contextPath}/backoffice/visualizar-vendas">Visualizar Vendas    </a>
+      <li class="nav-item nav-item-last">
+        <a class="nav-link" href="${pageContext.request.contextPath}/backoffice/visualizar-vendas">Visualizar Vendas</a>
       </li>
     </ul>
     <br>
-    <form method="get" action="${pageContext.request.contextPath}/backoffice/" class="needs-validation" novalidate>
+    <form method="get" action="${pageContext.request.contextPath}/backoffice/visualizacao-de-vendas" class="needs-validation" novalidate>
         <br>
         <div class="form-group row">
             <label for="inputDataInicio" class="col-sm-1 offset-md-1">Data Inicio: </label>
@@ -57,18 +57,34 @@
             <label for="inputDataFinal" class="col-sm-1 offset-md-0">Filial:</label>
             <div class="col-sm-2">
                 <select class="form-control" name="filial" id="filial" placeholder="Filial">
-                    <option value="AC">Teste</option>
+                    <c:forEach items="${filiaisAttr}" var="filial">
+                        <option value="${filial}"><c:out value="${filial}" /></option>
+                    </c:forEach>
                 </select>
             </div>
+            <br><br><br><br>
+            <div class="col-sm-1 offset-md-4">
+                <input class="form-check-input" type="radio" name="vendas" id="vendas" value="mais" required>
+                <label class="form-check-label" for="vendas" style="margin-top: -10px !important;">Mais Vendidos</label>
+            </div>
+            <div class="col-sm-1 offset-md-1">
+                <input class="form-check-input" type="radio" name="vendas" id="vendas" value="menos" required>
+                <label class="form-check-label" for="vendas" style="margin-top: -10px !important;">Menos Vendidos</label>
+            </div>
         </div>
-        <br><br>
+        
+
         <div class="button-group">
-            <button class="btn btn-primary btn-md mb-2 offset-md-3" type="submit">Mais Vendidos</button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <td><a data-method="get" href="${pageContext.request.contextPath}/gerente-vendas/relatorios-gerente?data=atual" class="btn btn-primary mb-2" >Menos Vendidos</a></td>
+            <button class="btn btn-primary btn-lg mb-2 offset-md-4" type="submit">Pesquisar</button>
         </div>
     </form>
         
   </body>
   <script src="https://kit.fontawesome.com/1803175e4f.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+<script src="https://kit.fontawesome.com/1803175e4f.js" crossorigin="anonymous"></script>
 </html>
