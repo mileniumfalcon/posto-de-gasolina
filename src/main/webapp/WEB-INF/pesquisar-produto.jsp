@@ -31,7 +31,7 @@
                 <a class="nav-link" href="${pageContext.request.contextPath}/backoffice/pesquisar-produto">Pesquisar Produto</a>
             </li>
             <li class="nav-item nav-item-last">
-                <a class="nav-link" href="#">Visualizar Vendas</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/backoffice/visualizar-vendas">Visualizar Vendas</a>
             </li>
         </ul>
         
