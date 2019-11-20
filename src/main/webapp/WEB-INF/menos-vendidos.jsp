@@ -12,7 +12,7 @@
   </head>
   <header>
       <nav class="navbar navbar-light nav-color">
-      <a class="navbar-brand"><i class="fas fa-gas-pump"></i> Postos Tades</a>
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/backoffice"><i class="fas fa-gas-pump"></i> Postos Tades</a>
       <div class="nav-item text-nowrap">
         <a class="nav-link" href="${pageContext.request.contextPath}/logout">Sair</a>
       </div>
@@ -52,9 +52,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                     <c:forEach items="${produtosAttr}" var="produto">
+                     <c:forEach items="${produtosAttr}" var="produto" varStatus="loop">
                     <tr>
-                        <th> x </th>
+                        <th><c:out value="${loop.index + 1}"/></th>
                         <td><c:out value="${produto.getNome()}"/></td>
                         <td><c:out value="${produto.getQuantidade()}"/></td>
                         <td><c:out value="${produto.getPorcentagem(totalAttr)}" /></td>

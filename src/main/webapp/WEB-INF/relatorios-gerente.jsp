@@ -52,9 +52,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                     <c:forEach items="${produtosAttr}" var="produto">
+                     <c:forEach items="${produtosAttr}" var="produto" varStatus="loop">
                     <tr>
-                        <th> x </th>
+                        <th><c:out value="${loop.index + 1}"/></th>
                         <td ><c:out value="${produto.getNome()}"/></td>
                         <td> <c:out value="${produto.getQuantidade()}"/></td>
                         <td> <c:out value="${produto.getPorcentagem(totalAttr)}" /></td>
