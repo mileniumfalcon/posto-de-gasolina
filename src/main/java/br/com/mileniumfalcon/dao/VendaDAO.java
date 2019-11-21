@@ -1,7 +1,6 @@
 package br.com.mileniumfalcon.dao;
 
 import br.com.mileniumfalcon.models.Cliente;
-import br.com.mileniumfalcon.models.Filial;
 import br.com.mileniumfalcon.models.ItemVenda;
 import br.com.mileniumfalcon.models.Venda;
 import br.com.mileniumfalcon.services.RelatorioProdutoService;
@@ -55,6 +54,85 @@ public class VendaDAO {
             return null;
         }
     }
+    
+    public static ArrayList<RelatorioProdutoService> dezMaisVendidosFilialData(Date dataInicio, Date dataFinal, int id) {
+        ArrayList<RelatorioProdutoService> produtos = new ArrayList<RelatorioProdutoService>();
+        Connection connection = null;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement(
+                    "SELECT p.nome, p.ValorUnitario, i.quantidade FROM Produto p INNER JOIN ItemVenda i "
+                    + "ON p.IdProduto = i.IdProduto INNER JOIN Venda v ON "
+                    + "i.IdVenda = v.IdVenda WHERE v.IdFilial = ? AND v.DataVenda BETWEEN ? AND ?"
+                    + "ORDER BY i.quantidade DESC LIMIT 10");
+            comando.setInt(1, id);
+            comando.setDate(2, new java.sql.Date(dataInicio.getTime()));
+            comando.setDate(3, new java.sql.Date(dataFinal.getTime()));
+
+            ResultSet rs = comando.executeQuery();
+
+            while (rs.next()) {
+                RelatorioProdutoService produto = new RelatorioProdutoService();
+
+                produto.setNome(rs.getString("nome"));
+                produto.setQuantidade(rs.getInt("quantidade"));
+                produto.setValor(rs.getDouble("ValorUnitario"));
+
+                produtos.add(produto);
+            }
+
+            DbConnectionDAO.closeConnection(connection);
+            return produtos;
+
+        } catch (ClassNotFoundException ex) {
+            return null;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+    
+    public static ArrayList<RelatorioProdutoService> dezMenosVendidosFilialData(Date dataInicio, Date dataFinal, int id) {
+        ArrayList<RelatorioProdutoService> produtos = new ArrayList<RelatorioProdutoService>();
+        Connection connection = null;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement(
+                    "SELECT p.nome, p.ValorUnitario, i.quantidade FROM Produto p INNER JOIN ItemVenda i "
+                    + "ON p.IdProduto = i.IdProduto INNER JOIN Venda v ON "
+                    + "i.IdVenda = v.IdVenda WHERE v.IdFilial = ? AND v.DataVenda BETWEEN ? AND ?"
+                    + "ORDER BY i.quantidade ASC LIMIT 10");
+            comando.setInt(1, id);
+            comando.setDate(2, new java.sql.Date(dataInicio.getTime()));
+            comando.setDate(3, new java.sql.Date(dataFinal.getTime()));
+
+            ResultSet rs = comando.executeQuery();
+
+            while (rs.next()) {
+                RelatorioProdutoService produto = new RelatorioProdutoService();
+
+                produto.setNome(rs.getString("nome"));
+                produto.setQuantidade(rs.getInt("quantidade"));
+                produto.setValor(rs.getDouble("ValorUnitario"));
+
+                produtos.add(produto);
+            }
+
+            DbConnectionDAO.closeConnection(connection);
+            return produtos;
+
+        } catch (ClassNotFoundException ex) {
+            return null;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+
 
     public static double totalVendidoFilial(Date data, int idFilial) {
         Connection connection = null;
@@ -66,6 +144,36 @@ public class VendaDAO {
                     "SELECT SUM(ValorTotal) AS ValorTotal FROM Venda WHERE IdFilial = ? AND DataVenda = ?");
             comando.setInt(1, idFilial);
             comando.setDate(2, new java.sql.Date(data.getTime()));
+
+            ResultSet rs = comando.executeQuery();
+
+            while (rs.next()) {
+                total = rs.getDouble("ValorTotal");
+            }
+
+            DbConnectionDAO.closeConnection(connection);
+            return total;
+
+        } catch (ClassNotFoundException ex) {
+            return total;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return total;
+        }
+    }
+    
+    public static double totalVendidoFilialData(Date dataInicio, Date dataFinal, int idFilial) {
+        Connection connection = null;
+        double total = 0;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement(
+                    "SELECT SUM(ValorTotal) AS ValorTotal FROM Venda WHERE IdFilial = ? AND DataVenda BETWEEN ? AND ?");
+            comando.setInt(1, idFilial);
+            comando.setDate(2, new java.sql.Date(dataInicio.getTime()));
+            comando.setDate(3, new java.sql.Date(dataFinal.getTime()));
 
             ResultSet rs = comando.executeQuery();
 
