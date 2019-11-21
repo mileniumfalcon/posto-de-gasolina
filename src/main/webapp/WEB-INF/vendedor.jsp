@@ -37,7 +37,11 @@
           <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/pesquisar-cliente">Pesquisar Cliente</a>
         </li>
       </ul>
-        
+        <c:if test="${vendaAttr}">
+          <div class="alert alert-success">
+              Venda realizada com sucesso!
+          </div>
+      </c:if>
       <c:if test="${criadoAttr}">
           <div class="alert alert-success">
               Cliente cadastrado com sucesso!

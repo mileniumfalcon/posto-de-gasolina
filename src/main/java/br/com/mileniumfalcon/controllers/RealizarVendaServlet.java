@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
  * @author Pablo de Oliveira
  */
 @WebServlet(name = "RealizarVenda", urlPatterns = {"/vendedor/realizar-venda"})
-public class RealizarVenda extends HttpServlet {
+public class RealizarVendaServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,9 +40,7 @@ public class RealizarVenda extends HttpServlet {
         List<Produto> produtos = ProdutoDAO.pesquisarProdutos(idFilial);
         try {
             if (produtos != null) {
-
                 request.setAttribute("produtosAttr", produtos);
-
                 request.getRequestDispatcher("/WEB-INF/realizar-venda.jsp").forward(request, response);
             }
         } catch (Exception ex) {
@@ -53,40 +51,35 @@ public class RealizarVenda extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         
+
         try {
             HttpSession sessao = request.getSession();
-            if(sessao.getAttribute("itensAttr")== null){
+            if (sessao.getAttribute("itensAttr") == null) {
                 sessao.setAttribute("itensAttr", new ArrayList<ItemVenda>());
             }
-             
-            
             List<ItemVenda> itensVenda = (List<ItemVenda>) sessao.getAttribute("itensAttr");
-            
-            System.out.println("AQUI O ID = " + request.getParameter("idProduto"));
+
             int idItem = Integer.parseInt(request.getParameter("idProduto"));
             double qtdItem = Double.parseDouble(request.getParameter("qtdItem"));
-
+            double total = 0;
+            
             Produto produto = ProdutoDAO.pesquisarPorId(idItem);
-           
+            ItemVenda item = new ItemVenda(produto, qtdItem);
             
-            itensVenda.add( new ItemVenda(produto, qtdItem));
-          
-            
-            //request.setAttribute("itensAttr", itensVenda);
-            
-           response.sendRedirect(request.getContextPath()+"/vendedor/realizar-venda");
-           
+            if (item.qtdPermitida()) {
+                itensVenda.add(item);
+                for (int i = 0; i < itensVenda.size(); i++) {
+                    total = total + itensVenda.get(i).vlrTotalItem();
+                }
+                sessao.setAttribute("totalAttr", total);
+                response.sendRedirect(request.getContextPath() + "/vendedor/realizar-venda");
+            } else {
+                request.setAttribute("naoPermitidoAttr", true
+                );
+                response.sendRedirect(request.getContextPath() + "/vendedor/realizar-venda");
+            }
         } catch (Exception ex) {
             System.out.println("AQUIIIIIIIIIII" + ex);
         }
-
     }
-
-    public static double valorCompra(double valorItem, double quantidade, double total) {
-        total += (valorItem * quantidade);
-
-        return total;
-    }
-
 }

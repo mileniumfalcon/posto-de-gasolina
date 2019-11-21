@@ -101,4 +101,5 @@ public class Venda {
     public void setItens(ArrayList<ItemVenda> itens) {
         this.itens = itens;
     }
+    
 }

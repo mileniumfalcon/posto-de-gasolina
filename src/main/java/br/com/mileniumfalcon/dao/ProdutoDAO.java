@@ -89,8 +89,8 @@ public class ProdutoDAO {
 
         try {
             connection = DbConnectionDAO.openConnection();
-            PreparedStatement comando = connection.prepareStatement("SELECT * FROM Produto");
-
+            PreparedStatement comando = connection.prepareStatement("SELECT * FROM Produto WHERE IdFilial = ?; ");
+             comando.setInt(1, id);
             ResultSet rs = comando.executeQuery();
 
             while (rs.next()) {

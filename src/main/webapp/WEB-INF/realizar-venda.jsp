@@ -43,9 +43,9 @@
                 <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/pesquisar-cliente">Pesquisar Cliente</a>
             </li>
         </ul>
-            <form method="post" action="${pageContext.request.contextPath}/vendedor/realizar-venda"class="needs-validation col-sm-9" style="width: 1095px height 4px;">
-    
->
+        <form method="post" action="${pageContext.request.contextPath}/vendedor/realizar-venda"class="needs-validation col-sm-9" style="width: 1095px height 4px;">
+
+            
             <div class="table-wrapper-scroll-y my-custom-scrollbar col-sm-">
                 <table class="table table-sm-1 offset-md-1" style="width: 35%; margin-top: 65px; float:left;">
                     <thead>
@@ -69,7 +69,7 @@
                     </c:forEach>    
                 </table>
             </div>
-                 <div class="col-sm-8" style="position: absolute; margin-left: 100px;">
+            <div class="col-sm-8" style="position: absolute; margin-left: 100px;">
                 <label for="inputQtd" class="col-md-2 offset-md-2">Qtd Item a venda:</label>
                 <input type="number" class="col-md-2 offset-md-2" name="qtdItem" id="qtdItem" placeholder="X" required>
 
@@ -82,36 +82,38 @@
             </div>
         </form>
 
+
         <!--<form method="post" action="${pageContext.request.contextPath}/vendedor/realizar-venda">
            
         </form> -->
-            
-            <table class="table table-sm-1 offset-md-1" style="width: 35%; margin-top: -219px; float:right; margin-right: 70px;">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Qtd</th>
-                            <th scope="col">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${itensAttr}" var="itensVenda">
-                            <tr>
-                                <td id="nomeItem" name="nomeItem"><c:out value="${itensVenda.getProduto().getNome()}"/></td>
-                                <td id="qtdItem" name="qtdItem"><c:out value="${itensVenda.getQuantidade()}"/></td>
-                               <!-- <td id="totalItem" name="totalItem"></td> -->
-                            </tr>  
-                    </tbody>
-                    </c:forEach>    
-                </table>
- 
-        <!-- <label for="inputQtd" class="col-md-1 offset-md-2">Quantidade</label>
-           <div class="col-sm-2">
-             <input type="text" class="form-control" name="quantidade" id="inputQtd" placeholder="Quanidade" required>
-              <div class="invalid-feedback">
-                 Digite uma quantidade do Produto selecionado
-             </div>
-         </div> -->
+
+        <table class="table table-sm-1 offset-md-1" style="width: 35%; margin-top: -219px; float:right; margin-right: 70px;">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Qtd</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${itensAttr}" var="itensVenda">
+                    <tr>
+                        <td id="nomeItem" name="nomeItem"><c:out value="${itensVenda.getProduto().getNome()}" /></td>
+                        <td id="qtdItem" name="qtdItem"><c:out value="${itensVenda.getQuantidade()}" /></td>
+                        <td id="totalItem" name="totalItem"><c:out value="${itensVenda.vlrTotalItem()}" /></td>
+                    </tr>  
+                </tbody>
+            </c:forEach> 
+         </table>
+         <strong><p style="text-align: center; font-size: 20px;">Total do dia: R$ <c:out value="${totalAttr}" /></p></strong>
+        <button class="btn btn-primary"type="submit" style="float: right; margin-right: 80px;">Finalizar</button> 
+        
+         <c:if test="${naoPermitidoAttr}">
+             <div class="alert alert-success" style="position: absolute;">
+              Produto deletado com sucesso!
+          </div>
+      </c:if>
+
     </body>
     <script>
 
