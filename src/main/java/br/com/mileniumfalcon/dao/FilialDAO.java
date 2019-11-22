@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -85,7 +87,7 @@ public class FilialDAO {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement("SELECT IdFilial, Nome, Endereco, Estado, CEP "
                     + "FROM Filial WHERE Nome LIKE ?");
-            comando.setString(1,  nome + "%");
+            comando.setString(1, nome + "%");
             ResultSet rs = comando.executeQuery();
 
             Filial filial = new Filial();
@@ -178,7 +180,7 @@ public class FilialDAO {
         return retorno;
 
     }
-    
+
     public static int idFilialPorEmail(String email) {
         Connection connection = null;
         int id = 0;
@@ -186,9 +188,9 @@ public class FilialDAO {
         try {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement(
-                    "SELECT fi.IdFilial FROM filial_vendedor fi INNER JOIN Funcionario f " 
-                   + "ON fi.IdFuncionario = f.IdFuncionario INNER JOIN Usuario u " 
-                   + "ON f.IdFuncionario = u.IdFuncionario WHERE u.email LIKE ?");
+                    "SELECT fi.IdFilial FROM filial_vendedor fi INNER JOIN Funcionario f "
+                    + "ON fi.IdFuncionario = f.IdFuncionario INNER JOIN Usuario u "
+                    + "ON f.IdFuncionario = u.IdFuncionario WHERE u.email LIKE ?");
             comando.setString(1, email);
             ResultSet rs = comando.executeQuery();
 
@@ -205,5 +207,49 @@ public class FilialDAO {
             System.out.println(ex);
             return 0;
         }
+    }
+
+    public static List<Filial> consultarVendaTotaldeTodasFiliais(Date datainicio, Date datafim) {
+        Connection connection = null;
+        int id = 0;
+        List<Filial> filiais = null;
+        try {
+            connection = DbConnectionDAO.openConnection();
+
+            PreparedStatement comando = connection.prepareStatement(
+                    "select f.nome, f.estado, sum(v.ValorTotal) from filial f  left JOIN Venda v on f.Idfilial = v.Idfilial"
+                    + "where dataVenda between '?' and ?"
+                    + "group by f.nome;");
+
+            comando.setDate(1, new java.sql.Date(datainicio.getTime()));
+            comando.setDate(2, new java.sql.Date(datafim.getTime()));
+            ResultSet rs = comando.executeQuery();
+
+            while (rs.next()) {
+                id = rs.getInt("IdFilial");
+            }
+
+            Filial filial = new Filial();
+
+            while (rs.next()) {
+                filial.setId(rs.getInt("IdFilial"));
+                filial.setNome(rs.getString("Nome"));
+                filial.setEstado(rs.getString("Estado"));
+                filial.setQuantidade(rs.getInt("sum(v.ValorTotal)"));
+                filiais.add(filial);
+            }
+
+            DbConnectionDAO.closeConnection(connection);
+            return filiais;
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex);
+            return null;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+
     }
 }

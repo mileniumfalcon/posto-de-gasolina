@@ -33,7 +33,7 @@
           <a class="nav-link" href="${pageContext.request.contextPath}/diretor/relatorio-filial">Emitir Relatório</a>
         </li>
       </ul>
-       <form method="post" action="${pageContext.request.contextPath}/diretor/editar-filial" class="needs-validation" novalidate>
+       <form method="post" action="${pageContext.request.contextPath}/diretor/cadastrar-filial" class="needs-validation" novalidate>
            <br>
             <div class="form-group row">
               <label for="inputNome" class="col-md-1 offset-md-2">Nome*:</label>
