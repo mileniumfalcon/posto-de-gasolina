@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -209,30 +210,22 @@ public class FilialDAO {
         }
     }
 
-    public static List<Filial> consultarVendaTotaldeTodasFiliais(Date datainicio, Date datafim) {
+    public static ArrayList<Filial> consultarVendaTotaldeTodasFiliais(Date datainicio, Date datafim) {
         Connection connection = null;
         int id = 0;
-        List<Filial> filiais = null;
+        ArrayList<Filial> filiais = new ArrayList<Filial>();
         try {
             connection = DbConnectionDAO.openConnection();
 
             PreparedStatement comando = connection.prepareStatement(
-                    "select f.nome, f.estado, sum(v.ValorTotal) from filial f  left JOIN Venda v on f.Idfilial = v.Idfilial"
-                    + "where dataVenda between '?' and ?"
-                    + "group by f.nome;");
+                    "select f.nome, f.estado, sum(v.ValorTotal) from filial f  left JOIN Venda v on f.Idfilial = v.Idfilial where v.dataVenda between ? and ? group by f.nome;");
 
             comando.setDate(1, new java.sql.Date(datainicio.getTime()));
             comando.setDate(2, new java.sql.Date(datafim.getTime()));
             ResultSet rs = comando.executeQuery();
 
             while (rs.next()) {
-                id = rs.getInt("IdFilial");
-            }
-
-            Filial filial = new Filial();
-
-            while (rs.next()) {
-                filial.setId(rs.getInt("IdFilial"));
+                Filial filial = new Filial();
                 filial.setNome(rs.getString("Nome"));
                 filial.setEstado(rs.getString("Estado"));
                 filial.setQuantidade(rs.getInt("sum(v.ValorTotal)"));
