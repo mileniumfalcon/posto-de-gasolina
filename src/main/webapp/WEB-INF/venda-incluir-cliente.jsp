@@ -3,8 +3,7 @@
     Created on : Nov 7, 2019, 10:41:16 PM
     Author     : Pablo de Oliveira
 --%>
-
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -47,7 +46,7 @@
         </li>
       </ul>
       
-        <form method="post" action="${pageContext.request.contextPath}/vendedor/venda-incluir-cliente" class="needs-validation" novalidate>
+      <form method="get" action="${pageContext.request.contextPath}/vendedor/venda-incluir-cliente" class="needs-validation" novalidate>
             <br>
             <div class="form-group row">
               <label for="inputDoc" class="col-md-1 offset-md-2">CPF/CNPJ:</label>
@@ -58,13 +57,47 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                  <button class="btn btn-primary" type="submit" name="id">Incluir</button>
-                <br>
-                <br>
-                 <a data-method="post" href="${pageContext.request.contextPath}/vendedor/realizar-venda" class="btn btn-primary mb-1" >Não Incluir</a>
+                <button type="submit" class="btn btn-primary mb-2">Pesquisar</button>
+                <br><br>
+                <a data-method="post" href="${pageContext.request.contextPath}/vendedor/realizar-venda" class="btn btn-primary mb-1" >Não Incluir</a>
               </div>
             </div>
         </form>
+                    <c:if test="${naoEncontradoAttr}">
+                <div class="alert alert-danger">
+                    Cliente não encontrado
+                </div>
+            </c:if>
+            
+            <c:if test="${nomeAttr != null}">
+                <table class="table table-sm offset-md-2" style="width: 75%;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nome/Razão Social</th>
+                        <th scope="col">CPF/CNPJ</th>
+                        <th scope="col"> </th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row"><c:out value="${idAttr}"/></th>
+                        <td ><c:out value="${nomeAttr}"/></td>
+                        <td> <c:out value="${documentoAttr}"/></td>
+                        <c:choose>
+                            <c:when test="${fn:length(documentoAttr) == 14}">
+                                <td><a data-method="get" href="${pageContext.request.contextPath}/vendedor/realizar-venda?id=${idAttr}" class="btn btn-primary mb-1" >Incluir</a></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td><a data-method="get" href="${pageContext.request.contextPath}/vendedor/realizar-venda?id=${idAttr}" class="btn btn-primary mb-1" >Incluir</a></td>
+                            </c:otherwise>
+                        </c:choose>
+                       </tr>
+                    </tbody>
+                  </table>
+          </c:if>
+
 
            <!-- <c:if test="${naoEncontradoAttr}">
                 <div class="alert alert-danger">

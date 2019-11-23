@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -54,7 +55,7 @@ public class VendaDAO {
             return null;
         }
     }
-    
+
     public static ArrayList<RelatorioProdutoService> dezMaisVendidosFilialData(Date dataInicio, Date dataFinal, int id) {
         ArrayList<RelatorioProdutoService> produtos = new ArrayList<RelatorioProdutoService>();
         Connection connection = null;
@@ -93,7 +94,7 @@ public class VendaDAO {
             return null;
         }
     }
-    
+
     public static ArrayList<RelatorioProdutoService> dezMenosVendidosFilialData(Date dataInicio, Date dataFinal, int id) {
         ArrayList<RelatorioProdutoService> produtos = new ArrayList<RelatorioProdutoService>();
         Connection connection = null;
@@ -133,7 +134,6 @@ public class VendaDAO {
         }
     }
 
-
     public static double totalVendidoFilial(Date data, int idFilial) {
         Connection connection = null;
         double total = 0;
@@ -162,7 +162,7 @@ public class VendaDAO {
             return total;
         }
     }
-    
+
     public static double totalVendidoFilialData(Date dataInicio, Date dataFinal, int idFilial) {
         Connection connection = null;
         double total = 0;
@@ -317,7 +317,7 @@ public class VendaDAO {
 
             if (linhasAfetadas > 0) {
                 comando = connection.prepareStatement("DELETE FROM Venda "
-                    + "WHERE IdVenda = ?");
+                        + "WHERE IdVenda = ?");
                 comando.setInt(1, id);
 
                 linhasAfetadas = comando.executeUpdate();
@@ -342,6 +342,113 @@ public class VendaDAO {
         DbConnectionDAO.closeConnection(connection);
         return retorno;
 
+    }
+
+    public static boolean salvar(Venda venda) {
+        Connection connection = null;
+        boolean retorno = false;
+
+        try {
+            if (venda.getCliente() == null) {
+                connection = DbConnectionDAO.openConnection();
+                PreparedStatement comando = connection.prepareStatement("INSERT INTO Venda "
+                        + "(ValorTotal, DataVenda, IdFilial) "
+                        + "VALUES (?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+                comando.setDouble(1, venda.getValorTotal());
+                comando.setDate(2, new java.sql.Date(venda.getDataVenda().getTime()));
+                comando.setInt(3, venda.getFilial().getId());
+
+                int linhasAfetadas = comando.executeUpdate();
+
+                if (linhasAfetadas > 0) {
+                    int idVenda = 0;
+                    ResultSet resultSet = comando.getGeneratedKeys();
+
+                    while (resultSet.next()) {
+                        idVenda = resultSet.getInt(1);
+                    }
+
+                    for (int i = 0; i < venda.getItens().size(); i++) {
+
+                        comando = connection.prepareStatement("INSERT INTO ItemVenda "
+                                + "(IdProduto, IdVenda, Quantidade) VALUES (?, ?, ?);");
+                        comando.setInt(1, venda.getItens().get(i).getProduto().getId());
+                        comando.setInt(2, idVenda);
+                        comando.setDouble(3, venda.getItens().get(i).getQuantidade());
+                        linhasAfetadas = comando.executeUpdate();
+
+                        double nvQtd = venda.getItens().get(i).getProduto().getQtdProduto() - venda.getItens().get(i).getQuantidade();
+                        comando = connection.prepareStatement("UPDATE Produto"
+                                + " SET QntEstoque = ? WHERE IdProduto = ?");
+                        comando.setDouble(1, nvQtd);
+                        comando.setInt(2, venda.getItens().get(i).getProduto().getId());
+                        linhasAfetadas = comando.executeUpdate();
+                    }
+
+                    if (linhasAfetadas > 0) {
+                        DbConnectionDAO.closeConnection(connection);
+                        retorno = true;
+                    } else {
+                        retorno = false;
+                    }
+                }
+            } else {
+                connection = DbConnectionDAO.openConnection();
+                PreparedStatement comando = connection.prepareStatement("INSERT INTO Venda "
+                        + "(ValorTotal, DataVenda, IdCliente,IdFilial) "
+                        + "VALUES (?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+                comando.setDouble(1, venda.getValorTotal());
+                comando.setDate(2, new java.sql.Date(
+                        venda.getDataVenda().getTime()));
+                comando.setInt(3, venda.getCliente().getId());
+                comando.setInt(4, venda.getFilial().getId());
+
+                int linhasAfetadas = comando.executeUpdate();
+
+                if (linhasAfetadas > 0) {
+                    int idVenda = 0;
+                    ResultSet resultSet = comando.getGeneratedKeys();
+
+                    while (resultSet.next()) {
+                        idVenda = resultSet.getInt(1);
+                    }
+
+                    for (int i = 0; i < venda.getItens().size(); i++) {
+
+                        comando = connection.prepareStatement("INSERT INTO ItemVenda "
+                                + "(IdProduto, IdVenda, Quantidade) VALUES (?, ?, ?);");
+                        comando.setInt(1, venda.getItens().get(i).getProduto().getId());
+                        comando.setInt(2, idVenda);
+                        comando.setDouble(3, venda.getItens().get(i).getQuantidade());
+                        linhasAfetadas = comando.executeUpdate();
+
+                        double nvQtd = venda.getItens().get(i).getProduto().getQtdProduto() - venda.getItens().get(i).getQuantidade();
+                        comando = connection.prepareStatement("UPDATE Produto"
+                                + " SET QntEstoque = ? WHERE IdProduto = ?");
+                        comando.setDouble(1, nvQtd);
+                        comando.setInt(2, venda.getItens().get(i).getProduto().getId());
+                        linhasAfetadas = comando.executeUpdate();
+                    }
+
+                    if (linhasAfetadas > 0) {
+                        DbConnectionDAO.closeConnection(connection);
+                        retorno = true;
+                    } else {
+                        retorno = false;
+                    }
+                }
+
+            }
+
+        } catch (ClassNotFoundException ex) {
+            retorno = false;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            retorno = false;
+        }
+
+        DbConnectionDAO.closeConnection(connection);
+        return retorno;
     }
 
 }

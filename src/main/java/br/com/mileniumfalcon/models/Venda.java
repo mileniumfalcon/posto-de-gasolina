@@ -35,6 +35,14 @@ public class Venda {
         this.filial = filial;
         this.itens = itens;
     }
+
+    public Venda(double valorTotal, Date dataVenda, Filial filial, ArrayList<ItemVenda> itens) {
+        this.valorTotal = valorTotal;
+        this.dataVenda = dataVenda;
+        this.filial = filial;
+        this.itens = itens;
+    }
+    
     
     public Venda() {}
 

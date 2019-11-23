@@ -3,8 +3,8 @@
     Created on : Nov 9, 2019, 9:36:04 PM
     Author     : Pablo de Oliveira
 --%>
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -45,7 +45,7 @@
         </ul>
         <form method="post" action="${pageContext.request.contextPath}/vendedor/realizar-venda"class="needs-validation col-sm-9" style="width: 1095px height 4px;">
 
-            
+
             <div class="table-wrapper-scroll-y my-custom-scrollbar col-sm-">
                 <table class="table table-sm-1 offset-md-1" style="width: 35%; margin-top: 65px; float:left;">
                     <thead>
@@ -104,15 +104,19 @@
                     </tr>  
                 </tbody>
             </c:forEach> 
-         </table>
-         <strong><p style="text-align: center; font-size: 20px;">Total do dia: R$ <c:out value="${totalAttr}" /></p></strong>
-        <button class="btn btn-primary"type="submit" style="float: right; margin-right: 80px;">Finalizar</button> 
-        
-         <c:if test="${naoPermitidoAttr}">
-             <div class="alert alert-success" style="position: absolute;">
-              Produto deletado com sucesso!
-          </div>
-      </c:if>
+        </table>
+        <strong><p style="text-align: center; font-size: 20px;">Total do dia: R$ <c:out value="${totalAttr}" /></p></strong>
+        <!--?id=${idAttr}-->                   
+        <form method="post" action="${pageContext.request.contextPath}/vendedor/venda-finalizada"class="needs-validation col-sm-9" style="width: 1095px height 4px;">
+
+            <button class="btn btn-primary"type="submit" style="float: right; margin-right: 80px;">Finalizar</button> 
+        </form>
+
+        <c:if test="${naoPermitidoAttr}">
+            <div class="alert alert-danger" >
+                Quantidade não permitida!
+            </div>
+        </c:if>
 
     </body>
     <script>
