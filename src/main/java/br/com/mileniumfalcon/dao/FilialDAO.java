@@ -1,6 +1,7 @@
 package br.com.mileniumfalcon.dao;
 
 import br.com.mileniumfalcon.models.Filial;
+import br.com.mileniumfalcon.services.RelatorioFilialService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -210,10 +211,10 @@ public class FilialDAO {
         }
     }
 
-    public static ArrayList<Filial> consultarVendaTotaldeTodasFiliais(Date datainicio, Date datafim) {
+    public static ArrayList<RelatorioFilialService> consultarVendaTotaldeTodasFiliais(Date datainicio, Date datafim) {
         Connection connection = null;
         int id = 0;
-        ArrayList<Filial> filiais = new ArrayList<Filial>();
+        ArrayList<RelatorioFilialService> filiais = new ArrayList<RelatorioFilialService>();
         try {
             connection = DbConnectionDAO.openConnection();
 
@@ -225,7 +226,7 @@ public class FilialDAO {
             ResultSet rs = comando.executeQuery();
 
             while (rs.next()) {
-                Filial filial = new Filial();
+                RelatorioFilialService filial = new RelatorioFilialService();
                 filial.setNome(rs.getString("Nome"));
                 filial.setEstado(rs.getString("Estado"));
                 filial.setQuantidade(rs.getInt("sum(v.ValorTotal)"));

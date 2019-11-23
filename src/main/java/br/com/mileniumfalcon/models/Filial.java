@@ -6,14 +6,13 @@ import br.com.mileniumfalcon.services.Services;
  *
  * @author Victor
  */
-public class Filial extends Services {
+public class Filial {
 
     String nome;
     int id;
     String estado;
     String endereco;
     String cep;
-    
 
     public Filial(String nome, String estado, String endereco, String cep) {
         this.cep = cep;

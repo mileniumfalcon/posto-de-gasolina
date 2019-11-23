@@ -11,6 +11,7 @@ import br.com.mileniumfalcon.dao.VendaDAO;
 import br.com.mileniumfalcon.models.Filial;
 import br.com.mileniumfalcon.models.Usuario;
 import br.com.mileniumfalcon.models.Venda;
+import br.com.mileniumfalcon.services.RelatorioFilialService;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -55,7 +56,7 @@ public class PesquisarVendasDiretorServlet extends HttpServlet {
         dataFinal = formato.parse(dataFinalString);
 
          
-             ArrayList<Filial> filial = FilialDAO.consultarVendaTotaldeTodasFiliais(dataInicio, dataFinal);
+             ArrayList<RelatorioFilialService> filial = FilialDAO.consultarVendaTotaldeTodasFiliais(dataInicio, dataFinal);
 
 
             if (!filial.isEmpty()) {
