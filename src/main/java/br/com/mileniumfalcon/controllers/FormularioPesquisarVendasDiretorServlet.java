@@ -23,29 +23,15 @@ import javax.servlet.http.HttpServletResponse;
  * @author Victor
  */
 @WebServlet(name = "PesquisarVendasDiretor", urlPatterns = {"/diretor/relatorio-filial"})
-public class RelatoriosDiretorServlet extends HttpServlet {
+public class FormularioPesquisarVendasDiretorServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-  
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/relatorios-diretor.jsp");
-            //String dataInicioString = request.getParameter("dataInicio");
-          //  String dataFinalString = request.getParameter("dataFinal");
-            
-            HttpServletRequest httpRequest = (HttpServletRequest) request;
-            Usuario usuario = (Usuario) httpRequest.getSession().getAttribute("usuario");
-            
-            //SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-           // Date dataInicio = formato.parse(dataInicioString);
-            Date dataFinal;
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/relatorios-diretor.jsp");
 
-           // dataFinal = formato.parse(dataFinalString);
-            dispatcher.forward(request, response);
-            
-            
-      
+        dispatcher.forward(request, response);
 
     }
 
