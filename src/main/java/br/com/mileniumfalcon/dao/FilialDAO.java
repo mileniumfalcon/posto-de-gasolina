@@ -219,7 +219,7 @@ public class FilialDAO {
             connection = DbConnectionDAO.openConnection();
 
             PreparedStatement comando = connection.prepareStatement(
-                    "select f.nome, f.estado, sum(v.ValorTotal) from filial f  left JOIN Venda v on f.Idfilial = v.Idfilial where v.dataVenda between ? and ? group by f.nome;");
+                    "select f.nome, f.estado, sum(v.ValorTotal) from filial f  left JOIN Venda v on f.Idfilial = v.Idfilial and v.dataVenda between ? and ? group by f.nome;");
 
             comando.setDate(1, new java.sql.Date(datainicio.getTime()));
             comando.setDate(2, new java.sql.Date(datafim.getTime()));
