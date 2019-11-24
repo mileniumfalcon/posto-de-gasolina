@@ -229,7 +229,7 @@ public class FilialDAO {
                 RelatorioFilialService filial = new RelatorioFilialService();
                 filial.setNome(rs.getString("Nome"));
                 filial.setEstado(rs.getString("Estado"));
-                filial.setQuantidade(rs.getInt("sum(v.ValorTotal)"));
+                filial.setValorTotalVendas(rs.getInt("sum(v.ValorTotal)"));
                 filiais.add(filial);
             }
 

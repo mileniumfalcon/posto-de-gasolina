@@ -79,20 +79,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                     <c:forEach items="${vendasAttr}" var="produto" varStatus="loop">
+                     <c:forEach items="${vendasAttr}" var="venda" varStatus="loop">
                     <tr>
                         <th><c:out value="${loop.index + 1}"/></th>
-                        <td ><c:out value="${produto.getNome()}"/></td>
-                         <td ><c:out value="${produto.getEstado()}"/></td>
-                        <td> <c:out value="${produto.getQuantidade()}"/></td>
-                        <td> <c:out value="${produto.getPorcentagem(totalAttr)}" /></td>
+                        <td ><c:out value="${venda.getNome()}"/></td>
+                         <td ><c:out value="${venda.getEstado()}"/></td>
+                        <td> <c:out value="${venda.getValorTotalVendas()}"/></td>
+                        <td> <c:out value="${venda.getPorcentagem(totalAttr)}" /></td>
                      </tr>  
                 </tbody>
                </c:forEach>
             </table>
             <br>
             <hr>
-            <strong><p style="text-align: center; font-size: 40px;">Total do dia: R$<c:out value="${totalAttr}" /></p></strong>
+            <strong><p style="text-align: center; font-size: 40px;">Total R$<c:out value="${totalAttr}" /></p></strong>
         </c:if>
     </body>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>

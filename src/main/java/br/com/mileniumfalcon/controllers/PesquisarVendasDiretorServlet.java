@@ -5,7 +5,6 @@
  */
 package br.com.mileniumfalcon.controllers;
 
-
 import br.com.mileniumfalcon.dao.FilialDAO;
 import br.com.mileniumfalcon.dao.VendaDAO;
 import br.com.mileniumfalcon.models.Filial;
@@ -26,7 +25,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  *
  * @author Victor
@@ -34,10 +32,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PesquisarVendasDiretorServlet", urlPatterns = {"/diretor/pesquisa-de-vendas-filial"})
 public class PesquisarVendasDiretorServlet extends HttpServlet {
 
-     @Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         try {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/relatorios-diretor.jsp");
             String dataInicioString = request.getParameter("dataInicio");
@@ -45,22 +43,25 @@ public class PesquisarVendasDiretorServlet extends HttpServlet {
 
             HttpServletRequest httpRequest = (HttpServletRequest) request;
             Usuario usuario = (Usuario) httpRequest.getSession().getAttribute("usuario");
-            Date  dataFinal;
+            Date dataFinal;
             Date dataInicio;
             int idFilial = FilialDAO.idFilialPorEmail(usuario.getEmail());
 
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-             dataInicio = formato.parse(dataInicioString);
-            
+            dataInicio = formato.parse(dataInicioString);
 
-        dataFinal = formato.parse(dataFinalString);
-
-         
-             ArrayList<RelatorioFilialService> filial = FilialDAO.consultarVendaTotaldeTodasFiliais(dataInicio, dataFinal);
-
-
+            dataFinal = formato.parse(dataFinalString);
+            //consulta todas as vendas entre o periodo determinado e retorna para uma lista
+            ArrayList<RelatorioFilialService> filial = FilialDAO.consultarVendaTotaldeTodasFiliais(dataInicio, dataFinal);
+            double valorTotal = 0;
+            //percorre a lista e concatena o valor total de venda entre filiais para uma variavel
+            for (RelatorioFilialService relatorioFilialService : filial) {
+                valorTotal = relatorioFilialService.getValorTotalVendas()+ valorTotal;
+            }
+            //
             if (!filial.isEmpty()) {
                 request.setAttribute("vendasAttr", filial);
+                request.setAttribute("totalAttr", valorTotal);
 
             } else {
                 request.setAttribute("naoEncontradoAttr", true);
@@ -77,7 +78,5 @@ public class PesquisarVendasDiretorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-     
-
 
 }

@@ -10,15 +10,14 @@ public class RelatorioFilialService implements IRelatorioServices {
 
     private String nome;
     private String estado;
-    private double faturamento;
-    private int quantidadeVendas;
+    private double valorTotalVendas;
 
     public RelatorioFilialService() {
     }
 
     public RelatorioFilialService(String nome, int quantidade, double valor) {
         this.nome = nome;
-        this.faturamento = valor;
+        this.valorTotalVendas = valor;
     }
 
     public String getNome() {
@@ -29,20 +28,30 @@ public class RelatorioFilialService implements IRelatorioServices {
         this.nome = nome;
     }
 
-    public double getValor() {
-        return this.faturamento;
-    }
-
-    public void setValor(double valor) {
-        this.faturamento = valor;
-    }
 
     @Override
     public String getPorcentagem(double totalVenda) {
         DecimalFormat df = new DecimalFormat("0.00");
-        double porcentagem = (faturamento * quantidadeVendas) * 100 / totalVenda;
+        double porcentagem = valorTotalVendas * 100 / totalVenda;
+      String resultado = df.format(porcentagem) + "%";
+        return resultado;
+        
+    }
 
-        return df.format(porcentagem) + "%";
+    public void setEstado(String string) {
+        this.estado = string;
+    }
+
+    public String getEstado() {
+        return this.estado;
+    }
+
+    public void setValorTotalVendas(int aInt) {
+        this.valorTotalVendas = aInt;
+    }
+
+    public double getValorTotalVendas() {
+        return this.valorTotalVendas;
     }
 
 }
