@@ -40,11 +40,11 @@ public class FinalizarVendaServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession sessao = request.getSession();
-        
+
         try {
             
             if (sessao.getAttribute("clienteAttr") == null) {
-              
+
                 Usuario usuario = (Usuario) httpRequest.getSession().getAttribute("usuario");
 
                 int idFilial = FilialDAO.idFilialPorEmail(usuario.getEmail());
@@ -64,17 +64,21 @@ public class FinalizarVendaServlet extends HttpServlet {
                 if (salvou) {
                     request.setAttribute("vendaAttr", true);
                     request.getRequestDispatcher("/WEB-INF/venda-finalizada.jsp").forward(request, response);
+                    sessao.removeAttribute("clienteAttr");
+                    sessao.removeAttribute("itensAttr");
+                    sessao.removeAttribute("produtosAttr");
+                    sessao.removeAttribute("itensAttr");
+                    sessao.removeAttribute("totalAttr");
                 }
-            }else{
-                
-               
+            } else {
+
                 Usuario usuario = (Usuario) httpRequest.getSession().getAttribute("usuario");
-               
+
                 int idFilial = FilialDAO.idFilialPorEmail(usuario.getEmail());
                 Cliente cliente = (Cliente) sessao.getAttribute("clienteAttr");
                 List<ItemVenda> itensVenda = (ArrayList<ItemVenda>) sessao.getAttribute("itensAttr");
                 Filial filial = FilialDAO.pesquisarFilialPorID(idFilial);
-               
+
                 Timestamp dataVenda = new Timestamp(System.currentTimeMillis());
                 SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -82,14 +86,19 @@ public class FinalizarVendaServlet extends HttpServlet {
                 for (int i = 0; i < itensVenda.size(); i++) {
                     totalCompra = totalCompra + itensVenda.get(i).vlrTotalItem();
                 }
-                Venda venda = new Venda(totalCompra, dataVenda, cliente ,filial, (ArrayList<ItemVenda>) itensVenda);
-                
+                Venda venda = new Venda(totalCompra, dataVenda, cliente, filial, (ArrayList<ItemVenda>) itensVenda);
+
                 boolean salvou = VendaDAO.salvar(venda);
                 if (salvou) {
                     request.setAttribute("vendaAttr", true);
                     request.getRequestDispatcher("/WEB-INF/venda-finalizada.jsp").forward(request, response);
+                    sessao.removeAttribute("clienteAttr");
+                    sessao.removeAttribute("itensAttr");
+                    sessao.removeAttribute("produtosAttr");
+                    sessao.removeAttribute("itensAttr");
+                    sessao.removeAttribute("totalAttr");
                 }
-                
+
             }
 
         } catch (Exception ex) {
