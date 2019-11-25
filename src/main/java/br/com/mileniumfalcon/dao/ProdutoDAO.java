@@ -32,9 +32,7 @@ public class ProdutoDAO {
             int linhasAfetadas = comando.executeUpdate();
 
             if (linhasAfetadas > 0) {
-
-                retorno = true;
-
+                return true;
             } else {
                 retorno = false;
             }
@@ -58,6 +56,41 @@ public class ProdutoDAO {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement("SELECT * FROM Produto WHERE Nome LIKE ?");
             comando.setString(1, "%" + nome + "%");
+            ResultSet rs = comando.executeQuery();
+
+            while (rs.next()) {
+                Produto produto = new Produto();
+                produto.setId(rs.getInt("IdProduto"));
+                produto.setNome(rs.getString("Nome"));
+                produto.setTipoProduto(rs.getString("TipoProduto"));
+                produto.setQtdProduto(rs.getDouble("QntEstoque"));
+                produto.setVlrUnitario(rs.getDouble("ValorUnitario"));
+//                Filial filial = FuncionarioDAO.getFilialPorId(rs.getInt("IdFilial"));
+//                produto.setFilial(filial);
+
+                produtos.add(produto);
+            }
+
+            DbConnectionDAO.closeConnection(connection);
+            return produtos;
+
+        } catch (ClassNotFoundException ex) {
+            return null;
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+
+    public static ArrayList<Produto> pesquisarProdutos(int id) {
+        ArrayList<Produto> produtos = new ArrayList<Produto>();
+        Connection connection = null;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("SELECT * FROM Produto WHERE IdFilial = ?; ");
+             comando.setInt(1, id);
             ResultSet rs = comando.executeQuery();
 
             while (rs.next()) {
@@ -130,6 +163,7 @@ public class ProdutoDAO {
 
             while (rs.next()) {
                 Filial filial = FuncionarioDAO.getFilialPorId(rs.getInt("IdFilial"));
+                produto.setId(rs.getInt("IdProduto"));
                 produto.setNome(rs.getString("Nome"));
                 produto.setTipoProduto("TipoProduto");
                 produto.setQtdProduto(rs.getDouble("QntEstoque"));

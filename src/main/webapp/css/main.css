@@ -1,11 +1,11 @@
 .nav{
-   background-color: black;
-   width: 15%;
-   margin-top: -68px;
+    background-color: black;
+    width: 15%;
+    margin-top: -68px;
 }
 
 .nav-link{
-   color: white;
+    color: white;
 }
 
 .nav-color{
@@ -30,3 +30,14 @@ label{
     margin-bottom: 20px;
 }
 
+.my-custom-scrollbar {
+    position: relative;
+    height: 200px;
+    overflow: auto;
+    margin-top: 75px;   
+}
+.table-wrapper-scroll-y {
+    display: block;
+    width: 360px;
+    border-color: black;
+}
