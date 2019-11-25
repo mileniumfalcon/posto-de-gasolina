@@ -70,7 +70,7 @@
                         <th scope="col"></th>
                     </tr>
                 </thead>
-                <tbod>y
+                <tbody>
                      <c:forEach items="${produtosAttr}" var="produto">
                     <tr>
                         <th> <c:out value="${produto.getId()}"/></th>
