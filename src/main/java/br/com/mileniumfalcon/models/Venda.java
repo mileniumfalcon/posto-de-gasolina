@@ -1,11 +1,12 @@
 package br.com.mileniumfalcon.models;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 
-/**
+import java.util.Date;
+    /**
  *
- * @author erick
+ * @author Pablo de Oliveira
  */
 public class Venda {
 
@@ -34,6 +35,14 @@ public class Venda {
         this.filial = filial;
         this.itens = itens;
     }
+
+    public Venda(double valorTotal, Date dataVenda, Filial filial, ArrayList<ItemVenda> itens) {
+        this.valorTotal = valorTotal;
+        this.dataVenda = dataVenda;
+        this.filial = filial;
+        this.itens = itens;
+    }
+    
     
     public Venda() {}
 
@@ -45,6 +54,7 @@ public class Venda {
         this.id = id;
     }
 
+
     public double getValorTotal() {
         return valorTotal;
     }
@@ -53,10 +63,25 @@ public class Venda {
         this.valorTotal = valorTotal;
     }
 
+
     public Date getDataVenda() {
         return dataVenda;
     }
 
+    public void setDataVenda(Timestamp dataVenda) {
+        this.dataVenda = dataVenda;
+    }
+
+    
+
+    public int getIdFilial() {
+        return id;
+    }
+
+    public void setIdFilial(int id) {
+        this.id = id;
+    }
+  
     public void setDataVenda(Date dataVenda) {
         this.dataVenda = dataVenda;
     }
@@ -84,4 +109,5 @@ public class Venda {
     public void setItens(ArrayList<ItemVenda> itens) {
         this.itens = itens;
     }
+    
 }

@@ -1,8 +1,7 @@
 package br.com.mileniumfalcon.models;
-
 /**
  *
- * @author erick
+ * @author Pablo de Oliveira
  */
 public class ItemVenda {
     
@@ -31,4 +30,7 @@ public class ItemVenda {
     public void setQuantidade(double quantidade) {
         this.quantidade = quantidade;
     }
+    
+    public boolean qtdPermitida(){return this.quantidade < this.produto.getQtdProduto();}
+    public double vlrTotalItem(){return this.produto.getVlrUnitario()*this.quantidade;}
 }

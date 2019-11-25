@@ -28,6 +28,8 @@ public class DbConnectionDAO {
     private static final String DATABASE = "postostades";
   private static final String LOGIN = "root";
      private static final String PASSWORD = "root";
+     //    private static final String LOGIN = "erick";
+//    private static final String PASSWORD = "123456";
         private static final String URL = "jdbc:mysql://" + SERVER + "/" + DATABASE + "?useTimezone=true&serverTimezone=UTC";
     //private static final String LOGIN = "b86fa231ebd27f";
     //private static final String PASSWORD = "99b523ce";
