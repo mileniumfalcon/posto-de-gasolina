@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "CadastrarJuridicoServlet", urlPatterns = {"/vendedor/cadastrar-juridico"})
 public class CadastrarJuridicoServlet extends HttpServlet {
+    
+    ClienteDAO cDao = new ClienteDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,7 +42,7 @@ public class CadastrarJuridicoServlet extends HttpServlet {
         String telefone = request.getParameter("telefone");
         String email = request.getParameter("email");
         
-        boolean existe = ClienteDAO.buscaDocumento(cnpj);
+        boolean existe = cDao.buscaDocumento(cnpj);
             
             if (existe) {
                 request.setAttribute("jaExiste", true);
@@ -51,7 +53,7 @@ public class CadastrarJuridicoServlet extends HttpServlet {
         PessoaJuridica cliente = new PessoaJuridica(nome, endereco, cep, email,
                 cnpj, telefone);
 
-        boolean salvou = ClienteDAO.salvar(cliente);
+        boolean salvou = cDao.salvar(cliente);
 
         if (salvou) {
             request.setAttribute("criadoAttr", true);

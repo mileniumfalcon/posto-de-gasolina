@@ -16,14 +16,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "PesquisarFuncionarioServlet", urlPatterns = {"/rh/pesquisa-de-funcionario"})
 public class PesquisarFuncionarioServlet extends HttpServlet {
-
+    
+    FuncionarioDAO fDao = new FuncionarioDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
            String cpf = request.getParameter("cpf");
-           Funcionario funcionario = FuncionarioDAO.pesquisaPorCpf(cpf);
+           Funcionario funcionario = fDao.pesquisaPorCpf(cpf);
            
            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pesquisar-funcionario.jsp");
            if (funcionario != null) {

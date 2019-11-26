@@ -17,44 +17,33 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "VendaServlet", urlPatterns = {"/vendedor/venda-incluir-cliente"})
 public class IncluirClienteServlet extends HttpServlet {
 
-    
+    ClienteDAO cDao = new ClienteDAO();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/venda-incluir-cliente.jsp");
-        if(request.getParameter("documento")!=null){
-        String documento = request.getParameter("documento");
-        Cliente cliente = ClienteDAO.pesquisarPorDocumento(documento);
+        
+        if (request.getParameter("documento") != null) {
+            String documento = request.getParameter("documento");
+            Cliente cliente = cDao.pesquisarPorDocumento(documento);
 
-        
-        
-           if (cliente.getNome() != null) {
-               request.setAttribute("idAttr", cliente.getId());
-               request.setAttribute("nomeAttr", cliente.getNome());
-               request.setAttribute("documentoAttr", cliente.getDocumento());
-               request.setAttribute("tamanhoDocAttr", cliente.getDocumento());
-               
-           } else {
-               request.setAttribute("naoEncontradoAttr", true);
-           }
+            if (cliente.getNome() != null) {
+                request.setAttribute("idAttr", cliente.getId());
+                request.setAttribute("nomeAttr", cliente.getNome());
+                request.setAttribute("documentoAttr", cliente.getDocumento());
+                request.setAttribute("tamanhoDocAttr", cliente.getDocumento());
+
+            } else {
+                request.setAttribute("naoEncontradoAttr", true);
+            }
         }
-           dispatcher.forward(request, response);
-        
+        dispatcher.forward(request, response);
 
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        HttpSession sessao = request.getSession();
-//        String documento = request.getParameter("documento");
-//
-//        try {
-//            Cliente cliente = ClienteDAO.pesquisarPorDocumento(documento);
-//            if (cliente != null) {
-//                response.sendRedirect(request.getContextPath() + "/vendedor/realizar-venda?idCliente=" + cliente.getId());
-//            }
-//        } catch (Exception e) {
-
     }
 }

@@ -33,7 +33,7 @@
           <a class="nav-link" href="${pageContext.request.contextPath}/diretor/relatorio-filial">Emitir Relatório</a>
         </li>
       </ul>
-       <form method="post" action="${pageContext.request.contextPath}/diretor/cadastrar-filial" class="needs-validation" novalidate>
+       <form method="post" action="${pageContext.request.contextPath}/diretor/editar-filial" class="needs-validation" novalidate>
            <input type="hidden" class="form-control" name="id" value="${idAttr}">
            <br>
             <div class="form-group row">

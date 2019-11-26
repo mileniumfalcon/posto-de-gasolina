@@ -17,13 +17,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "DetalhesVendaServlet", urlPatterns = {"/gerente-vendas/detalhes-venda"})
 public class DetalhesVendaServlet extends HttpServlet {
+    
+    VendaDAO vDao = new VendaDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/detalhes-venda-gerente.jsp");
         int id = Integer.parseInt(request.getParameter("id"));
-        Venda venda = VendaDAO.getVendaPorId(id);
+        Venda venda = vDao.getVendaPorId(id);
         request.setAttribute("vendaAttr", venda);
         
         dispatcher.forward(request, response); 

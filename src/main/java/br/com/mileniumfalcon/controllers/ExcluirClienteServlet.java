@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ExcluirClienteServlet", urlPatterns = {"/vendedor/excluir-cliente"})
 public class ExcluirClienteServlet extends HttpServlet {
+    
+    ClienteDAO cDao = new ClienteDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,7 +32,7 @@ public class ExcluirClienteServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         boolean excluiu;
         
-        excluiu = ClienteDAO.excluir(id);
+        excluiu = cDao.excluir(id);
         if (excluiu) {
             request.setAttribute("excluidoAttr", true);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vendedor.jsp");

@@ -19,13 +19,16 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "CadastrarProdutoServlet", urlPatterns = {"/backoffice/cadastrar-produto"})
 public class CadastrarProdutoServlet extends HttpServlet {
+    
+    FuncionarioDAO fDao = new FuncionarioDAO();
+    ProdutoDAO pDao = new ProdutoDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cadastrar-produto.jsp");
-        ArrayList<String> filiais = FuncionarioDAO.getFiliais();
+        ArrayList<String> filiais = fDao.getFiliais();
 
         request.setAttribute("filiaisAttr", filiais);
 
@@ -44,10 +47,10 @@ public class CadastrarProdutoServlet extends HttpServlet {
         double quantidade = Double.parseDouble(request.getParameter("quantidade"));
         String filialStr = request.getParameter("filial");
 
-        Filial filial = FuncionarioDAO.getFilial(filialStr);
+        Filial filial = fDao.getFilial(filialStr);
 
         Produto produto = new Produto(nome, tipo, quantidade, preco, filial);
-        boolean salvou = ProdutoDAO.salvar(produto);
+        boolean salvou = pDao.salvar(produto);
 
         if (salvou) {
             request.setAttribute("criadoAttr", true);

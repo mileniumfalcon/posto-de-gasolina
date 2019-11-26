@@ -19,11 +19,11 @@ import java.util.ArrayList;
  *
  * @author erick
  */
-public class FuncionarioDAO {
+public class FuncionarioDAO implements IDao{
 
     private DbConnectionDAO dbConnection = new DbConnectionDAO();
 
-    public static ArrayList<String> getFiliais() {
+    public ArrayList<String> getFiliais() {
 
         ArrayList<String> filiais = new ArrayList<String>();
         Connection connection = null;
@@ -48,7 +48,7 @@ public class FuncionarioDAO {
         return filiais;
     }
 
-    public static Filial getFilial(String nome) {
+    public Filial getFilial(String nome) {
         Connection connection = null;
 
         try {
@@ -78,7 +78,7 @@ public class FuncionarioDAO {
         }
     }
 
-    public static Filial getFilialPorId(int id) {
+    public Filial getFilialPorId(int id) {
         Connection connection = null;
 
         try {
@@ -108,9 +108,11 @@ public class FuncionarioDAO {
         }
     }
 
-    public static boolean salvar(Funcionario funcionario) {
+    public boolean salvar(Object object) {
         Connection connection = null;
         boolean retorno = false;
+        
+        Funcionario funcionario = (Funcionario) object;
 
         try {
             connection = DbConnectionDAO.openConnection();
@@ -163,8 +165,8 @@ public class FuncionarioDAO {
         return retorno;
     }
 
-    public static boolean salvarVendedor(Vendedor vendedor) {
-        boolean salvou = FuncionarioDAO.salvar(vendedor);
+    public boolean salvarVendedor(Vendedor vendedor) {
+        boolean salvou = salvar(vendedor);
         int id = getIdFuncionario(vendedor);
         boolean retorno = false;
         Connection connection = null;
@@ -214,9 +216,11 @@ public class FuncionarioDAO {
         return retorno;
     }
 
-    public static boolean editar(Funcionario funcionario) {
+    public boolean editar(Object object) {
         Connection connection = null;
         boolean retorno = false;
+        
+        Funcionario funcionario = (Funcionario) object;
 
         try {
             connection = DbConnectionDAO.openConnection();
@@ -265,14 +269,14 @@ public class FuncionarioDAO {
 
     }
 
-    public static boolean editarVendedor(Vendedor vendedor) {
+    public boolean editarVendedor(Vendedor vendedor) {
         int id = getIdFuncionario(vendedor);
-        boolean isVendedor = FuncionarioDAO.isVendedor(id);
+        boolean isVendedor = isVendedor(id);
         boolean retorno = false;
         Connection connection = null;
 
         try {
-            boolean editou = FuncionarioDAO.editar(vendedor);
+            boolean editou = editar(vendedor);
             if (editou) {
                 connection = DbConnectionDAO.openConnection();
 
@@ -349,7 +353,7 @@ public class FuncionarioDAO {
         return retorno;
     }
 
-    public static boolean excluir(int id) {
+    public boolean excluir(int id) {
 
         Connection connection = null;
         boolean retorno = false;
@@ -382,7 +386,7 @@ public class FuncionarioDAO {
 
     }
 
-    public static Funcionario pesquisaPorCpf(String cpf) {
+    public Funcionario pesquisaPorCpf(String cpf) {
         Connection connection = null;
 
         try {
@@ -426,7 +430,7 @@ public class FuncionarioDAO {
         }
     }
 
-    public static Funcionario pesquisaPorId(int id) {
+    public Funcionario pesquisaPorId(int id) {
         Connection connection = null;
 
         try {
@@ -474,7 +478,7 @@ public class FuncionarioDAO {
         }
     }
     
-    public static boolean buscaCpf(String cpf) {
+    public boolean buscaCpf(String cpf) {
         Connection connection = null;
         boolean retorno = false;
 
@@ -502,7 +506,7 @@ public class FuncionarioDAO {
         return retorno;
     }
 
-    private static int getIdFuncionario(Funcionario funcionario) {
+    private int getIdFuncionario(Funcionario funcionario) {
         int id = 0;
         Connection connection = null;
 
@@ -527,7 +531,7 @@ public class FuncionarioDAO {
         }
     }
 
-    private static boolean isVendedor(int id) {
+    private boolean isVendedor(int id) {
         int idFuncionario = 0;
         Connection connection = null;
 

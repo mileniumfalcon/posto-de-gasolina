@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.mileniumfalcon.controllers;
 
 import br.com.mileniumfalcon.dao.ClienteDAO;
@@ -13,10 +8,8 @@ import br.com.mileniumfalcon.models.Produto;
 import br.com.mileniumfalcon.models.Usuario;
 import br.com.mileniumfalcon.models.ItemVenda;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,6 +23,10 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "RealizarVenda", urlPatterns = {"/vendedor/realizar-venda"})
 public class RealizarVendaServlet extends HttpServlet {
+    
+    ClienteDAO cDao = new ClienteDAO();
+    FilialDAO fiDao = new FilialDAO();
+    ProdutoDAO pDao = new ProdutoDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,19 +34,19 @@ public class RealizarVendaServlet extends HttpServlet {
 
         HttpSession sessao = request.getSession();
         HttpServletRequest httpRequest = (HttpServletRequest) request;
+        
         Usuario usuario = (Usuario) httpRequest.getSession().getAttribute("usuario");
-        int idFilial = FilialDAO.idFilialPorEmail(usuario.getEmail());
+        int idFilial = fiDao.idFilialPorEmail(usuario.getEmail());
 
-        if (sessao.getAttribute("clienteAttr") == null && request.getParameter("id")!=null) {
+        if (sessao.getAttribute("clienteAttr") == null && request.getParameter("id")!= null) {
             int idCliente = Integer.parseInt(request.getParameter("id"));
-            Cliente cliente = ClienteDAO.pesquisarPorId(idCliente);
+            Cliente cliente = cDao.pesquisarPorId(idCliente);
             sessao.setAttribute("clienteAttr", cliente);
         }
 
-        List<Produto> produtos = ProdutoDAO.pesquisarProdutos(idFilial);
+        List<Produto> produtos = pDao.pesquisarProdutos(idFilial);
         try {
             if (produtos != null) {
-
                 request.setAttribute("produtosAttr", produtos);
                 request.getRequestDispatcher("/WEB-INF/realizar-venda.jsp").forward(request, response);
             }
@@ -74,7 +71,7 @@ public class RealizarVendaServlet extends HttpServlet {
             double qtdItem = Double.parseDouble(request.getParameter("qtdItem"));
             double total = 0;
 
-            Produto produto = ProdutoDAO.pesquisarPorId(idItem);
+            Produto produto = pDao.pesquisarPorId(idItem);
             ItemVenda item = new ItemVenda(produto, qtdItem);
 
             if (item.qtdPermitida()) {
@@ -82,11 +79,10 @@ public class RealizarVendaServlet extends HttpServlet {
                 for (int i = 0; i < itensVenda.size(); i++) {
                     total = total + itensVenda.get(i).vlrTotalItem();
                 }
-                // request.setAttribute("idAttr", id);
                 sessao.setAttribute("totalAttr", total);
                 response.sendRedirect(request.getContextPath() + "/vendedor/realizar-venda");
             } else {
-                request.setAttribute("naoPermitidoAttr", true);
+                sessao.setAttribute("naoPermitidoMsg", "Quantidade não permitida!");
                 response.sendRedirect(request.getContextPath() + "/vendedor/realizar-venda");
             }
         } catch (Exception ex) {

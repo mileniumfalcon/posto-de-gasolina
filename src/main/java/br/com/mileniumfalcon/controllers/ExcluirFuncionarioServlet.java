@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ExcluirFuncionarioServlet", urlPatterns = {"/rh/excluir-funcionario"})
 public class ExcluirFuncionarioServlet extends HttpServlet {
+    
+    FuncionarioDAO fDao = new FuncionarioDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -27,7 +29,7 @@ public class ExcluirFuncionarioServlet extends HttpServlet {
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         
-        boolean excluiu = FuncionarioDAO.excluir(id);
+        boolean excluiu = fDao.excluir(id);
         
         if (excluiu) {
                 request.setAttribute("excluidoAttr", true);

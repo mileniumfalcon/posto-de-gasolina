@@ -16,13 +16,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "FormularioRelatorioBackOffice", urlPatterns = {"/backoffice/visualizar-vendas"})
 public class FormularioRelatorioBackOffice extends HttpServlet {
+    
+    FuncionarioDAO fDao = new FuncionarioDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/visualizar-vendas.jsp");
-        ArrayList<String> filiais = FuncionarioDAO.getFiliais();
+        ArrayList<String> filiais = fDao.getFiliais();
             
         request.setAttribute("filiaisAttr", filiais);
         

@@ -13,11 +13,12 @@ import java.sql.SQLException;
  *
  * @author erick
  */
-public class ClienteDAO {
+public class ClienteDAO implements IDao{
 
     private DbConnectionDAO dbConnection = new DbConnectionDAO();
     
-    public static boolean salvar(Cliente cliente) {
+    public boolean salvar(Object object) {
+        Cliente cliente = (Cliente) object;
         if (cliente.getClass().getSimpleName().equals("PessoaFisica")) {
             return salvarFisico((PessoaFisica) cliente);
         } else {
@@ -25,7 +26,7 @@ public class ClienteDAO {
         }
     }
 
-    private static boolean salvarFisico(PessoaFisica cliente) {
+    private boolean salvarFisico(PessoaFisica cliente) {
         Connection connection = null;
         boolean retorno = false;
 
@@ -63,7 +64,7 @@ public class ClienteDAO {
         return retorno;
     }
 
-    private static boolean salvarJuridico(PessoaJuridica cliente) {
+    private boolean salvarJuridico(PessoaJuridica cliente) {
         Connection connection = null;
         boolean retorno = false;
 
@@ -101,7 +102,7 @@ public class ClienteDAO {
         return retorno;
     }
 
-    public static Cliente pesquisarPorDocumento(String documento) {
+    public Cliente pesquisarPorDocumento(String documento) {
         Connection connection = null;
 
         try {
@@ -138,7 +139,7 @@ public class ClienteDAO {
         }
     }
 
-    public static Cliente pesquisarPorId(int id) {
+    public Cliente pesquisarPorId(int id) {
         Connection connection = null;
 
         try {
@@ -177,7 +178,7 @@ public class ClienteDAO {
         }
     }
 
-    public static PessoaFisica pesquisarFisicoPorId(int id) {
+    public PessoaFisica pesquisarFisicoPorId(int id) {
         Connection connection = null;
 
         try {
@@ -212,7 +213,7 @@ public class ClienteDAO {
         }
     }
 
-    public static PessoaJuridica pesquisarJuridicoPorId(int id) {
+    public PessoaJuridica pesquisarJuridicoPorId(int id) {
         Connection connection = null;
 
         try {
@@ -247,7 +248,8 @@ public class ClienteDAO {
         }
     }
     
-    public static boolean editar(Cliente cliente) {
+    public boolean editar(Object object) {
+        Cliente cliente = (Cliente) object;
         if (cliente.getClass().getSimpleName().equals("PessoaFisica")) {
             return editarFisico((PessoaFisica) cliente);
         } else {
@@ -255,7 +257,7 @@ public class ClienteDAO {
         }
     }
 
-    private static boolean editarFisico(PessoaFisica cliente) {
+    private boolean editarFisico(PessoaFisica cliente) {
         Connection connection = null;
         boolean retorno;
 
@@ -297,7 +299,7 @@ public class ClienteDAO {
 
     }
 
-    public static boolean editarJuridico(PessoaJuridica cliente) {
+    public boolean editarJuridico(PessoaJuridica cliente) {
         Connection connection = null;
         boolean retorno;
 
@@ -339,7 +341,7 @@ public class ClienteDAO {
 
     }
 
-    public static boolean excluir(int id) {
+    public boolean excluir(int id) {
         Connection connection = null;
         boolean retorno = false;
 
@@ -370,7 +372,7 @@ public class ClienteDAO {
 
     }
 
-    public static boolean buscaDocumento(String documento) {
+    public boolean buscaDocumento(String documento) {
         Connection connection = null;
         boolean retorno = false;
 

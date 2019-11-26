@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "PesquisarProdutoServlet", urlPatterns = {"/backoffice/pesquisa-de-produto"})
 public class PesquisarProdutoServlet extends HttpServlet {
+    
+    ProdutoDAO pDao = new ProdutoDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -25,7 +27,7 @@ public class PesquisarProdutoServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pesquisar-produto.jsp");
         String nome = request.getParameter("nome");
 
-        ArrayList<Produto> produtos = ProdutoDAO.pesquisarProduto(nome);
+        ArrayList<Produto> produtos = pDao.pesquisarProduto(nome);
 
         if (!produtos.isEmpty()) {
             request.setAttribute("produtosAttr", produtos);

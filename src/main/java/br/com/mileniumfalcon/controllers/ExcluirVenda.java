@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ExcluirVenda", urlPatterns = {"/gerente-vendas/excluir-venda"})
 public class ExcluirVenda extends HttpServlet {
+    
+    VendaDAO vDao = new VendaDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -29,7 +31,7 @@ public class ExcluirVenda extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         boolean excluiu;
         
-        excluiu = VendaDAO.excluir(id);
+        excluiu = vDao.excluir(id);
         if (excluiu) {
             request.setAttribute("canceladoAttr", true);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/gerente-vendas.jsp");

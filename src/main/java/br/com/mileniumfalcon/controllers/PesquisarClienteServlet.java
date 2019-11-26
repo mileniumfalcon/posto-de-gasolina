@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "PesquisarCliente", urlPatterns = {"/vendedor/pesquisa-de-cliente"})
 public class PesquisarClienteServlet extends HttpServlet {
+    
+    ClienteDAO cDao = new ClienteDAO();
 
 
     @Override
@@ -23,7 +25,7 @@ public class PesquisarClienteServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String documento = request.getParameter("documento");
-        Cliente cliente = ClienteDAO.pesquisarPorDocumento(documento);
+        Cliente cliente = cDao.pesquisarPorDocumento(documento);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pesquisar-cliente.jsp");
         

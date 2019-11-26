@@ -16,7 +16,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "CadastrarFilialServlet", urlPatterns = {"/diretor/cadastrar-filial"})
 public class CadastrarFilialServlet extends HttpServlet {
-       @Override
+    
+    FilialDAO fiDao = new FilialDAO();
+    
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -34,7 +37,7 @@ public class CadastrarFilialServlet extends HttpServlet {
         String cep = request.getParameter("cep");
         String estado = request.getParameter("estado");
         Filial filial = new Filial(nome,estado,endereco,cep);
-        boolean salvou = FilialDAO.insertFilial(filial);
+        boolean salvou = fiDao.salvar(filial);
         if (salvou) {
             request.setAttribute("criadoAttr", true);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/diretor.jsp");
