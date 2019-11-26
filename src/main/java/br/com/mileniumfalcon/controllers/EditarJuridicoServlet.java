@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "EditarJuridicoServlet", urlPatterns = {"/vendedor/editar-juridico"})
 public class EditarJuridicoServlet extends HttpServlet {
+    
+    ClienteDAO cDao = new ClienteDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -23,7 +25,7 @@ public class EditarJuridicoServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/editar-juridico.jsp");
         int id = Integer.parseInt(request.getParameter("id"));
-        PessoaJuridica cliente = ClienteDAO.pesquisarJuridicoPorId(id);
+        PessoaJuridica cliente = cDao.pesquisarJuridicoPorId(id);
 
         request.setAttribute("idAttr", id);
         request.setAttribute("nomeAttr", cliente.getNome());
@@ -52,7 +54,7 @@ public class EditarJuridicoServlet extends HttpServlet {
         
         PessoaJuridica cliente = new PessoaJuridica(id, nome, endereco, cep, email,
                 cnpj, telefone);
-        boolean editou = ClienteDAO.editar(cliente);
+        boolean editou = cDao.editar(cliente);
         if (editou) {
             request.setAttribute("editadoAttr", true);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vendedor.jsp");

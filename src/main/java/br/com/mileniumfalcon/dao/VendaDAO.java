@@ -18,7 +18,7 @@ import java.util.Date;
  */
 public class VendaDAO {
 
-    public static ArrayList<RelatorioProdutoService> dezMaisVendidosFilial(Date data, int id) {
+    public ArrayList<RelatorioProdutoService> dezMaisVendidosFilial(Date data, int id) {
         ArrayList<RelatorioProdutoService> produtos = new ArrayList<RelatorioProdutoService>();
         Connection connection = null;
 
@@ -56,7 +56,7 @@ public class VendaDAO {
         }
     }
 
-    public static ArrayList<RelatorioProdutoService> dezMaisVendidosFilialData(Date dataInicio, Date dataFinal, int id) {
+    public ArrayList<RelatorioProdutoService> dezMaisVendidosFilialData(Date dataInicio, Date dataFinal, int id) {
         ArrayList<RelatorioProdutoService> produtos = new ArrayList<RelatorioProdutoService>();
         Connection connection = null;
 
@@ -95,7 +95,7 @@ public class VendaDAO {
         }
     }
 
-    public static ArrayList<RelatorioProdutoService> dezMenosVendidosFilialData(Date dataInicio, Date dataFinal, int id) {
+    public ArrayList<RelatorioProdutoService> dezMenosVendidosFilialData(Date dataInicio, Date dataFinal, int id) {
         ArrayList<RelatorioProdutoService> produtos = new ArrayList<RelatorioProdutoService>();
         Connection connection = null;
 
@@ -134,7 +134,7 @@ public class VendaDAO {
         }
     }
 
-    public static double totalVendidoFilial(Date data, int idFilial) {
+    public double totalVendidoFilial(Date data, int idFilial) {
         Connection connection = null;
         double total = 0;
 
@@ -163,7 +163,7 @@ public class VendaDAO {
         }
     }
 
-    public static double totalVendidoFilialData(Date dataInicio, Date dataFinal, int idFilial) {
+    public double totalVendidoFilialData(Date dataInicio, Date dataFinal, int idFilial) {
         Connection connection = null;
         double total = 0;
 
@@ -193,7 +193,7 @@ public class VendaDAO {
         }
     }
 
-    public static ArrayList<Venda> getVendasPorData(Date dataInicio, Date dataFinal, int idFilial) {
+    public ArrayList<Venda> getVendasPorData(Date dataInicio, Date dataFinal, int idFilial) {
         Connection connection = null;
         ArrayList<Venda> vendas = new ArrayList<Venda>();
 
@@ -206,6 +206,8 @@ public class VendaDAO {
             comando.setInt(3, idFilial);
 
             ResultSet rs = comando.executeQuery();
+            
+            ClienteDAO cDao = new ClienteDAO();
 
             while (rs.next()) {
                 Venda venda = new Venda();
@@ -215,7 +217,7 @@ public class VendaDAO {
                 venda.setDataVenda(rs.getDate("DataVenda"));
 
                 if (rs.getInt("IdCliente") != 0) {
-                    Cliente cliente = ClienteDAO.pesquisarPorId(rs.getInt("IdCliente"));
+                    Cliente cliente = cDao.pesquisarPorId(rs.getInt("IdCliente"));
                     venda.setCliente(cliente);
                 }
 
@@ -234,7 +236,7 @@ public class VendaDAO {
         }
     }
 
-    public static Venda getVendaPorId(int idVenda) {
+    public Venda getVendaPorId(int idVenda) {
         Connection connection = null;
         try {
             connection = DbConnectionDAO.openConnection();
@@ -244,6 +246,7 @@ public class VendaDAO {
 
             ResultSet rs = comando.executeQuery();
             Venda venda = new Venda();
+            ClienteDAO cDao = new ClienteDAO();
 
             while (rs.next()) {
 
@@ -254,7 +257,7 @@ public class VendaDAO {
                 venda.setItens(itens);
 
                 if (rs.getInt("IdCliente") != 0) {
-                    Cliente cliente = ClienteDAO.pesquisarPorId(rs.getInt("IdCliente"));
+                    Cliente cliente = cDao.pesquisarPorId(rs.getInt("IdCliente"));
                     venda.setCliente(cliente);
                 }
             }
@@ -271,7 +274,7 @@ public class VendaDAO {
 
     }
 
-    public static ArrayList<ItemVenda> itensVendaPorId(int idVenda) {
+    public ArrayList<ItemVenda> itensVendaPorId(int idVenda) {
         Connection connection = null;
         ArrayList<ItemVenda> itens = new ArrayList<ItemVenda>();
 
@@ -282,12 +285,13 @@ public class VendaDAO {
             comando.setInt(1, idVenda);
 
             ResultSet rs = comando.executeQuery();
+            ProdutoDAO pDao = new ProdutoDAO();
 
             while (rs.next()) {
                 ItemVenda item = new ItemVenda();
 
                 item.setQuantidade(rs.getDouble("Quantidade"));
-                item.setProduto(ProdutoDAO.pesquisarPorId(rs.getInt("IdProduto")));
+                item.setProduto(pDao.pesquisarPorId(rs.getInt("IdProduto")));
 
                 itens.add(item);
             }
@@ -304,7 +308,7 @@ public class VendaDAO {
 
     }
 
-    public static boolean excluir(int id) {
+    public boolean excluir(int id) {
         Connection connection = null;
         boolean retorno = false;
 
@@ -344,7 +348,8 @@ public class VendaDAO {
 
     }
 
-    public static boolean salvar(Venda venda) {
+    public boolean salvar(Object object) {
+        Venda venda = (Venda) object;
         Connection connection = null;
         boolean retorno = false;
 

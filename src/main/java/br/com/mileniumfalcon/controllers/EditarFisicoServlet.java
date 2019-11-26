@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "EditarFisicoServlet", urlPatterns = {"/vendedor/editar-fisico"})
 public class EditarFisicoServlet extends HttpServlet {
+    
+    ClienteDAO cDao = new ClienteDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,7 +30,7 @@ public class EditarFisicoServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/editar-fisico.jsp");
         int id = Integer.parseInt(request.getParameter("id"));
-        PessoaFisica cliente = ClienteDAO.pesquisarFisicoPorId(id);
+        PessoaFisica cliente = cDao.pesquisarFisicoPorId(id);
 
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String dataNascimento = formato.format(cliente.getDataNascimento());
@@ -67,7 +69,7 @@ public class EditarFisicoServlet extends HttpServlet {
             PessoaFisica cliente = new PessoaFisica(id, nome, endereco, cep, email,
                     cpf, dataNascimento);
 
-            boolean editou = ClienteDAO.editar(cliente);
+            boolean editou = cDao.editar(cliente);
 
             if (editou) {
                 request.setAttribute("editadoAttr", true);

@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "NivelCombustivelServlet", urlPatterns = {"/gerente-vendas/nivel-combustivel"})
 public class NivelCombustivelServlet extends HttpServlet {
+    
+    FilialDAO fiDao = new FilialDAO();
+    ProdutoDAO pDao = new ProdutoDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -25,8 +28,8 @@ public class NivelCombustivelServlet extends HttpServlet {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         Usuario usuario = (Usuario) httpRequest.getSession().getAttribute("usuario");
    
-        int idFilial = FilialDAO.idFilialPorEmail(usuario.getEmail());
-        ArrayList<Produto> produtos = ProdutoDAO.combustivelPorFilial(idFilial);
+        int idFilial = fiDao.idFilialPorEmail(usuario.getEmail());
+        ArrayList<Produto> produtos = pDao.combustivelPorFilial(idFilial);
         
          if (!produtos.isEmpty()) {
             request.setAttribute("produtosAttr", produtos);

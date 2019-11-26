@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "PesquisarFilialServlet", urlPatterns = {"/diretor/pesquisar-filial"})
 public class PesquisarFilialServlet extends HttpServlet {
+    
+    FilialDAO fiDao = new FilialDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -25,7 +27,7 @@ public class PesquisarFilialServlet extends HttpServlet {
         String nome = request.getParameter("nome");
         request.setAttribute("naoEncontradoAttr", null);
         if(nome != null){
-        Filial filial = FilialDAO.pesquisarFilial(nome);
+        Filial filial = fiDao.pesquisarFilial(nome);
 
         if (filial.getNome() != null) {
             request.setAttribute("idfilial", Integer.toString(filial.getId()));

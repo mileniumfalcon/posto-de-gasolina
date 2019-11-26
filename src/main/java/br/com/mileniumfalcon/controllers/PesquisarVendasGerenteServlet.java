@@ -1,12 +1,10 @@
 package br.com.mileniumfalcon.controllers;
 
 import br.com.mileniumfalcon.dao.FilialDAO;
-import br.com.mileniumfalcon.dao.ProdutoDAO;
 import br.com.mileniumfalcon.dao.VendaDAO;
 import br.com.mileniumfalcon.models.Usuario;
 import br.com.mileniumfalcon.models.Venda;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,6 +24,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "PesquisarVendasGerenteServlet", urlPatterns = {"/gerente-vendas/pesquisa-de-vendas"})
 public class PesquisarVendasGerenteServlet extends HttpServlet {
+    
+    FilialDAO fiDao = new FilialDAO();
+    VendaDAO vDao = new VendaDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,7 +40,7 @@ public class PesquisarVendasGerenteServlet extends HttpServlet {
             HttpServletRequest httpRequest = (HttpServletRequest) request;
             Usuario usuario = (Usuario) httpRequest.getSession().getAttribute("usuario");
 
-            int idFilial = FilialDAO.idFilialPorEmail(usuario.getEmail());
+            int idFilial = fiDao.idFilialPorEmail(usuario.getEmail());
 
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             Date dataInicio = formato.parse(dataInicioString);
@@ -47,7 +48,7 @@ public class PesquisarVendasGerenteServlet extends HttpServlet {
 
             dataFinal = formato.parse(dataFinalString);
 
-            ArrayList<Venda> vendas = VendaDAO.getVendasPorData(dataInicio, dataFinal, idFilial);
+            ArrayList<Venda> vendas = vDao.getVendasPorData(dataInicio, dataFinal, idFilial);
 
             if (!vendas.isEmpty()) {
                 request.setAttribute("vendasAttr", vendas);

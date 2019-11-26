@@ -12,9 +12,10 @@ import java.util.ArrayList;
  *
  * @author pablo.santana
  */
-public class ProdutoDAO {
+public class ProdutoDAO implements IDao{
 
-    public static boolean salvar(Produto produto) {
+    public boolean salvar(Object object) {
+        Produto produto = (Produto) object;
         Connection connection = null;
         boolean retorno = false;
 
@@ -48,7 +49,7 @@ public class ProdutoDAO {
         return retorno;
     }
 
-    public static ArrayList<Produto> pesquisarProduto(String nome) {
+    public ArrayList<Produto> pesquisarProduto(String nome) {
         ArrayList<Produto> produtos = new ArrayList<Produto>();
         Connection connection = null;
 
@@ -83,7 +84,7 @@ public class ProdutoDAO {
         }
     }
 
-    public static ArrayList<Produto> pesquisarProdutos(int id) {
+    public ArrayList<Produto> pesquisarProdutos(int id) {
         ArrayList<Produto> produtos = new ArrayList<Produto>();
         Connection connection = null;
 
@@ -92,6 +93,7 @@ public class ProdutoDAO {
             PreparedStatement comando = connection.prepareStatement("SELECT * FROM Produto WHERE IdFilial = ?; ");
              comando.setInt(1, id);
             ResultSet rs = comando.executeQuery();
+            FuncionarioDAO fDao = new FuncionarioDAO();
 
             while (rs.next()) {
                 Produto produto = new Produto();
@@ -100,7 +102,7 @@ public class ProdutoDAO {
                 produto.setTipoProduto(rs.getString("TipoProduto"));
                 produto.setQtdProduto(rs.getDouble("QntEstoque"));
                 produto.setVlrUnitario(rs.getDouble("ValorUnitario"));
-                Filial filial = FuncionarioDAO.getFilialPorId(rs.getInt("IdFilial"));
+                Filial filial = fDao.getFilialPorId(rs.getInt("IdFilial"));
                 produto.setFilial(filial);
 
                 produtos.add(produto);
@@ -118,7 +120,7 @@ public class ProdutoDAO {
         }
     }
 
-    public static boolean excluir(int id) throws SQLException {
+    public boolean excluir(int id) {
         Connection connection = null;
         boolean retorno = false;
 
@@ -149,7 +151,7 @@ public class ProdutoDAO {
 
     }
 
-    public static Produto pesquisarPorId(int id) {
+    public Produto pesquisarPorId(int id) {
 
         Connection connection = null;
 
@@ -160,9 +162,10 @@ public class ProdutoDAO {
             ResultSet rs = comando.executeQuery();
 
             Produto produto = new Produto();
+            FuncionarioDAO fDao = new FuncionarioDAO();
 
             while (rs.next()) {
-                Filial filial = FuncionarioDAO.getFilialPorId(rs.getInt("IdFilial"));
+                Filial filial = fDao.getFilialPorId(rs.getInt("IdFilial"));
                 produto.setId(rs.getInt("IdProduto"));
                 produto.setNome(rs.getString("Nome"));
                 produto.setTipoProduto("TipoProduto");
@@ -182,7 +185,8 @@ public class ProdutoDAO {
         }
     }
 
-    public static boolean editar(Produto produto) {
+    public boolean editar(Object object) {
+        Produto produto = (Produto) object;
         Connection connection = null;
         boolean retorno = false;
 
@@ -222,7 +226,7 @@ public class ProdutoDAO {
 
     }
     
-    public static ArrayList<Produto> combustivelPorFilial(int id) {
+    public ArrayList<Produto> combustivelPorFilial(int id) {
         ArrayList<Produto> produtos = new ArrayList<Produto>();
         Connection connection = null;
 

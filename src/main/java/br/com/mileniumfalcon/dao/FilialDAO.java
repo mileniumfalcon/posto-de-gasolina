@@ -15,9 +15,9 @@ import java.util.List;
  *
  * @author Victor
  */
-public class FilialDAO {
+public class FilialDAO implements IDao{
 
-    public static Filial pesquisarFilialPorID(int id) {
+    public Filial pesquisarFilialPorID(int id) {
         Connection connection = null;
 
         try {
@@ -49,7 +49,8 @@ public class FilialDAO {
 
     private DbConnectionDAO dbConnection = new DbConnectionDAO();
 
-    public static boolean insertFilial(Filial filial) {
+    public boolean salvar(Object object) {
+        Filial filial = (Filial) object;
         Connection connection = null;
         boolean retorno = false;
 
@@ -82,7 +83,7 @@ public class FilialDAO {
         return retorno;
     }
 
-    public static Filial pesquisarFilial(String nome) {
+    public Filial pesquisarFilial(String nome) {
         Connection connection = null;
 
         try {
@@ -116,8 +117,9 @@ public class FilialDAO {
         }
     }
 
-    public static boolean editarFilial(Filial filial) {
+    public boolean editar(Object object) {
         Connection connection = null;
+        Filial filial = (Filial) object;
         boolean editada;
 
         try {
@@ -151,8 +153,8 @@ public class FilialDAO {
         return editada;
 
     }
-
-    public static boolean excluirFilial(int id) throws SQLException {
+    
+    public boolean excluir (int id) {
         Connection connection = null;
         boolean retorno = false;
 
@@ -182,8 +184,8 @@ public class FilialDAO {
         return retorno;
 
     }
-
-    public static int idFilialPorEmail(String email) {
+    
+    public int idFilialPorEmail(String email) {
         Connection connection = null;
         int id = 0;
 

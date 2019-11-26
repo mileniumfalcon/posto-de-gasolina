@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ExcluirFilialServlet", urlPatterns = {"/diretor/excluir-filial"})
 public class ExcluirFilialServlet extends HttpServlet {
 
+    FilialDAO fiDao = new FilialDAO();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -33,23 +35,19 @@ public class ExcluirFilialServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-String uiID = request.getParameter("id");
+
         int id = Integer.parseInt(request.getParameter("id"));
         boolean excluiu;
 
-        try {
-            excluiu = FilialDAO.excluirFilial(id);
+        excluiu = fiDao.excluir(id);
 
-            if (excluiu) {
-                request.setAttribute("deletadoAttr", true);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/diretor.jsp");
-                dispatcher.forward(request, response);
-            } else {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pesquisar-filial.jsp");
-                dispatcher.forward(request, response);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ExcluirFilialServlet.class.getName()).log(Level.SEVERE, null, ex);
+        if (excluiu) {
+            request.setAttribute("deletadoAttr", true);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/diretor.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pesquisar-filial.jsp");
+            dispatcher.forward(request, response);
         }
 
     }

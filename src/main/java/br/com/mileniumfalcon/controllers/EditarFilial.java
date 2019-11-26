@@ -21,13 +21,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "EditarFilial", urlPatterns = {"/diretor/editar-filial"})
 public class EditarFilial extends HttpServlet {
+    
+    FilialDAO fiDao = new FilialDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/editar-filial.jsp");
         int id = Integer.parseInt(request.getParameter("id"));
-        Filial filial = FilialDAO.pesquisarFilialPorID(id);
+        Filial filial = fiDao.pesquisarFilialPorID(id);
 
         request.setAttribute("idAttr", id);
         request.setAttribute("nomeAttr", filial.getNome());
@@ -49,7 +51,7 @@ public class EditarFilial extends HttpServlet {
         String cep = request.getParameter("cep");
         String estado = request.getParameter("estado");
         Filial filial = new Filial(id, nome, endereco, cep, estado);
-        boolean editou = FilialDAO.editarFilial(filial);
+        boolean editou = fiDao.editar(filial);
         if (editou) {
             request.setAttribute("editadoAttr", true);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/diretor.jsp");

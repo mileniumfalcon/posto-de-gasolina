@@ -20,7 +20,7 @@
         <nav class="navbar navbar-light nav-color">
             <a class="navbar-brand">Postos Tades</a>
             <div class="nav-item text-nowrap">
-                <a class="nav-link" href="#">Sair</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/logout">Sair</a>
             </div>
         </nav>
     </header>
@@ -82,11 +82,6 @@
             </div>
         </form>
 
-
-        <!--<form method="post" action="${pageContext.request.contextPath}/vendedor/realizar-venda">
-           
-        </form> -->
-
         <table class="table table-sm-1 offset-md-1" style="width: 35%; margin-top: -219px; float:right; margin-right: 70px;">
             <thead>
                 <tr>
@@ -106,18 +101,12 @@
             </c:forEach> 
         </table>
         <strong><p style="text-align: center; font-size: 20px;">Total do dia: R$ <c:out value="${totalAttr}" /></p></strong>
-        <!--?id=${idAttr}-->                   
-        <form method="post" action="${pageContext.request.contextPath}/vendedor/venda-finalizada"class="needs-validation col-sm-9" style="width: 1095px height 4px;">
-
+              
+        <form method="post" action="${pageContext.request.contextPath}/vendedor/venda-finalizada"class="needs-validation col-sm-9" style="width: 1095px height 100px;">
             <button class="btn btn-primary"type="submit" style="float: right; margin-right: 80px;">Finalizar</button> 
         </form>
-
-        <c:if test="${naoPermitidoAttr}">
-            <div class="alert alert-danger" >
-                Quantidade não permitida!
-            </div>
-        </c:if>
-
+        <c:out value="${sessionScope.naoPermitidoMsg}" />
+        <c:remove scope="session" var="naoPermitidoMsg" />
     </body>
     <script>
 

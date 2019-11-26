@@ -29,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "EditarFuncionarioServlet", urlPatterns = {"/rh/editar-funcionario"})
 public class EditarFuncionarioServlet extends HttpServlet {
+    
+    FuncionarioDAO fDao = new FuncionarioDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,8 +38,8 @@ public class EditarFuncionarioServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/editar-funcionario.jsp");
         int id = Integer.parseInt(request.getParameter("id"));
-        ArrayList<String> filiais = FuncionarioDAO.getFiliais();
-        Funcionario funcionario = FuncionarioDAO.pesquisaPorId(id);
+        ArrayList<String> filiais = fDao.getFiliais();
+        Funcionario funcionario = fDao.pesquisaPorId(id);
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String dataNascimento = formato.format(funcionario.getDataNascimento());
         
@@ -80,26 +82,26 @@ public class EditarFuncionarioServlet extends HttpServlet {
             
             if (cargo.equals("rh")) {
                 funcionario = new Rh(email, senha, id, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
-                salvou = FuncionarioDAO.editar(funcionario);
+                salvou = fDao.editar(funcionario);
             } else if (cargo.equals("diretor")) {
                 funcionario = new Diretor(email, senha, id, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
-                salvou = FuncionarioDAO.editar(funcionario);
+                salvou = fDao.editar(funcionario);
             } else if (cargo.equals("back-office")) {
                 funcionario = new BackOffice(email, senha, id, nome, endereco, cpf, cep, dataNascimento, dataInclusao);
-                salvou = FuncionarioDAO.editar(funcionario);
+                salvou = fDao.editar(funcionario);
             } else if (cargo.equals("vendedor")) {
                 String filialStr = request.getParameter("filial");
-                Filial filial = FuncionarioDAO.getFilial(filialStr);
+                Filial filial = fDao.getFilial(filialStr);
                 Vendedor vendedor = new Vendedor(email, senha, id, nome, endereco, cpf, cep,
                         dataNascimento, dataInclusao, filial);
-                salvou = FuncionarioDAO.editarVendedor(vendedor);
+                salvou = fDao.editarVendedor(vendedor);
             } else if (cargo.equals("gerente-vendas")) {
                 String filialStr = request.getParameter("filial");
-                Filial filial = FuncionarioDAO.getFilial(filialStr);
+                Filial filial = fDao.getFilial(filialStr);
                 
                 GerenteVendas gerente = new GerenteVendas(email, senha, id, nome, endereco, cpf, cep,
                         dataNascimento, dataInclusao, filial);
-                salvou = FuncionarioDAO.editarVendedor(gerente);
+                salvou = fDao.editarVendedor(gerente);
             }
             
             if (salvou) {

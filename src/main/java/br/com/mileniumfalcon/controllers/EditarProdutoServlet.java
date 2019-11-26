@@ -19,18 +19,21 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "EditarProdutoServlet", urlPatterns = {"/backoffice/editar-produto"})
 public class EditarProdutoServlet extends HttpServlet {
+    
+    FuncionarioDAO fDao = new FuncionarioDAO();
+    ProdutoDAO pDao = new ProdutoDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ArrayList<String> filiais = FuncionarioDAO.getFiliais();
+        ArrayList<String> filiais = fDao.getFiliais();
 
         request.setAttribute("filiaisAttr", filiais);
 
         int id = Integer.parseInt(request.getParameter("id"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/editar-produto.jsp");
-        Produto produto = ProdutoDAO.pesquisarPorId(id);
+        Produto produto = pDao.pesquisarPorId(id);
 
         try {
             if (produto != null) {
@@ -62,11 +65,11 @@ public class EditarProdutoServlet extends HttpServlet {
         double quantidade = Double.parseDouble(request.getParameter("quantidade"));
         String filialStr = request.getParameter("filial");
 
-        Filial filial = FuncionarioDAO.getFilial(filialStr);
+        Filial filial = fDao.getFilial(filialStr);
 
         Produto produto = new Produto(id, nome, tipo, quantidade, preco, filial);
 
-        boolean editou = ProdutoDAO.editar(produto);
+        boolean editou = pDao.editar(produto);
 
         if (editou) {
             request.setAttribute("editadodoAttr", true);

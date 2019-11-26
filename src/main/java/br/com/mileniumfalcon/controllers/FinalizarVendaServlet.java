@@ -1,6 +1,5 @@
 package br.com.mileniumfalcon.controllers;
 
-import br.com.mileniumfalcon.dao.ClienteDAO;
 import br.com.mileniumfalcon.dao.FilialDAO;
 import br.com.mileniumfalcon.dao.VendaDAO;
 import br.com.mileniumfalcon.models.Cliente;
@@ -9,9 +8,7 @@ import br.com.mileniumfalcon.models.ItemVenda;
 import br.com.mileniumfalcon.models.Usuario;
 import br.com.mileniumfalcon.models.Venda;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -28,6 +25,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "FinalizarVendaServlet", urlPatterns = {"/vendedor/venda-finalizada"})
 public class FinalizarVendaServlet extends HttpServlet {
 
+    FilialDAO fiDao = new FilialDAO();
+    VendaDAO vDao = new VendaDAO();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,68 +42,38 @@ public class FinalizarVendaServlet extends HttpServlet {
         HttpSession sessao = request.getSession();
 
         try {
-            
-            if (sessao.getAttribute("clienteAttr") == null) {
+            Venda venda;
+            Usuario usuario = (Usuario) httpRequest.getSession().getAttribute("usuario");
+            int idFilial = fiDao.idFilialPorEmail(usuario.getEmail());
+            List<ItemVenda> itensVenda = (ArrayList<ItemVenda>) sessao.getAttribute("itensAttr");
+            Filial filial = fiDao.pesquisarFilialPorID(idFilial);
+            Timestamp dataVenda = new Timestamp(System.currentTimeMillis());
+            double totalCompra = 0;
 
-                Usuario usuario = (Usuario) httpRequest.getSession().getAttribute("usuario");
-
-                int idFilial = FilialDAO.idFilialPorEmail(usuario.getEmail());
-                //int idCliente = Integer.parseInt(request.getParameter("idCliente"));
-                List<ItemVenda> itensVenda = (ArrayList<ItemVenda>) sessao.getAttribute("itensAttr");
-                Filial filial = FilialDAO.pesquisarFilialPorID(idFilial);
-                //Cliente cliente = ClienteDAO.pesquisarPorId(idCliente);
-                Timestamp dataVenda = new Timestamp(System.currentTimeMillis());
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-
-                double totalCompra = 0;
-                for (int i = 0; i < itensVenda.size(); i++) {
-                    totalCompra = totalCompra + itensVenda.get(i).vlrTotalItem();
-                }
-                Venda venda = new Venda(totalCompra, dataVenda, filial, (ArrayList<ItemVenda>) itensVenda);
-                boolean salvou = VendaDAO.salvar(venda);
-                if (salvou) {
-                    request.setAttribute("vendaAttr", true);
-                    request.getRequestDispatcher("/WEB-INF/venda-finalizada.jsp").forward(request, response);
-                    sessao.removeAttribute("clienteAttr");
-                    sessao.removeAttribute("itensAttr");
-                    sessao.removeAttribute("produtosAttr");
-                    sessao.removeAttribute("itensAttr");
-                    sessao.removeAttribute("totalAttr");
-                }
-            } else {
-
-                Usuario usuario = (Usuario) httpRequest.getSession().getAttribute("usuario");
-
-                int idFilial = FilialDAO.idFilialPorEmail(usuario.getEmail());
-                Cliente cliente = (Cliente) sessao.getAttribute("clienteAttr");
-                List<ItemVenda> itensVenda = (ArrayList<ItemVenda>) sessao.getAttribute("itensAttr");
-                Filial filial = FilialDAO.pesquisarFilialPorID(idFilial);
-
-                Timestamp dataVenda = new Timestamp(System.currentTimeMillis());
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-
-                double totalCompra = 0;
-                for (int i = 0; i < itensVenda.size(); i++) {
-                    totalCompra = totalCompra + itensVenda.get(i).vlrTotalItem();
-                }
-                Venda venda = new Venda(totalCompra, dataVenda, cliente, filial, (ArrayList<ItemVenda>) itensVenda);
-
-                boolean salvou = VendaDAO.salvar(venda);
-                if (salvou) {
-                    request.setAttribute("vendaAttr", true);
-                    request.getRequestDispatcher("/WEB-INF/venda-finalizada.jsp").forward(request, response);
-                    sessao.removeAttribute("clienteAttr");
-                    sessao.removeAttribute("itensAttr");
-                    sessao.removeAttribute("produtosAttr");
-                    sessao.removeAttribute("itensAttr");
-                    sessao.removeAttribute("totalAttr");
-                }
-
+            for (int i = 0; i < itensVenda.size(); i++) {
+                totalCompra = totalCompra + itensVenda.get(i).vlrTotalItem();
             }
 
+            if (sessao.getAttribute("clienteAttr") == null) {
+                venda = new Venda(totalCompra, dataVenda, filial, (ArrayList<ItemVenda>) itensVenda);
+            } else {
+                Cliente cliente = (Cliente) sessao.getAttribute("clienteAttr");
+                venda = new Venda(totalCompra, dataVenda, cliente, filial, (ArrayList<ItemVenda>) itensVenda);
+            }
+
+            boolean salvou = vDao.salvar(venda);
+            
+            if (salvou) {
+                request.setAttribute("vendaAttr", true);
+                sessao.removeAttribute("clienteAttr");
+                sessao.removeAttribute("itensAttr");
+                sessao.removeAttribute("produtosAttr");
+                sessao.removeAttribute("itensAttr");
+                sessao.removeAttribute("totalAttr");
+                request.getRequestDispatcher("/WEB-INF/venda-finalizada.jsp").forward(request, response);
+            }
         } catch (Exception ex) {
             System.out.println(ex);
-
         }
     }
 }
