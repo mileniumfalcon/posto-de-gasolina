@@ -43,9 +43,12 @@
                 <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/pesquisar-cliente">Pesquisar Cliente</a>
             </li>
         </ul>
+        <p style="color: red; text-align: center;"><c:out value="${sessionScope.naoPermitidoMsg}" /></p>
+        <c:remove scope="session" var="naoPermitidoMsg" />
+        <p style="color: red; text-align: center;"><c:out value="${sessionScope.semProdutoMsg}" /></p>
+        <c:remove scope="session" var="semProdutoMsg" />
+        
         <form method="post" action="${pageContext.request.contextPath}/vendedor/realizar-venda"class="needs-validation col-sm-9" style="width: 1095px height 4px;">
-
-
             <div class="table-wrapper-scroll-y my-custom-scrollbar col-sm-">
                 <table class="table table-sm-1 offset-md-1" style="width: 35%; margin-top: 65px; float:left;">
                     <thead>
@@ -105,8 +108,6 @@
         <form method="post" action="${pageContext.request.contextPath}/vendedor/venda-finalizada"class="needs-validation col-sm-9" style="width: 1095px height 100px;">
             <button class="btn btn-primary"type="submit" style="float: right; margin-right: 80px;">Finalizar</button> 
         </form>
-        <c:out value="${sessionScope.naoPermitidoMsg}" />
-        <c:remove scope="session" var="naoPermitidoMsg" />
     </body>
     <script>
 

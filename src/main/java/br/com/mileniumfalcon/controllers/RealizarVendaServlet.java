@@ -66,7 +66,12 @@ public class RealizarVendaServlet extends HttpServlet {
                 sessao.setAttribute("itensAttr", new ArrayList<ItemVenda>());
             }
             List<ItemVenda> itensVenda = (List<ItemVenda>) sessao.getAttribute("itensAttr");
-
+            
+            if (request.getParameter("idProduto") == null) {
+                sessao.setAttribute("semProdutoMsg", "Nenhum produto selecionado!");
+                response.sendRedirect(request.getContextPath() + "/vendedor/realizar-venda");
+            }
+                 
             int idItem = Integer.parseInt(request.getParameter("idProduto"));
             double qtdItem = Double.parseDouble(request.getParameter("qtdItem"));
             double total = 0;

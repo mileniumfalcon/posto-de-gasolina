@@ -6,10 +6,7 @@
 package br.com.mileniumfalcon.controllers;
 
 import br.com.mileniumfalcon.dao.FilialDAO;
-import br.com.mileniumfalcon.dao.VendaDAO;
-import br.com.mileniumfalcon.models.Filial;
 import br.com.mileniumfalcon.models.Usuario;
-import br.com.mileniumfalcon.models.Venda;
 import br.com.mileniumfalcon.services.RelatorioFilialService;
 import java.io.IOException;
 import java.text.ParseException;
@@ -31,6 +28,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "PesquisarVendasDiretorServlet", urlPatterns = {"/diretor/pesquisa-de-vendas-filial"})
 public class PesquisarVendasDiretorServlet extends HttpServlet {
+    
+    FilialDAO fDao = new FilialDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,7 +44,7 @@ public class PesquisarVendasDiretorServlet extends HttpServlet {
             Usuario usuario = (Usuario) httpRequest.getSession().getAttribute("usuario");
             Date dataFinal;
             Date dataInicio;
-            int idFilial = FilialDAO.idFilialPorEmail(usuario.getEmail());
+            int idFilial = fDao.idFilialPorEmail(usuario.getEmail());
 
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             dataInicio = formato.parse(dataInicioString);

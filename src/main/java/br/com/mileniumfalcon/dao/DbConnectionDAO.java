@@ -4,23 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- *    String driver = "com.mysql.jdbc.Driver";
-
-        //prod
-        String url = "jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/heroku_141944cba294126?reconnect=true";
-        String user = "b0daea0857220b";
-        String password = "008933b1";
-        * mysql://b86fa231ebd27f:99b523ce@us-cdbr-iron-east-05.cleardb.net/heroku_026278d55fe820e?reconnect=true
-
-        try {
-            Class.forName(driver);
-            return DriverManager.getConnection(url, user, password);
-        } catch (ClassNotFoundException | SQLException e) {
-            return null;
-        }
- * @author erick.ogurian
- */
 public class DbConnectionDAO {
 
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";

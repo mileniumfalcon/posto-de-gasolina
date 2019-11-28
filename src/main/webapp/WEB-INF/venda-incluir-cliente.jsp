@@ -28,9 +28,6 @@
         <div class="page-title">
             <h1>Realizar Venda</h1>
         </div>
-        <div class="page-title" style="padding-top: 10px;; margin-right: 50px; margin-left: 50px">
-            <h4>Incluir cliente na venda?</h4>
-        </div>
        <ul class="nav flex-column" style="float: left;">
         <li class="nav-item">
           <a class="nav-link" href="vendedor/vendas">Realizar Venda</a>
@@ -45,6 +42,10 @@
           <a class="nav-link" href="${pageContext.request.contextPath}/vendedor/pesquisar-cliente">Pesquisar Cliente</a>
         </li>
       </ul>
+        
+        <div class="page-title" style="margin-right: 235px;">
+            <h4>Incluir cliente na venda?</h4>
+        </div>
       
       <form method="get" action="${pageContext.request.contextPath}/vendedor/venda-incluir-cliente" class="needs-validation" novalidate>
             <br>

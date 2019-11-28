@@ -1,7 +1,5 @@
 package br.com.mileniumfalcon.models;
 
-import br.com.mileniumfalcon.services.Services;
-
 /**
  *
  * @author Victor
