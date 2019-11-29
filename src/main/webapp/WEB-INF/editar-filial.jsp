@@ -20,7 +20,7 @@
   </header>
   <body>
       <div class="page-title">
-          <h1>Cadastrar Filial</h1>
+          <h1>Editar Filial</h1>
       </div>
       <ul class="nav flex-column" style="float: left;">
         <li class="nav-item">

@@ -75,10 +75,10 @@
                     <tr>
                         <th> <c:out value="${filial.getId()}"/></th>
                         <td ><c:out value="${filial.getNome()}"/></td>
-                        <td><c:out value="${filial.getEndereco()}"/></td>
                         <td> <c:out value="${filial.getEstado()}"/></td>
+                        <td><c:out value="${filial.getEndereco()}"/></td>
                         <td> <c:out value="${filial.getCep()}"/></td>
-                        <td><a data-method="get" href="${pageContext.request.contextPath}/diretor/editar-filial?id=${idfilial}" class="btn btn-primary mb-1" >Editar</a></td>
+                        <td><a data-method="get" href="${pageContext.request.contextPath}/diretor/editar-filial?id=${filial.getId()}" class="btn btn-primary mb-1" >Editar</a></td>
                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#p${filial.getId()}">Excluir</button></td>
                     </tr>
                 </tbody>
