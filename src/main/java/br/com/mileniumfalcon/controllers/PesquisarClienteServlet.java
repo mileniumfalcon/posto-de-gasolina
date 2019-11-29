@@ -29,7 +29,7 @@ public class PesquisarClienteServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pesquisar-cliente.jsp");
         
-           if (cliente.getNome() != null) {
+           if (cliente != null) {
                request.setAttribute("idAttr", cliente.getId());
                request.setAttribute("nomeAttr", cliente.getNome());
                request.setAttribute("documentoAttr", cliente.getDocumento());

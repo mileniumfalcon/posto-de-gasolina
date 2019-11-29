@@ -83,7 +83,7 @@ public class FilialDAO implements IDao{
         return retorno;
     }
 
-    public Filial pesquisarFilial(String nome) {
+    public ArrayList<Filial> pesquisarFilial(String nome) {
         Connection connection = null;
 
         try {
@@ -93,19 +93,21 @@ public class FilialDAO implements IDao{
             comando.setString(1, nome + "%");
             ResultSet rs = comando.executeQuery();
 
-            Filial filial = new Filial();
+            ArrayList<Filial> filiais = new ArrayList<Filial>();
 
             while (rs.next()) {
+                Filial filial = new Filial();
                 filial.setId(rs.getInt("IdFilial"));
                 filial.setNome(rs.getString("Nome"));
                 filial.setEndereco(rs.getString("Endereco"));
                 filial.setEstado(rs.getString("Estado"));
                 filial.setCep(rs.getString("CEP"));
-
+                
+                filiais.add(filial);
             }
 
             DbConnectionDAO.closeConnection(connection);
-            return filial;
+            return filiais;
 
         } catch (ClassNotFoundException ex) {
             System.out.println(ex);

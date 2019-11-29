@@ -65,7 +65,7 @@
             <div class="form-group row">
                 <label for="inputPreco" class="col-md-1 offset-md-2">Preço*:</label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" name="preco" id="inputPreco" value="${precoAttr}" placeholder="9,99" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any" required>
+                    <input type="number" class="form-control" name="preco" id="inputPreco" value="${precoAttr}" placeholder="9,99" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any" required>
                     <div class="invalid-feedback">
                         Digite um Preço
                     </div>
@@ -73,7 +73,7 @@
 
                 <label for="inputQtd" class="col-sm-1 col-form-label">Quantidade*:</label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" name="quantidade" value="${qntAttr}" id="inputQtd" placeholder="12,5 para litros ou 15 para unidade" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any" required>
+                    <input type="number" class="form-control" name="quantidade" value="${qntAttr}" id="inputQtd" placeholder="12,5 para litros ou 15 para unidade" pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any" required>
                     <div class="invalid-feedback">
                         Digite uma quantidade
                     </div>

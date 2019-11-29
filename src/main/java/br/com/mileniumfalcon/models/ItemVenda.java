@@ -1,4 +1,7 @@
 package br.com.mileniumfalcon.models;
+
+import java.text.DecimalFormat;
+
 /**
  *
  * @author Pablo de Oliveira
@@ -31,6 +34,17 @@ public class ItemVenda {
         this.quantidade = quantidade;
     }
     
-    public boolean qtdPermitida(){return this.quantidade < this.produto.getQtdProduto();}
-    public double vlrTotalItem(){return this.produto.getVlrUnitario()*this.quantidade;}
+    public boolean qtdPermitida(){
+        return this.quantidade < this.produto.getQtdProduto();
+    }
+    
+    public double vlrTotalItem(){
+        return this.produto.getVlrUnitario() * this.quantidade;
+    }
+    
+    public String vlrTotalItemF() {
+        DecimalFormat formatador = new DecimalFormat("0.00");
+        return formatador.format(this.produto.getVlrUnitario() * this.quantidade);
+    }
+    
 }

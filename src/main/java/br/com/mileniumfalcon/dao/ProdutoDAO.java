@@ -58,6 +58,8 @@ public class ProdutoDAO implements IDao{
             PreparedStatement comando = connection.prepareStatement("SELECT * FROM Produto WHERE Nome LIKE ?");
             comando.setString(1, "%" + nome + "%");
             ResultSet rs = comando.executeQuery();
+            
+            FuncionarioDAO fDao = new FuncionarioDAO();
 
             while (rs.next()) {
                 Produto produto = new Produto();
@@ -66,8 +68,8 @@ public class ProdutoDAO implements IDao{
                 produto.setTipoProduto(rs.getString("TipoProduto"));
                 produto.setQtdProduto(rs.getDouble("QntEstoque"));
                 produto.setVlrUnitario(rs.getDouble("ValorUnitario"));
-//                Filial filial = FuncionarioDAO.getFilialPorId(rs.getInt("IdFilial"));
-//                produto.setFilial(filial);
+                Filial filial = fDao.getFilialPorId(rs.getInt("IdFilial"));
+                produto.setFilial(filial);
 
                 produtos.add(produto);
             }

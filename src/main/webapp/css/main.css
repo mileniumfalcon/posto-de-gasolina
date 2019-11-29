@@ -31,13 +31,27 @@ label{
 }
 
 .my-custom-scrollbar {
-    position: relative;
-    height: 200px;
+    height: 300px;
     overflow: auto;
     margin-top: 75px;   
 }
 .table-wrapper-scroll-y {
-    display: block;
-    width: 360px;
+    width: 500px;
     border-color: black;
+}
+
+.total-venda{
+    margin-top: 200px;
+    margin-right: 180px;
+}
+
+.button-venda{
+    float: right;
+    margin-right: 170px;
+}
+
+.detalhes-venda{
+    float: right;
+    margin-right: 250px;
+    margin-top: 80px;
 }

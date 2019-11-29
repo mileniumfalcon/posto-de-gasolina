@@ -12,7 +12,7 @@
     </head>
     <header>
         <nav class="navbar navbar-light nav-color">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/rh"><i class="fas fa-gas-pump"></i> Postos Tades</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/diretor"><i class="fas fa-gas-pump"></i> Postos Tades</a>
             <div class="nav-item text-nowrap">
                 <a class="nav-link" href="${pageContext.request.contextPath}/logout">Sair</a>
             </div>
@@ -35,7 +35,7 @@
         </li>
       </ul>
             
-        <form method="get" action="${pageContext.request.contextPath}/diretor/pesquisar-filial" class="needs-validation" novalidate>
+        <form method="post" action="${pageContext.request.contextPath}/diretor/pesquisar-filial" class="needs-validation" novalidate>
             <br>
             <div class="form-group row">
               <label for="inputCpf" class="col-md-1 offset-md-2">Nome: </label>
@@ -56,7 +56,7 @@
                     Filial não encontrada
                 </div>
             </c:if>
-            <c:if test="${idfilial != null}">
+            <c:if test="${filiaisAttr != null}">
                 <br>
                 <table class="table table-sm offset-md-2" style="width: 75%;">
                     <thead>
@@ -70,20 +70,19 @@
                         <th scope="col"></th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody>                        
+                <c:forEach items="${filiaisAttr}" var="filial">
                     <tr>
-                        <th> <c:out value="${idfilial}"/></th>
-                        <td ><c:out value="${nomefilial}"/></td>
-                        <td><c:out value="${enderecofilial}"/></td>
-                        <td> <c:out value="${estadofilial}"/></td>
-                        <td> <c:out value="${cepfilial}"/></td>
+                        <th> <c:out value="${filial.getId()}"/></th>
+                        <td ><c:out value="${filial.getNome()}"/></td>
+                        <td><c:out value="${filial.getEndereco()}"/></td>
+                        <td> <c:out value="${filial.getEstado()}"/></td>
+                        <td> <c:out value="${filial.getCep()}"/></td>
                         <td><a data-method="get" href="${pageContext.request.contextPath}/diretor/editar-filial?id=${idfilial}" class="btn btn-primary mb-1" >Editar</a></td>
                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#p${filial.getId()}">Excluir</button></td>
                     </tr>
                 </tbody>
-                </table>
-                <!-- Modal -->
-                <div class="modal fade" id="p${filial.getId()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal fade" id="p${filial.getId()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-body">
@@ -91,14 +90,15 @@
                       </div>
                       <div class="modal-footer">
                         <form action="${pageContext.request.contextPath}/diretor/excluir-filial" method="post">
-                            <button class="btn btn-success" type="submit" name="id" id="confirmDeleteButton" value="${idfilial}">Confirmar</button>
+                            <button class="btn btn-success" type="submit" name="id" id="confirmDeleteButton" value="${filial.getId()}">Confirmar</button>
                         </form>
                         
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                       </div>
                     </div>
                   </div>
-                </div> 
+                </div>
+               </c:forEach>
             </c:if>
     </body>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>

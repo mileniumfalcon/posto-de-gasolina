@@ -80,9 +80,22 @@ public class RealizarVendaServlet extends HttpServlet {
             ItemVenda item = new ItemVenda(produto, qtdItem);
 
             if (item.qtdPermitida()) {
-                itensVenda.add(item);
+                boolean adicionou = false;
+                for(ItemVenda i : itensVenda) {
+                    // Se encontrar o item na lista, ele apenas sobrescreve a quantidade
+                    if (item.getProduto().getId() == i.getProduto().getId()) {
+                        i.setQuantidade(item.getQuantidade() + i.getQuantidade());
+                        adicionou = true;
+                    }
+                }
+                
+                // Se não encontrou o item na lista, é um item novo. Então é adicionado a lista da venda
+                if(!adicionou) {
+                    itensVenda.add(item);
+                }
+                
                 for (int i = 0; i < itensVenda.size(); i++) {
-                    total = total + itensVenda.get(i).vlrTotalItem();
+                    total = total + Double.parseDouble(itensVenda.get(i).vlrTotalItemF().replace(",", "."));
                 }
                 sessao.setAttribute("totalAttr", total);
                 response.sendRedirect(request.getContextPath() + "/vendedor/realizar-venda");

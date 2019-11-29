@@ -12,7 +12,7 @@
   </head>
   <header>
       <nav class="navbar navbar-light nav-color">
-          <a class="navbar-brand" href="${pageContext.request.contextPath}/vendedor"><i class="fas fa-gas-pump"></i> Postos Tades</a>
+          <a class="navbar-brand" href="${pageContext.request.contextPath}/diretor"><i class="fas fa-gas-pump"></i> Postos Tades</a>
       <div class="nav-item text-nowrap">
           <a class="nav-link" href="${pageContext.request.contextPath}/logout">Sair</a>
       </div>
