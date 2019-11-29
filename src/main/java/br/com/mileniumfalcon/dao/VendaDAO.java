@@ -25,9 +25,10 @@ public class VendaDAO {
         try {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement(
-                    "SELECT p.nome, p.ValorUnitario, i.quantidade FROM Produto p INNER JOIN ItemVenda i "
+                    "SELECT p.nome, p.ValorUnitario, sum(i.quantidade) as quantidade FROM Produto p INNER JOIN ItemVenda i "
                     + "ON p.IdProduto = i.IdProduto INNER JOIN Venda v ON "
-                    + "i.IdVenda = v.IdVenda WHERE v.IdFilial = ? AND v.DataVenda = ?"
+                    + "i.IdVenda = v.IdVenda WHERE v.IdFilial = ? AND v.DataVenda = ? "
+                    + "GROUP BY p.nome "
                     + "ORDER BY i.quantidade DESC LIMIT 10");
             comando.setInt(1, id);
             comando.setDate(2, new java.sql.Date(data.getTime()));
@@ -63,9 +64,10 @@ public class VendaDAO {
         try {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement(
-                    "SELECT p.nome, p.ValorUnitario, i.quantidade FROM Produto p INNER JOIN ItemVenda i "
+                    "SELECT p.nome, p.ValorUnitario, sum(i.quantidade) as quantidade FROM Produto p INNER JOIN ItemVenda i "
                     + "ON p.IdProduto = i.IdProduto INNER JOIN Venda v ON "
-                    + "i.IdVenda = v.IdVenda WHERE v.IdFilial = ? AND v.DataVenda BETWEEN ? AND ?"
+                    + "i.IdVenda = v.IdVenda WHERE v.IdFilial = ? AND v.DataVenda BETWEEN ? AND ? "
+                    + "GROUP BY p.nome "
                     + "ORDER BY i.quantidade DESC LIMIT 10");
             comando.setInt(1, id);
             comando.setDate(2, new java.sql.Date(dataInicio.getTime()));
@@ -102,9 +104,10 @@ public class VendaDAO {
         try {
             connection = DbConnectionDAO.openConnection();
             PreparedStatement comando = connection.prepareStatement(
-                    "SELECT p.nome, p.ValorUnitario, i.quantidade FROM Produto p INNER JOIN ItemVenda i "
+                    "SELECT p.nome, p.ValorUnitario, sum(i.quantidade) as quantidade FROM Produto p INNER JOIN ItemVenda i "
                     + "ON p.IdProduto = i.IdProduto INNER JOIN Venda v ON "
-                    + "i.IdVenda = v.IdVenda WHERE v.IdFilial = ? AND v.DataVenda BETWEEN ? AND ?"
+                    + "i.IdVenda = v.IdVenda WHERE v.IdFilial = ? AND v.DataVenda BETWEEN ? AND ? "
+                    + "GROUP BY p.nome "
                     + "ORDER BY i.quantidade ASC LIMIT 10");
             comando.setInt(1, id);
             comando.setDate(2, new java.sql.Date(dataInicio.getTime()));
