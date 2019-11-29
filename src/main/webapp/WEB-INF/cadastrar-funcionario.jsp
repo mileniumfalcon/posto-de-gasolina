@@ -31,12 +31,10 @@
           <a class="nav-link" href="${pageContext.request.contextPath}/rh/pesquisar-funcionario">Pesquisar Funcionário</a>
         </li>
       </ul>
-     
-             <c:if test="${jaExiste}">
-                <div class="alert alert-danger">
-                    Já existe um funcionário com este cpf
-                </div>
-            </c:if>
+        <p style="color: red; text-align: center;"><c:out value="${sessionScope.jaExisteCpf}" /></p>
+        <c:remove scope="session" var="jaExisteCpf" />
+        <p style="color: red; text-align: center;"><c:out value="${sessionScope.jaExisteEmail}" /></p>
+        <c:remove scope="session" var="jaExisteEmail" />
         
         <form method="post" action="${pageContext.request.contextPath}/rh/cadastrar-funcionario" class="needs-validation" novalidate>
             <br>

@@ -22,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -48,7 +49,7 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        HttpSession sessao = request.getSession();
         try {
             request.setCharacterEncoding("UTF-8");
             
@@ -61,12 +62,20 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
             
-            boolean existe = fDao.buscaCpf(cpf);
+            boolean existeCpf = fDao.buscaCpf(cpf);
             
-            if (existe) {
-                request.setAttribute("jaExiste", true);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cadastrar-funcionario.jsp");
-                dispatcher.forward(request, response);
+            if (existeCpf) {
+                sessao.setAttribute("jaExisteCpf", "Já existe um funcionário com este cpf");
+                response.sendRedirect(request.getContextPath() + "/rh/cadastrar-funcionario");
+                return;
+            }
+            
+            boolean existeEmail = fDao.buscaEmail(email);
+            
+            if (existeEmail) {
+                sessao.setAttribute("jaExisteEmail", "Já existe um funcionário com este email");
+                response.sendRedirect(request.getContextPath() + "/rh/cadastrar-funcionario");
+                return;
             }
             
             Timestamp dataInclusao = new Timestamp(System.currentTimeMillis());

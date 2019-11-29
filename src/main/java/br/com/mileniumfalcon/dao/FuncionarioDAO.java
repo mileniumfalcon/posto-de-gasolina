@@ -505,6 +505,34 @@ public class FuncionarioDAO implements IDao{
         DbConnectionDAO.closeConnection(connection);
         return retorno;
     }
+    
+    public boolean buscaEmail(String email) {
+        Connection connection = null;
+        boolean retorno = false;
+
+        try {
+            connection = DbConnectionDAO.openConnection();
+            PreparedStatement comando = connection.prepareStatement("SELECT * FROM Usuario "
+                    + "WHERE Email = ?");
+            comando.setString(1, email);
+
+            ResultSet rs = comando.executeQuery();
+
+             while (rs.next()) {
+                if (rs.getString("Email") != null) {
+                    retorno = true;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            retorno = false;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            retorno = false;
+        }
+
+        DbConnectionDAO.closeConnection(connection);
+        return retorno;
+    }
 
     private int getIdFuncionario(Funcionario funcionario) {
         int id = 0;
